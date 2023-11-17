@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     top: 0px;
     background-color: white;
     justify-content: space-between;
+    font-family: 'Dongle-regular', sans-serif;
 `;
 const MainMenu = styled.div`
     display: flex;
