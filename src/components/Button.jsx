@@ -9,12 +9,13 @@ const Btn = styled.div `
     font-weight: 600;
     font-size: 3.5rem;
     color: white;
-    width: 300px;
+    width: 20vw;
     height: 120px;
     border-radius: 25px;
     line-height: 120px;
     display: flex;
     align-items: center;
+    letter-spacing: 3px;
 `
 const Txt = styled.div`
     margin: auto;
