@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import Topbar from './components/Topbar';
 import styled from 'styled-components';
 import { createGlobalStyle } from "styled-components";
+import HomePage from './pages/HomePage';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Topbar/>
       <Page>
         <Routes>
-          <Route path='/' element={<LandingPage/>}/>
+          <Route path='/home' element={<HomePage/>}/>
         </Routes>
       </Page>
     </>
