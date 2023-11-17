@@ -22,7 +22,7 @@ function App() {
 export default App;
 
 const Page = styled.div`
-  margin-top: 15vh;
+  margin-top: 120px;
 `;
 
 const GlobalStyle = createGlobalStyle`
