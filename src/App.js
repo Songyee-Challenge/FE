@@ -5,6 +5,8 @@ import Topbar from './components/Topbar';
 import styled from 'styled-components';
 import HomePage from './pages/HomePage';
 import InvitePage from './pages/InvitePage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
    const location = useLocation();
@@ -18,6 +20,8 @@ function App() {
       {location.pathname !== '/' && location.pathname !== '/hello' &&<Topbar/>}
       <Page>
         <Routes>
+          <Route path='/signup' element={<RegisterPage/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
           <Route path='/home' element={<HomePage/>}/>
         </Routes>
       </Page>
