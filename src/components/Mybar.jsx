@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const BarTxt = styled.p`
   font-size: 1.8rem;
@@ -22,14 +22,20 @@ const Txt = styled.p`
   font-weight: 500;
   font-size: 1.3rem;
   cursor: pointer;
-`;
+  position: relative;
 
-const Now = styled.span`
-  contents: >;
+  &:after {
+    content: ${(props) => (props.isCurrent ? '">"' : '""')};
+    position: absolute;
+    margin-left: 20px;
+    font-weight: bolder;
+    font-size: 1.4rem;
+  }
 `;
 
 const Mybar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div>
@@ -43,6 +49,7 @@ const Mybar = () => {
       <BarBox>
         <MenuTxt>내 도전들</MenuTxt>
         <Txt
+          isCurrent={location.pathname === "/my/mission"}
           onClick={() => {
             navigate("/my/mission");
           }}
@@ -50,16 +57,17 @@ const Mybar = () => {
           미션
         </Txt>
         <Txt
+          isCurrent={location.pathname === "/my/review"}
           style={{ marginBottom: "50px" }}
           onClick={() => {
             navigate("/my/review");
           }}
         >
           소감
-          <Now />
         </Txt>
         <MenuTxt>내 정보들</MenuTxt>
         <Txt
+          isCurrent={location.pathname === "/my/info"}
           style={{ marginBottom: "50px" }}
           onClick={() => {
             navigate("/my/info");
@@ -68,7 +76,7 @@ const Mybar = () => {
           내 정보 관리
         </Txt>
         <MenuTxt>고객센터</MenuTxt>
-        <Txt>1:1 문의</Txt>
+        <Txt isCurrent={location.pathname === "/my"}>1:1 문의</Txt>
       </BarBox>
     </div>
   );
