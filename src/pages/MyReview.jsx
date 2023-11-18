@@ -1,7 +1,11 @@
 import React from "react";
 
 const MyReview = () => {
-  return <div></div>;
+  return (
+    <div>
+      <p>내 소감</p>
+    </div>
+  );
 };
 
 export default MyReview;
