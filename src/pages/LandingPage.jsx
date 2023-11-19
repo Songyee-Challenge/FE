@@ -26,6 +26,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     margin: auto;
+    height: 30vh;
 `
 
 const LandingPage = () => {
@@ -33,7 +34,7 @@ const LandingPage = () => {
 
     return (
         <Wrapper>
-            <img src={biglogo} style={{width:"80vw", marginTop:"30px"}}/>
+            <img src={biglogo} style={{width:"70vw", height:"60vh", marginTop:"5vh"}}/>
             <TxtBtn>
                 <Container>
                 <Txt>나만의 챌린지 메이트!<br/>송이들과 함께라면 어디든지 갈 수 있어~</Txt>
