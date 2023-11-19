@@ -11,6 +11,7 @@ import MyChallenge from "./pages/MyChallenge";
 import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
+import SongChallenge from "./pages/SongChallenge";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/home/songchallenge" element={<SongChallenge />} />
           <Route path="/my" element={<MyChallenge />}>
             <Route path="/my/mission" element={<MyMission />} />
             <Route path="/my/review" element={<MyReview />} />
