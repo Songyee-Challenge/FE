@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 
+const Wrapper = styled.div`
+  font-family: "Pretendard";
+`;
+
 const BarTxt = styled.p`
   font-size: 1.8rem;
   font-weight: 900;
@@ -38,7 +42,7 @@ const Mybar = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <Wrapper>
       <BarTxt
         onClick={() => {
           navigate("/my");
@@ -78,7 +82,7 @@ const Mybar = () => {
         <MenuTxt>고객센터</MenuTxt>
         <Txt>1:1 문의</Txt>
       </BarBox>
-    </div>
+    </Wrapper>
   );
 };
 

@@ -12,6 +12,7 @@ import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
+import Diary from "./pages/Diary";
 
 function App() {
   const location = useLocation();
@@ -24,22 +25,23 @@ function App() {
       </Routes>
       {location.pathname !== "/" && location.pathname !== "/hello" && (
         <>
-        <Topbar />
-      <Page>
-        <Routes>
-          <Route path="/signup" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/home/songchallenge" element={<SongChallenge />} />
-          <Route path="/my" element={<MyChallenge />}>
-            <Route path="/my/mission" element={<MyMission />} />
-            <Route path="/my/review" element={<MyReview />} />
-            <Route path="/my/info" element={<MyInfo />} />
-          </Route>
-        </Routes>
-      </Page>
-      </>
-    )}
+          <Topbar />
+          <Page>
+            <Routes>
+              <Route path="/signup" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/home/songchallenge" element={<SongChallenge />} />
+              <Route path="/my" element={<MyChallenge />}>
+                <Route path="/my/mission" element={<MyMission />} />
+                <Route path="/my/review" element={<MyReview />} />
+                <Route path="/my/info" element={<MyInfo />} />
+              </Route>
+              <Route path="/diary" element={<Diary />}></Route>
+            </Routes>
+          </Page>
+        </>
+      )}
     </>
   );
 }
