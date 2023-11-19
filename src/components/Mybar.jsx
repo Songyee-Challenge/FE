@@ -76,7 +76,7 @@ const Mybar = () => {
           내 정보 관리
         </Txt>
         <MenuTxt>고객센터</MenuTxt>
-        <Txt isCurrent={location.pathname === "/my"}>1:1 문의</Txt>
+        <Txt>1:1 문의</Txt>
       </BarBox>
     </div>
   );

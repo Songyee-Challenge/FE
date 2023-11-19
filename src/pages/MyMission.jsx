@@ -75,13 +75,14 @@ const Number = styled.span`
 
 const Btn = styled.button`
   width: 240px;
-  height: 60px;
+  height: 50px;
   background-color: white;
-  font-size: 1.2rem;
+  font-size: 20px;
   font-weight: 900;
   border: 3px solid black;
   margin-top: 20px;
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 const CheckDiv = styled.div`
@@ -91,6 +92,7 @@ const CheckDiv = styled.div`
 
 const Date = styled.p`
   color: grey;
+  white-space: nowrap;
 `;
 
 const CheckBox = styled.input`
@@ -158,7 +160,7 @@ const MyMission = () => {
             <Date>2023.09.21 화</Date>
             <CheckBox type="checkbox" id="mycheck" />
             <Label for="mycheck">
-              미션 1. 챌린지 첫날, 챌린지를 시작하게 된 계기를 함께 나눠봅시다
+              미션 1. 챌린지 첫날, 챌린지를 시작하게 된 계기를 함께 나눠봅시다!
             </Label>
           </CheckDiv>
         </ContentBox>
