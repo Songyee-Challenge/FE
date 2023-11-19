@@ -22,8 +22,8 @@ function App() {
         <Route path="/hello" element={<InvitePage />} />
       </Routes>
       {location.pathname !== "/" && location.pathname !== "/hello" && (
+        <>
         <Topbar />
-      )}
       <Page>
         <Routes>
           <Route path="/signup" element={<RegisterPage />} />
@@ -36,6 +36,8 @@ function App() {
           </Route>
         </Routes>
       </Page>
+      </>
+    )}
     </>
   );
 }
