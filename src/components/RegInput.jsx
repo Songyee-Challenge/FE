@@ -21,16 +21,17 @@ const Label = styled.div`
     font-family: 'Pretendard';
     display: flex;
     align-items: center;
+    margin-bottom: ${props => props.marginbottom};
 `
 
 const RegInput = (props) => {
-    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width } = props;
+    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width, marginbottom } = props;
     const [focus, setFocus] = useState(false);
     const handleFocus = () => {
         setFocus(!focus);
     }
     return (
-        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} width={width}>
+        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} width={width} marginbottom={marginbottom}>
         <StyledInput type={type} defaultValue={defaultValue} name={name} value={value} onChange={onChange} placeholder={placeholder} patter={pattern}
          onFocus={handleFocus} onBlur={handleFocus}/>
         </Label>
