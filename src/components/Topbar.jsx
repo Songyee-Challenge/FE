@@ -40,7 +40,9 @@ const Topbar = () => {
     return (
         <Wrapper>
             <LogoMenu>
-            <img src={logo} style={{width:"180px"}}/>
+            <img src={logo} style={{width:"180px", cursor:"pointer"}} onClick={() => {
+                navigate('/home');
+            }}/>
             <MainMenu>
             <Menu marginR="3vw" onClick={() => {
                 navigate('/');
@@ -51,7 +53,7 @@ const Topbar = () => {
             </MainMenu>
             </LogoMenu>
             <Menu marginR="5vw" onClick={() => {
-                navigate('/');
+                navigate('/my');
             }}>마이 챌린지</Menu>
         </Wrapper>
     );
