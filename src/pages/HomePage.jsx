@@ -17,6 +17,7 @@ const CategoryTxt = styled.div`
     font-size: 2.5rem;
     line-height: 70px;
     margin-right: 20px;
+    font-weight: 500;
 `
 const Line = styled.div`
     background: #000;
