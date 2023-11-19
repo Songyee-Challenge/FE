@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   padding-top: 37px;
+  font-family: "Pretendard";
 `;
 
 const Review = styled.div`
@@ -42,7 +42,7 @@ const TxtDiv = styled.div`
 `;
 
 const Txt = styled.p`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   padding: 0px 30px;
 `;
@@ -54,11 +54,11 @@ const BtnBox = styled.div`
 `;
 
 const Btn = styled.button`
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border: 2px solid black;
   background-color: white;
-  width: 80px;
-  height: 50px;
+  width: 75px;
+  height: 45px;
   font-weight: bolder;
 `;
 
@@ -71,7 +71,6 @@ const Num = styled.p`
 `;
 
 const MyReview = () => {
-  const navigate = useNavigate();
   return (
     <Wrapper>
       <Review>챌린지 소감</Review>

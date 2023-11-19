@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   padding-top: 15px;
+  font-family: "Pretendard";
 `;
 
 const Mission = styled.div`
@@ -52,32 +53,32 @@ const TitleBox = styled.div`
 `;
 
 const Sub = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-bottom: -20px;
 `;
 
 const Title = styled.p`
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 900;
 `;
 
 const MissionNum = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 900;
   margin-top: 15px;
 `;
 
 const Number = styled.span`
   padding: 10px;
-  font-size: 2rem;
+  font-size: 1.8rem;
 `;
 
 const Btn = styled.button`
-  width: 240px;
-  height: 50px;
+  width: 230px;
+  height: 45px;
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   border: 3px solid black;
   margin-top: 20px;
@@ -87,7 +88,7 @@ const Btn = styled.button`
 
 const CheckDiv = styled.div`
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 `;
 
 const Date = styled.p`
