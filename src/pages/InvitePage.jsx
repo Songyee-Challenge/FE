@@ -17,9 +17,9 @@ const Talk = styled.div`
     font-weight: 400;
     position: absolute;
     z-index: 1;
-    top: 74%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 58vh;
+    left: 33vw;
+    //transform: translate(-50vw, -5vh);
 `
 const Color = styled.span`
     color: ${props => props.color};
@@ -31,7 +31,7 @@ const LoginBtn = styled.div`
     border-radius: 50px;
     background: #ECC046;
     position: absolute;
-    bottom: 0;
+    bottom: 2.5vh;
     width: 10vw;
     height: 50px;
     line-height: 50px;
@@ -47,7 +47,7 @@ const InvitePage = () => {
 
     return (
         <Wrapper>
-            <img src={backimg} style={{width:"100vw", position:"absolute", zIndex:"0", top: "0",left:"0"}}/>
+            <img src={backimg} style={{width:"100vw",height:"90vh", position:"absolute", zIndex:"0", top: "0",left:"0"}}/>
             <Talk>
             아무것도 없는 무인도에 떨어진 당신!<br/>
             내 손으로 꾸려 나가는 내 미래, 눈송 주민들과 함께 해보세요.<br/>
@@ -55,7 +55,7 @@ const InvitePage = () => {
             <Color color= '#FF528B;'>나만의 챌린지 메이트</Color>를 구한다면? <Color color='#42AF53'>송이의 숲</Color>으로 오세요~<br/>
             </Talk>
             <LoginBtn onClick={() => {
-                navigate('/home');
+                navigate('/login');
             }}>
                 로그인하고 시작하기
             </LoginBtn>
