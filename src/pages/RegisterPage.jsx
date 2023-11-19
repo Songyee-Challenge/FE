@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import BtnInput from '../components/BtnInput';
 import RegInput from '../components/RegInput';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     text-align: center;
@@ -62,8 +63,19 @@ const Emsg = styled.div`
 const Container = styled.div`
     text-align: left;
 `
+const SubmitBtn = styled.div`
+    height: 46px;
+    background: #000;
+    text-align: center;
+    color: white;
+    line-height: 46px;
+    font-weight: 600;
+    margin-top: 30px;
+    cursor: pointer;
+`
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [emailMessage, setEmailMessage] = useState("");
     const [code, setCode] = useState("");
@@ -149,6 +161,11 @@ const RegisterPage = () => {
     // 학번
     const onChangeStdID = (e) => {
         setStdID(e.target.value);
+    }
+
+    const handleSubmit = () => {
+        alert("회원가입이 완료되었습니다.");
+        navigate('/login');
     }
 
 
@@ -240,6 +257,7 @@ const RegisterPage = () => {
                             onChange={onChangeStdID}/>
                     </Container>
                 </FlexBox>
+                <SubmitBtn onClick={handleSubmit}>가입 완료</SubmitBtn>
             </Box>
         </Wrapper>
     );

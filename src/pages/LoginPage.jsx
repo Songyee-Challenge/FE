@@ -36,6 +36,7 @@ const LoginBtn = styled.div`
     color: white;
     line-height: 56px;
     margin-top: 25px;
+    cursor: pointer;
 `
 const RegBtn = styled.div`
     width: 560px;
@@ -47,6 +48,7 @@ const RegBtn = styled.div`
     line-height: 56px;
     margin: auto;
     margin-top: 65px;
+    cursor: pointer;
 `
 
 const LoginPage = () => {
