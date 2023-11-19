@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import RegInput from '../components/RegInput';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     text-align: center;
@@ -26,10 +27,32 @@ const Line = styled.div`
     width: 577px;
     margin-bottom: 50px;
 `
+const LoginBtn = styled.div`
+    width: 577px;
+    height: 56px;
+    border-radius: 2px;
+    background: #222;
+    text-align: center;
+    color: white;
+    line-height: 56px;
+    margin-top: 25px;
+`
+const RegBtn = styled.div`
+    width: 560px;
+    border-radius: 28px;
+    border: 1px solid #5D5D5D;
+    color: #1D1D1D;
+    text-align: center;
+    font-weight: 700;
+    line-height: 56px;
+    margin: auto;
+    margin-top: 65px;
+`
 
 const LoginPage = () => {
     const [email, setEamil] = useState("");
     const [pw, setPw] = useState("");
+    const navigate = useNavigate();
     
     const onChangeEmail = (e) => {
         setEamil(e.target.value);
@@ -45,6 +68,7 @@ const LoginPage = () => {
                 <Title>로그인</Title>
                 <Line/>
                 <RegInput
+                    marginbottom="15px"
                     name="email"
                     type="email"
                     placeholder='이메일'
@@ -56,6 +80,10 @@ const LoginPage = () => {
                     placeholder='비밀번호'
                     value={pw}
                     onChange={onChangePw}/>
+                <LoginBtn>로그인</LoginBtn>
+                <RegBtn onClick={() => {
+                    navigate('/signup')
+                }}>간편 회원가입하기</RegBtn>
             </Box>
         </Wrapper>
     );
