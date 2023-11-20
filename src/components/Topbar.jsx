@@ -45,7 +45,7 @@ const Topbar = () => {
             }}/>
             <MainMenu>
             <Menu marginR="3vw" onClick={() => {
-                navigate('/');
+                navigate('/songchallenge');
             }}>송이의 챌린지</Menu>
             <Menu onClick={() => {
                 navigate('/');

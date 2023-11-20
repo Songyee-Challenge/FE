@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import RecruitingChallenge from './RecruitingChallenge';
 import OngoingChallenge from './OngoingChallenge';
 import CompletedChallenge from './CompletedChallenge';
+import searchicon from '../images/search.png';
+import filter from '../images/filter.png';
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-start; /* 가로 정렬과 간격 조절 */
+  justify-content: space-between;
   margin-left: 2vw;
   white-space: nowrap;
+  align-items: center;
 `;
 
 const CustomButton = styled.button`
@@ -20,7 +23,9 @@ const CustomButton = styled.button`
   font-size: 1.5rem;
   font-weight: bold;
   color: #000;
-  margin-right: 5vw;
+  margin-right: 2vw;
+  margin-top:30px;
+  flex: 0 0 auto;
 
   &:hover {
     text-decoration: underline;
@@ -38,6 +43,40 @@ const CustomButton = styled.button`
       background-color: #000;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center; 
+  margin-left: auto; /* 이 부분 추가 - 왼쪽 여백을 auto로 설정하여 오른쪽 정렬 */
+`;
+
+const SearchInput = styled.input`
+  border: 1px solid #ccc;
+  width: 15vw;
+  height: 25px;
+  padding: 5px;
+  margin-top:30px;
+`;
+
+const SearchIcon = styled.img`
+  width: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 25px;
+  margin-right:30px;
+`;
+
+const FilterIcon = styled.img`
+    width: 25px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 25px;
+    margin-right:5vw;
 `;
 
 const TypeBar = ({ onSelectType }) => {
@@ -45,11 +84,10 @@ const TypeBar = ({ onSelectType }) => {
 
   const handleComponentClick = (componentName) => {
     setActiveComponent(componentName);
-    onSelectType && onSelectType(componentName); // 선택된 타입을 부모 컴포넌트로 전달
+    onSelectType && onSelectType(componentName);
   };
 
-   // 각 컴포넌트를 동적으로 렌더링
-   const renderComponent = () => {
+  const renderComponent = () => {
     switch (activeComponent) {
       case 'A':
         return <RecruitingChallenge />;
@@ -64,36 +102,37 @@ const TypeBar = ({ onSelectType }) => {
 
   return (
     <>
-        <ButtonContainer>
+      <ButtonContainer>
         <div>
-            <CustomButton
+          <CustomButton
             className={`type_button ${activeComponent === 'A' ? 'active' : ''}`}
             onClick={() => handleComponentClick('A')}
             disabled={activeComponent === 'A'}
-            >
+          >
             모집 중인 챌린지
-            </CustomButton>
-        </div>
-        <div>
-            <CustomButton
+          </CustomButton>
+          <CustomButton
             className={`type_button ${activeComponent === 'B' ? 'active' : ''}`}
             onClick={() => handleComponentClick('B')}
             disabled={activeComponent === 'B'}
-            >
+          >
             진행 중인 챌린지
-            </CustomButton>
-        </div>
-        <div>
-            <CustomButton
+          </CustomButton>
+          <CustomButton
             className={`type_button ${activeComponent === 'C' ? 'active' : ''}`}
             onClick={() => handleComponentClick('C')}
             disabled={activeComponent === 'C'}
-            >
+          >
             종료된 챌린지
-            </CustomButton>
+          </CustomButton>
         </div>
-        </ButtonContainer>
-        {renderComponent()}
+        <SearchContainer>
+            <SearchInput type="text" placeholder="검색"/>
+            <SearchIcon src={searchicon} />
+            <FilterIcon src={filter}/>
+        </SearchContainer>
+      </ButtonContainer>
+      {renderComponent()}
     </>
   );
 };
