@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import Challenge from './Challenge';
+import ChallengeGuide from './ChallengeGuide';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -56,9 +58,9 @@ const DetailBar = () => {
           case 'A':
             return <Challenge />;
           case 'B':
-            return <Calendar />;
+            // return <Calendar />;
           case 'C':
-            return <ShowMission />;
+            // return <ShowMission />;
           case 'D':
             return <ChallengeGuide/>;
           default:
@@ -67,39 +69,41 @@ const DetailBar = () => {
       };
 
     return (
-        <ButtonContainer>
-            <div>
+        <>
+            <ButtonContainer>
+                <div>
+                <CustomButton
+                className={`detail_type_button ${activeComponent === 'A' ? 'active' : ''}`}
+                onClick={() => handleComponentClick('A')}
+                disabled={activeComponent === 'A'}
+            >
+                🍄챌린지
+            </CustomButton>
             <CustomButton
-            className={`detail_type_button ${activeComponent === 'A' ? 'active' : ''}`}
-            onClick={() => handleComponentClick('A')}
-            disabled={activeComponent === 'A'}
-          >
-            챌린지
-          </CustomButton>
-          <CustomButton
-            className={`detail_type_button ${activeComponent === 'B' ? 'active' : ''}`}
-            onClick={() => handleComponentClick('B')}
-            disabled={activeComponent === 'B'}
-          >
-            챌린지달력
-          </CustomButton>
-          <CustomButton
-            className={`detail_type_button ${activeComponent === 'C' ? 'active' : ''}`}
-            onClick={() => handleComponentClick('C')}
-            disabled={activeComponent === 'C'}
-          >
-            미션보기
-          </CustomButton>
-          <CustomButton
-            className={`detail_type_button ${activeComponent === 'D' ? 'active' : ''}`}
-            onClick={() => handleComponentClick('D')}
-            disabled={activeComponent === 'D'}
-          >
-            챌린지가이드
-          </CustomButton>
-                
-            </div>
+                className={`detail_type_button ${activeComponent === 'B' ? 'active' : ''}`}
+                onClick={() => handleComponentClick('B')}
+                disabled={activeComponent === 'B'}
+            >
+                🍄챌린지달력
+            </CustomButton>
+            <CustomButton
+                className={`detail_type_button ${activeComponent === 'C' ? 'active' : ''}`}
+                onClick={() => handleComponentClick('C')}
+                disabled={activeComponent === 'C'}
+            >
+                🍄미션보기
+            </CustomButton>
+            <CustomButton
+                className={`detail_type_button ${activeComponent === 'D' ? 'active' : ''}`}
+                onClick={() => handleComponentClick('D')}
+                disabled={activeComponent === 'D'}
+            >
+                🍄챌린지가이드
+            </CustomButton>
+        </div>
         </ButtonContainer>
+        {renderComponent()}
+      </>
     );
 };
 
