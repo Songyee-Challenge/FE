@@ -7,29 +7,35 @@ const Btn = styled.div `
     cursor: pointer;
     font-family: 'Dongle-regular';
     font-weight: 600;
-    font-size: 3.5rem;
+    font-size: ${props => props.fontSize};
     color: white;
     width: 20vw;
     height: 120px;
     border-radius: 25px;
-    line-height: 120px;
+    line-height: 40px;
     display: flex;
     align-items: center;
     letter-spacing: 3px;
+    white-space: pre-wrap;
 `
 const Txt = styled.div`
     margin: auto;
     display: flex;
     align-items: center;
+    margin-top: ${props => props.marginTop};
+`
+const Img = styled.img`
+    margin-left: ${props => props.marginLeft};
+    width: ${props => props.width};
 `
 
 const Button = (props) => {
-    const { onClick, title } = props;
+    const { onClick, title, fontSize, marginLeft, width, marginTop } = props;
     return (
-        <Btn onClick={onClick}>
-            <Txt>
+        <Btn onClick={onClick} fontSize={fontSize || "3.5rem"}>
+            <Txt marginTop={marginTop}>
             {title || "버튼"}
-            <img src={arrow} style={{width:"80px", marginLeft:"30px"}}/>
+            <Img src={arrow} width={width || "80px"} marginLeft={marginLeft || "30px"}/>
             </Txt>
         </Btn>
     );
