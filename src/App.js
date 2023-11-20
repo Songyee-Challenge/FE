@@ -12,6 +12,7 @@ import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
+import ChallengeDetail from "./pages/ChallengeDetail";
 import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
 import Diary from "./pages/Diary";
@@ -36,7 +37,13 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/agree" element={<AgreePage />} />
               <Route path="/create" element={<CreatePage />} />
-              <Route path="/songchallenge" element={<SongChallenge />} />
+              <Route path="/songchallenge" element={<SongChallenge />}>
+                <Route
+                  path="/songchallenge/detail"
+                  element={<ChallengeDetail />}
+                />
+              </Route>
+
               <Route path="/my" element={<MyChallenge />}>
                 <Route path="/my/mission" element={<MyMission />} />
                 <Route path="/my/review" element={<MyReview />} />

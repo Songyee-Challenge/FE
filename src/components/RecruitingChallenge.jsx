@@ -19,6 +19,7 @@ const RecruitImageContainer = styled.div`
   overflow: hidden;
   width:253px;
   height:347px;
+  cursor: pointer;
 `;
 
 const RecruitImage = styled.img`
@@ -45,7 +46,7 @@ const RecruitingChallenge = ({challenges}) => {
     const navigate = useNavigate();
 
     const handleImageClick = () => {
-        navigate('/songchallenge/${id}');
+        navigate('/songchallenge/detail');
     };
 
     return (
