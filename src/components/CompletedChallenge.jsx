@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ProgressBar from './ProgressBar';
 
 const CompletedBox = styled.div`
     margin-left:3vw;
@@ -13,7 +14,7 @@ const CompletedList = styled.div`
 
 const CompletedImageContainer = styled.div`
     border : 2px solid #ffd700;
-    border-radius: 10px;
+    border-radius: 30px;
     overflow: hidden;
     width: 253px;
     height: 347px;
@@ -26,7 +27,7 @@ const CompletedImage = styled.img`
 `;
 
 const CompletedInfo = styled.div`
-    padding: 1rem;
+    width:17rem;
 `;
 
 const CompletedTitle= styled.h3`
@@ -51,6 +52,7 @@ const CompletedChallenge = () => {
             <CompletedInfo>
                 <CompletedTitle>자바스크립트 챌린지 (자유 스터디)</CompletedTitle>
                 <CompletedDetails>기간</CompletedDetails>
+                <ProgressBar/>
                 {/* 진행바 추가!! */}
                 <CompletedDetails>코딩 천재 되고 싶은 송 어딨나~</CompletedDetails>
             </CompletedInfo>

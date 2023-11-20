@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import example from '../images/exampleimage.png';
 
 const RecruitBox = styled.div`
     margin-left:3vw;
@@ -13,7 +15,7 @@ const RecruitList = styled.div`
 
 const RecruitImageContainer = styled.div`
   border: 2px solid #ffd700;
-  border-radius: 10px;
+  border-radius: 30px;
   overflow: hidden;
   width:253px;
   height:347px;
@@ -26,7 +28,7 @@ const RecruitImage = styled.img`
 `;
 
 const RecruitInfo = styled.div`
-    padding: 1rem;
+    width:17rem;
 `;
 
 const RecruitTitle = styled.h3`
@@ -40,14 +42,19 @@ const RecruitDetails = styled.p`
 `;
 
 const RecruitingChallenge = ({challenges}) => {
+    const navigate = useNavigate();
+
+    const handleImageClick = () => {
+        navigate('/songchallenge/${id}');
+    };
 
     return (
         <RecruitBox>
             <h3>총 1개의 챌린지</h3>
             {/* {challenges.map(challenge=>( */}
             <RecruitList>
-                <RecruitImageContainer>    
-                    <RecruitImage/>
+                <RecruitImageContainer onClick={handleImageClick}>    
+                    <RecruitImage src={example}/>
                 </RecruitImageContainer>
                 <RecruitInfo>
                     <RecruitTitle>KBS 한국어능력시험(자격/</RecruitTitle>

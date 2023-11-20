@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ProgressBar from './ProgressBar';
 
 const OngoingBox = styled.div`
     margin-left:3vw;
@@ -13,7 +14,7 @@ const OngoingList = styled.div`
 
 const OngoingImageContainer = styled.div`
     border: 2px solid #ffd700;
-    border-radius: 10px;
+    border-radius: 30px;
     overflow: hidden;
     width: 253px;
     height: 347px;
@@ -26,7 +27,7 @@ const OngoingImage = styled.img`
 `;
 
 const OngoingInfo = styled.div`
-    padding: 1rem;
+    width:17rem;
 `;
 
 const OngoingTitle = styled.h3`
@@ -51,6 +52,7 @@ const OngoingChallenge = () => {
             <OngoingInfo>
                 <OngoingTitle>배드민턴 챌린지 (운동)</OngoingTitle>
                 <OngoingDetails>기간</OngoingDetails>
+                <ProgressBar/>
                 {/* 진행바 추가해야됨! */}
                 <OngoingDetails>몸짱 체력장 되고 싶은 송이 나와라!</OngoingDetails>
             </OngoingInfo>
