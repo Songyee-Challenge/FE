@@ -17,8 +17,8 @@ const RecruitImageContainer = styled.div`
   border: 2px solid #ffd700;
   border-radius: 30px;
   overflow: hidden;
-  width:253px;
-  height:347px;
+  width:15.5rem;
+  height:21rem;
   cursor: pointer;
 `;
 
