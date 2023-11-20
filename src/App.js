@@ -14,6 +14,8 @@ import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
 import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
+import Diary from "./pages/Diary";
+import PostRelay from "./pages/PostRelay";
 
 function App() {
   const location = useLocation();
@@ -40,6 +42,8 @@ function App() {
                 <Route path="/my/review" element={<MyReview />} />
                 <Route path="/my/info" element={<MyInfo />} />
               </Route>
+              <Route path="/diary" element={<Diary />}></Route>
+              <Route path="/diary/post" element={<PostRelay />} />
             </Routes>
           </Page>
         </>
