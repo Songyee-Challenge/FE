@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Challenge from './Challenge';
 import ChallengeGuide from './ChallengeGuide';
 import FullCalendar from './FullCalendar';
+import ShowMission from './ShowMission';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -22,20 +23,16 @@ const CustomButton = styled.button`
   font-weight: bold;
   color: #000;
   margin-right: 2vw;
-  margin-top:20px;
+  margin-top:10px;
   margin-bottom: 20px;
   flex: 0 0 auto;
-
-  &:hover {
-    text-decoration: underline;
-  }
 
   &.active {
     &:after {
       content: '';
       display: block;
       position: absolute;
-      bottom: -3px;
+      bottom: -20px;
       left: 0;
       width: 100%;
       height: 3px;
@@ -46,6 +43,17 @@ const CustomButton = styled.button`
   @media screen and (max-width: 768px) {
     font-size: 1rem;
   }
+`;
+
+const LineWrapper = styled.div`
+  width:95%;
+`;
+
+const SeparateLine = styled.hr`
+    border: none;
+    border-top: solid 1px #B3B3B3;
+    margin-left:0px;
+    margin-top:0px;
 `;
 
 const DetailBar = () => {
@@ -62,7 +70,7 @@ const DetailBar = () => {
           case 'B':
             return <FullCalendar />;
           case 'C':
-            // return <ShowMission />;
+            return <ShowMission />;
           case 'D':
             return <ChallengeGuide/>;
           default:
@@ -102,8 +110,11 @@ const DetailBar = () => {
             >
                 🍄챌린지가이드
             </CustomButton>
-        </div>
-        </ButtonContainer>
+            </div>
+            </ButtonContainer>
+            <LineWrapper>
+                <SeparateLine/>
+            </LineWrapper>
         {renderComponent()}
       </>
     );
