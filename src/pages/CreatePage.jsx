@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Select from "react-select";
 
 const Wrapper = styled.div`
     padding: 50px 100px;
@@ -42,6 +43,8 @@ const InputCount = styled.div`
 const CreatePage = () => {
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
+    const [startYear, setStartYear] = useState("");
+
     const handleTitle = (e) => {
         setTitle(e.target.value);
         if (e.target.value.length > 30) {
@@ -52,6 +55,7 @@ const CreatePage = () => {
         );
         console.log(inputcount);
     }
+
     return (
         <Wrapper>
             <Title>챌린지를 만들어주세요!</Title>
@@ -65,6 +69,7 @@ const CreatePage = () => {
             <InputCount>{inputcount}/30</InputCount>
             </div>
             <Txt>챌린지 시작일</Txt>
+            
             <Txt>챌린지 마감일</Txt>
             <Txt>미션 내용 입력</Txt>
             <Txt>챌린지 소개</Txt>
