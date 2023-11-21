@@ -72,6 +72,7 @@ const MissionNum = styled.p`
 const Number = styled.span`
   padding: 10px;
   font-size: 1.8rem;
+  font-family: "Abril+Fatface";
 `;
 
 const Btn = styled.button`
@@ -80,7 +81,7 @@ const Btn = styled.button`
   background-color: white;
   font-size: 18px;
   font-weight: 900;
-  border: 3px solid black;
+  border: 2px solid black;
   margin-top: 20px;
   cursor: pointer;
   white-space: nowrap;
@@ -94,11 +95,14 @@ const CheckDiv = styled.div`
 const Date = styled.p`
   color: grey;
   white-space: nowrap;
+  margin-top: 22px;
+  font-size: 1rem;
+  font-weight: 500;
 `;
 
 const CheckBox = styled.input`
   margin-left: 40px;
-  margin-top: 23px;
+  margin-top: 20px;
   cursor: pointer;
   appearance: none;
   width: 1.5rem;

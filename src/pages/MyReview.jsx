@@ -41,10 +41,18 @@ const TxtDiv = styled.div`
   display: flex;
 `;
 
-const Txt = styled.p`
-  font-size: 1.1rem;
+const Txt = styled.textarea`
+  font-size: 1.2rem;
   font-weight: 500;
   padding: 0px 30px;
+  resize: none;
+  width: 100%;
+  border-top: 0.01cm solid #dddddd;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: "Pretendard";
+  padding-top: 30px;
 `;
 
 const BtnBox = styled.div`
@@ -60,6 +68,7 @@ const Btn = styled.button`
   width: 75px;
   height: 45px;
   font-weight: bolder;
+  cursor: pointer;
 `;
 
 const Num = styled.p`
@@ -71,6 +80,14 @@ const Num = styled.p`
 `;
 
 const MyReview = () => {
+  const handleDelete = () => {
+    alert("삭제하시겠습니까?");
+  };
+
+  const handleEdit = () => {
+    alert("변경사항이 저장되었습니다.");
+  };
+
   return (
     <Wrapper>
       <Review>챌린지 소감</Review>
@@ -83,8 +100,8 @@ const MyReview = () => {
               매일 성장하는 기분이다 훗 아자아자 화이팅~
             </Txt>
             <BtnBox>
-              <Btn>수정</Btn>
-              <Btn>삭제</Btn>
+              <Btn onClick={handleEdit}>수정</Btn>
+              <Btn onClick={handleDelete}>삭제</Btn>
             </BtnBox>
           </TxtDiv>
         </Container>
