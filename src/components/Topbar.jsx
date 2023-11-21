@@ -50,7 +50,7 @@ const Topbar = () => {
                 navigate('/songchallenge');
             }}>송이의 챌린지</Menu>
             <Menu onClick={() => {
-                navigate('/');
+                navigate('/diary');
             }}>송이의 일기장</Menu>
             </MainMenu>
             </LogoMenu>
