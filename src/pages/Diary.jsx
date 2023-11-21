@@ -30,6 +30,7 @@ const Btn = styled.button`
   white-space: nowrap;
   font-size: 1rem;
   margin: auto 0px 10px auto;
+  cursor: pointer;
 `;
 
 const Moment = styled.p`

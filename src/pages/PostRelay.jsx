@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   padding-top: 30px;
@@ -26,6 +27,7 @@ const Btn = styled.button`
   white-space: nowrap;
   font-size: 1rem;
   margin: auto 0px 10px auto;
+  cursor: pointer;
 `;
 
 const Box = styled.div`
@@ -57,6 +59,7 @@ const Select = styled.select`
   height: 30px;
   margin-left: 20px;
   margin-top: 20px;
+  cursor: pointer;
 `;
 
 const Contents = styled.textarea`
@@ -82,7 +85,13 @@ const Count = styled.div`
 `;
 
 const PostRelay = () => {
+  const navigate = useNavigate();
   const [inputCount, setInputCount] = useState(0);
+
+  const handleUpload = () => {
+    alert("소감이 업로드되었습니다.");
+    navigate("/diary");
+  };
 
   const onInputHandler = (e) => {
     setInputCount(e.target.value.length);
@@ -92,7 +101,7 @@ const PostRelay = () => {
     <Wrapper>
       <Relay>
         <RelayTxt>소감 릴레이</RelayTxt>
-        <Btn>업로드</Btn>
+        <Btn onClick={handleUpload}>업로드</Btn>
       </Relay>
       <Box>
         <form>
