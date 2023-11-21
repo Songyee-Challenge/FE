@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -9,7 +9,8 @@ const Wrapper = styled.div`
     line-height: 120px;
     display: flex;
     align-items: center;
-    border-bottom: solid 1px black;
+    //border-bottom: solid 1px black;
+    border-bottom: ${props => props.borderbottom};
     position: fixed;
     top: 0px;
     background-color: white;
@@ -36,9 +37,10 @@ const LogoMenu = styled.div`
 
 const Topbar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     return (
-        <Wrapper>
+        <Wrapper borderbottom={location.pathname == '/signup' || location.pathname == '/login' || location.pathname == '/home' || location.pathname == '/agree' || location.pathname == '/create' ? 'solid 1px black' : ''}>
             <LogoMenu>
             <img src={logo} style={{width:"180px", cursor:"pointer"}} onClick={() => {
                 navigate('/home');
