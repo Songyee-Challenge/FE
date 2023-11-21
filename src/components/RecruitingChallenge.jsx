@@ -17,13 +17,13 @@ const RecruitImageContainer = styled.div`
   border: 2px solid #ffd700;
   border-radius: 30px;
   overflow: hidden;
-  width:15.5rem;
-  height:21rem;
+  width:253px;
+  height:347px;
   cursor: pointer;
 `;
 
 const RecruitImage = styled.img`
-    width:100%
+    width:100%;
     height: auto;
     border-bottom: 1px solid #ccc;
 `;

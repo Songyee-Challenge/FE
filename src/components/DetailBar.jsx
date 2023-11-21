@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Challenge from './Challenge';
 import ChallengeGuide from './ChallengeGuide';
+import FullCalendar from './FullCalendar';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -21,7 +22,8 @@ const CustomButton = styled.button`
   font-weight: bold;
   color: #000;
   margin-right: 2vw;
-  margin-top:30px;
+  margin-top:20px;
+  margin-bottom: 20px;
   flex: 0 0 auto;
 
   &:hover {
@@ -58,7 +60,7 @@ const DetailBar = () => {
           case 'A':
             return <Challenge />;
           case 'B':
-            // return <Calendar />;
+            return <FullCalendar />;
           case 'C':
             // return <ShowMission />;
           case 'D':
