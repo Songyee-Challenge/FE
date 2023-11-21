@@ -26,6 +26,7 @@ const Btn = styled.button`
   white-space: nowrap;
   font-size: 1rem;
   margin: auto 0px 10px auto;
+  cursor: pointer;
 `;
 
 const Box = styled.div`
@@ -57,6 +58,7 @@ const Select = styled.select`
   height: 30px;
   margin-left: 20px;
   margin-top: 20px;
+  cursor: pointer;
 `;
 
 const Contents = styled.textarea`
