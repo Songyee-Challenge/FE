@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Select from "react-select";
+import CustomDatePicker from '../components/DatePicker';
 
 const Wrapper = styled.div`
     padding: 50px 100px;
+    font-family: 'Pretendard';
 `
 const Title = styled.div`
     font-family: 'Pretendard';
@@ -21,7 +22,8 @@ const TitleInput = styled.input`
     width: 700px;
     height: 50px;
     border-radius: 10px;
-    border: 2px solid #D9D9D9;
+    outline: 2px solid #D9D9D9;
+    border: none;
     background: #FFF;
     font-family: 'Pretendard';
     font-size: 1.5rem;
@@ -39,11 +41,29 @@ const InputCount = styled.div`
     margin-top: 5px;
     color: #42AF53;
 `
+const SubTxt = styled.div`
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+`
+const Wave = styled.div`
+    margin-top: 20px;   
+    width: 100px;
+    height: 100px;
+    line-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    font-weight: 600;
+`
 
 const CreatePage = () => {
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
-    const [startYear, setStartYear] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -68,11 +88,30 @@ const CreatePage = () => {
                 maxLength='30'/>
             <InputCount>{inputcount}/30</InputCount>
             </div>
-            <Txt>챌린지 시작일</Txt>
-            
-            <Txt>챌린지 마감일</Txt>
+            <Txt>챌린지 기간</Txt>
+            <div style={{display:"flex"}}>
+            <div>
+            <SubTxt>챌린지 시작일</SubTxt>
+            <CustomDatePicker
+                selectedDate={startDate}
+                setSelectedDate={setStartDate}
+                minDate={new Date()}
+            />
+            </div>
+            <Wave>-</Wave>
+            <div>
+            <SubTxt>챌린지 마감일</SubTxt>
+            <CustomDatePicker
+                selectedDate={endDate}
+                setSelectedDate={setEndDate}
+                minDate={startDate}
+            />
+            </div>
+            </div>
             <Txt>미션 내용 입력</Txt>
             <Txt>챌린지 소개</Txt>
+            <Txt>대표사진</Txt>
+            <Txt>카테고리 선택</Txt>
         </Wrapper>
     );
 };
