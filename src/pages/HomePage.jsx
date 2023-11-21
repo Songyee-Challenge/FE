@@ -98,7 +98,7 @@ const HomePage = () => {
             <BtnContainer>
                 <Button fontSize='2.3rem' title={`챌린지 생성\n \u00A0바로가기`} marginTop='25px' marginLeft='15px'
                     onClick={() => {
-                        navigate('/home/songchallenge')
+                        navigate('/agree')
                     }}/>
             </BtnContainer>
             <CategoryLine>
