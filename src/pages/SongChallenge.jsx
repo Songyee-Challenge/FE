@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import TypeBar from '../components/TypeBar';
+import { Routes, Route } from 'react-router-dom';
+import ChallengeDetail from './ChallengeDetail';
 
 const ChallengeBox = styled.div`
     margin-left:3vw;
@@ -16,8 +18,14 @@ const SongChallenge = () => {
     };
 
     return (
-        <ChallengeBox>
-            <TypeBar onSelectedType={handleTypeChange} />
+        <ChallengeBox>                
+            <Routes>
+        <Route
+          path="/"
+          element={<TypeBar onSelectType={handleTypeChange} />}
+        />
+        <Route path="/detail" element={<ChallengeDetail />} />
+      </Routes>
         </ChallengeBox>
     );
 };

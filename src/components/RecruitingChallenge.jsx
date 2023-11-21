@@ -23,7 +23,7 @@ const RecruitImageContainer = styled.div`
 `;
 
 const RecruitImage = styled.img`
-    width:100%
+    width:100%;
     height: auto;
     border-bottom: 1px solid #ccc;
 `;
