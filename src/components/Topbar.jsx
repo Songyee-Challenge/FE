@@ -16,6 +16,7 @@ const Wrapper = styled.div`
     background-color: white;
     justify-content: space-between;
     font-family: 'Dongle-regular', sans-serif;
+    z-index: 99;
 `;
 const MainMenu = styled.div`
     display: flex;
