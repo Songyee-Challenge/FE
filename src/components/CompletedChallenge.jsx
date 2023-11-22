@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import example from '../images/exampleimage.png';
 import ProgressBar from './ProgressBar';
 
 const CompletedBox = styled.div`
     margin-left:3vw;
     margin-top:5vw;
+    font-family:'Pretendard';
 `;
 
 const CompletedList = styled.div`
@@ -21,7 +23,7 @@ const CompletedImageContainer = styled.div`
 `;
 
 const CompletedImage = styled.img`
-    width: 100%
+    width: 100%;
     height: auto;
     border-bottom: 1px solid #ccc;
 `;
@@ -47,7 +49,7 @@ const CompletedChallenge = () => {
             {/* {challenges.map(challenge=>( */}
             <CompletedList>
                 <CompletedImageContainer>
-                    <CompletedImage/>
+                    <CompletedImage src={example}/>
                 </CompletedImageContainer>
             <CompletedInfo>
                 <CompletedTitle>자바스크립트 챌린지 (자유 스터디)</CompletedTitle>

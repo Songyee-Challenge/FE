@@ -6,6 +6,7 @@ import example from '../images/exampleimage.png';
 const RecruitBox = styled.div`
     margin-left:3vw;
     margin-top:5vw;
+    font-family:'Pretendard';
 `;
 
 const RecruitList = styled.div`
@@ -34,12 +35,16 @@ const RecruitInfo = styled.div`
 
 const RecruitTitle = styled.h3`
     font-weight: bold;
+    font-size:1.25rem;
 `;
 
 const RecruitDetails = styled.p`
     margin-top: 0.5rem;
     border-top: 1px solid #ccc;
     padding-top: 0.5rem;
+    font-size:1.1rem;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const RecruitingChallenge = ({challenges}) => {
@@ -58,8 +63,10 @@ const RecruitingChallenge = ({challenges}) => {
                     <RecruitImage src={example}/>
                 </RecruitImageContainer>
                 <RecruitInfo>
-                    <RecruitTitle>KBS 한국어능력시험(자격/</RecruitTitle>
-                    <RecruitDetails>기간</RecruitDetails>
+                    <RecruitTitle>KBS 한국어능력시험(자격증/시험)</RecruitTitle>
+                    <RecruitDetails>
+                        <span>기간</span>
+                        <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span></RecruitDetails>
                     <RecruitDetails>한국어문학부 송이의 챌린지!</RecruitDetails>
                 </RecruitInfo>
             </RecruitList>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const ProgressBarContainer = styled.div`
   display: flex;
   align-items: center;
+  font-family:'Pretendard';
 `;
 
 const TextWrapper = styled.div`

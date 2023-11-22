@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import example from '../images/exampleimage.png';
 import ProgressBar from './ProgressBar';
 
 const OngoingBox = styled.div`
     margin-left:3vw;
     margin-top:5vw;
+    font-family:'Pretendard';
 `;
 
 const OngoingList = styled.div`
@@ -47,7 +49,7 @@ const OngoingChallenge = () => {
             {/* {challenges.map(challenge=>()} */}
             <OngoingList>
                 <OngoingImageContainer>
-                    <OngoingImage/>
+                    <OngoingImage src={example}/>
                 </OngoingImageContainer>
             <OngoingInfo>
                 <OngoingTitle>배드민턴 챌린지 (운동)</OngoingTitle>

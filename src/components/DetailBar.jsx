@@ -19,7 +19,8 @@ const CustomButton = styled.button`
   cursor: pointer;
   position: relative;
   padding: 0;
-  font-size: 1.5rem;
+  font-family:'Pretendard';
+  font-size: 1.7rem;
   font-weight: bold;
   color: #000;
   margin-right: 2vw;

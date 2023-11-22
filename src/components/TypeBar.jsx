@@ -20,26 +20,23 @@ const CustomButton = styled.button`
   cursor: pointer;
   position: relative;
   padding: 0;
-  font-size: 1.5rem;
+  font-family:'Pretendard';
+  font-size: 1.8rem;
   font-weight: bold;
   color: #000;
   margin-right: 2vw;
   margin-top:30px;
   flex: 0 0 auto;
 
-  &:hover {
-    text-decoration: underline;
-  }
-
   &.active {
     &:after {
       content: '';
       display: block;
       position: absolute;
-      bottom: -3px;
+      bottom: -15px;
       left: 0;
       width: 100%;
-      height: 3px;
+      height: 4px;
       background-color: #000;
     }
   }
@@ -127,7 +124,7 @@ const TypeBar = ({ onSelectType }) => {
           </CustomButton>
         </div>
         <SearchContainer>
-            <SearchInput type="text" placeholder="검색"/>
+            <SearchInput type="text" />
             <SearchIcon src={searchicon} />
             <FilterIcon src={filter}/>
         </SearchContainer>
