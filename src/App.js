@@ -12,7 +12,8 @@ import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
-import ChallengeDetail from "./pages/ChallengeDetail";
+import RecruitDetail from "./pages/RecruitDetail";
+import OngoingDetail from "./pages/OngoingDetail";
 import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
 import Diary from "./pages/Diary";
@@ -39,8 +40,12 @@ function App() {
               <Route path="/create" element={<CreatePage />} />
               <Route path="/songchallenge" element={<SongChallenge />}>
                 <Route
-                  path="/songchallenge/detail"
-                  element={<ChallengeDetail />}
+                  path="/songchallenge/recruitdetail"
+                  element={<RecruitDetail />}
+                />
+                <Route
+                  path="/songchallenge/ongoingdetail"
+                  element={<OngoingDetail />}
                 />
               </Route>
 

@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import TypeBar from '../components/TypeBar';
 import { Routes, Route } from 'react-router-dom';
-import ChallengeDetail from './ChallengeDetail';
+import RecruitDetail from '../pages/RecruitDetail';
+import OngoingDetail from '../pages/OngoingDetail';
 
 const ChallengeBox = styled.div`
     margin-left:3vw;
@@ -24,7 +25,8 @@ const SongChallenge = () => {
           path="/"
           element={<TypeBar onSelectType={handleTypeChange} />}
         />
-        <Route path="/detail" element={<ChallengeDetail />} />
+        <Route path="/recruitdetail" element={<RecruitDetail />} />
+        <Route path="/ongoingdetail" element={<OngoingDetail/> }/>
       </Routes>
         </ChallengeBox>
     );

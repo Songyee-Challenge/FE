@@ -20,7 +20,7 @@ const SeparateLine = styled.hr`
     margin-top:-10px;
 `;
 
-const ChallengeDetail = () => {
+const RecruitDetail = () => {
     return (
         <Wrapper>
             <Title>모집 중인 챌린지</Title>
@@ -30,4 +30,4 @@ const ChallengeDetail = () => {
     );
 };
 
-export default ChallengeDetail;
+export default RecruitDetail;

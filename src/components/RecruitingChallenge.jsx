@@ -51,12 +51,12 @@ const RecruitingChallenge = ({challenges}) => {
     const navigate = useNavigate();
 
     const handleImageClick = () => {
-        navigate('/songchallenge/detail');
+        navigate('/songchallenge/recruitdetail');
     };
 
     return (
         <RecruitBox>
-            <h3>총 1개의 챌린지</h3>
+            <h3 style={{marginBottom:'70px'}}>총 1개의 챌린지</h3>
             {/* {challenges.map(challenge=>( */}
             <RecruitList>
                 <RecruitImageContainer onClick={handleImageClick}>    
