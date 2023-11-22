@@ -12,9 +12,9 @@ import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
-import RecruitDetail from "./pages/RecruitDetail";
-import OngoingDetail from "./pages/OngoingDetail";
-import CompletedDetail from "./pages/CompletedDetail";
+import RecruitDetailPage from "./pages/RecruitDetailPage";
+import OngoingDetailPage from "./pages/OngoingDetailPage";
+import CompletedDetailPage from "./pages/CompletedDetailPage";
 import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
 import Diary from "./pages/Diary";
@@ -42,15 +42,15 @@ function App() {
               <Route path="/songchallenge" element={<SongChallenge />}>
                 <Route
                   path="/songchallenge/recruitdetail"
-                  element={<RecruitDetail />}
+                  element={<RecruitDetailPage />}
                 />
                 <Route
                   path="/songchallenge/ongoingdetail"
-                  element={<OngoingDetail />}
+                  element={<OngoingDetailPage />}
                 />
                 <Route
                   path="/songchallenge/completeddetail"
-                  element={<CompletedDetail />}
+                  element={<CompletedDetailPage />}
                 />
               </Route>
 

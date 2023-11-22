@@ -21,6 +21,7 @@ const ChallengeImg = styled.img`
   height: 466px;
   margin-left: -100px;
   margin-right: 80px;
+  margin-top:35px;
 `;
 
 const TextWrapper = styled.div`

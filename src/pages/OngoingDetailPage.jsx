@@ -20,14 +20,14 @@ const SeparateLine = styled.hr`
     margin-top:-10px;
 `;
 
-const CompletedDetail = () => {
+const OngoingDetailPage = () => {
     return (
         <Wrapper>
-            <Title>종료된 챌린지</Title>
+            <Title>진행 중인 챌린지</Title>
             <SeparateLine/>
-            <DetailBar/>            
+            <DetailBar context="ongoing"/>            
         </Wrapper>
     );
 };
 
-export default CompletedDetail;
+export default OngoingDetailPage;

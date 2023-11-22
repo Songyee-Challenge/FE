@@ -20,14 +20,14 @@ const SeparateLine = styled.hr`
     margin-top:-10px;
 `;
 
-const RecruitDetail = () => {
+const RecruitDetailPage = () => {
     return (
         <Wrapper>
             <Title>모집 중인 챌린지</Title>
             <SeparateLine/>
-            <DetailBar/>
+            <DetailBar context="recruiting"/>
         </Wrapper>
     );
 };
 
-export default RecruitDetail;
+export default RecruitDetailPage;

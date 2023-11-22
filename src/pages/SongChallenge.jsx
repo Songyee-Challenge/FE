@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import TypeBar from '../components/TypeBar';
 import { Routes, Route } from 'react-router-dom';
-import RecruitDetail from '../pages/RecruitDetail';
-import OngoingDetail from '../pages/OngoingDetail';
-import CompletedDetail from './CompletedDetail';
+import RecruitDetail from './RecruitDetailPage';
+import OngoingDetail from './OngoingDetailPage';
+import CompletedDetail from './CompletedDetailPage';
 
 const ChallengeBox = styled.div`
     margin-left:3vw;
