@@ -84,6 +84,9 @@ const ExplainArea = styled.textarea`
         outline: 2px solid #42AF53;
         border: none;
     }
+    &::placeholder {
+        color: #D9D9D9;
+    }
 `
 const FileInput = styled.input`
     display: none;
@@ -290,6 +293,7 @@ const CreatePage = () => {
                 maxLength="255"
                 rows="2" 
                 style={{resize: 'none'}}
+                placeholder='예) 매일 1만보 걷고 건강해지기! 오늘부터 같이 해봐요 :)'
                 onChange={handleExplain}/>
             <InputCount>{expcount}/255</InputCount>
             </div>
