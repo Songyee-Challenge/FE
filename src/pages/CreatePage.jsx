@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CustomDatePicker from '../components/DatePicker';
 import photo from '../images/photo.png';
 import camera from '../images/camera.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     padding: 50px 100px;
@@ -10,15 +11,16 @@ const Wrapper = styled.div`
 `
 const Title = styled.div`
     font-family: 'Pretendard';
-    font-weight: 700;
-    font-size: 1.7rem;
+    font-weight: 900;
+    font-size: 2rem;
     margin-bottom: 50px;
 `
 const Txt = styled.div`
     font-family: 'Pretendard';
-    font-weight: 700;
-    font-size: 1.3rem;
+    font-weight: 800;
+    font-size: 1.7rem;
     margin-bottom: 10px;
+    margin-top: 50px;
 `
 const TitleInput = styled.input`
     width: 700px;
@@ -38,16 +40,23 @@ const TitleInput = styled.input`
 `
 const InputCount = styled.div`
     text-align: right;
-    font-family: 'Pretendard';
+    font-family: 'Pretendard-regular';
     font-size: 1.2rem;
     margin-top: 5px;
     color: #CECECE;
 `
 const SubTxt = styled.div`
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-top: 10px;
     margin-bottom: 10px;
+    font-family: 'Pretendard';
+`
+const PlusTxt = styled.div`
+    font-weight: 600;
+    font-family: 'Pretendard-regular';
+    font-size: 1.2rem;
+    margin-bottom: 20px;
 `
 const Wave = styled.div`
     margin-top: 20px;   
@@ -61,7 +70,7 @@ const Wave = styled.div`
     font-weight: 600;
 `
 const ExplainArea = styled.textarea`
-    width: 700px;
+    width: 1000px;
     height: 130px;
     border-radius: 10px;
     outline: 2px solid #D9D9D9;
@@ -70,7 +79,7 @@ const ExplainArea = styled.textarea`
     font-family: 'Pretendard';
     font-size: 1.2rem;
     font-weight: 500;
-    padding: 5px 10px;
+    padding: 10px;
     &:focus {
         outline: 2px solid #42AF53;
         border: none;
@@ -78,12 +87,14 @@ const ExplainArea = styled.textarea`
 `
 const FileInput = styled.input`
     display: none;
+    width: 253px;
 `
 const Label = styled.label`
+    width: 253px;
 `
 const Box = styled.div`
-    width: 253px;
-    height: 347px;
+    width: 200px;
+    height: 194px;
     border-radius: 10px;
     border: 3px solid #D9D9D9;
     z-index: 3;
@@ -121,16 +132,67 @@ const Photodiv = styled.div`
     }
     margin: auto;
 `
+const RadioBtn = styled.input`
+    appearance: none;
+`
+const RadioLabel = styled.label`
+    margin-right: 20px;
+    cursor: pointer;
+`
+const LabelBox = styled.div`
+    width: 150px;
+    height: 70px;
+    border-radius: 30px;
+    background-color: white;
+    font-family: 'Pretendard';
+    text-align: center;
+    line-height: 70px;
+    border: 3px solid #D9D9D9;
+    font-weight: 600;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+        background: #000;
+        color: white;
+        border: 3px solid #000;
+        
+    }
+`
+const AgreeTxt = styled.div`
+    color: #646464;
+    font-weight: 700;
+    font-family: 'Pretendard';
+    font-size: 1.2rem;
+    margin-top: 90px;
+`
+const CreateBtn = styled.div`
+    width: 222px;
+    height: 90px;
+    border-radius: 10px;
+    background: #000;
+    color: white;
+    text-align: center;
+    line-height: 90px;
+    font-family: 'Pretendard';
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 80px;
+`
 
 const CreatePage = () => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [explain, setExplain] = useState("");
     const [expcount, setExpcount] = useState(0);
+    const [imgname, setImgname] = useState("");
     const [imgFile, setImgFile] = useState("");
     const imgRef = useRef();
+    const [category, setCategory] = useState("");
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -153,12 +215,40 @@ const CreatePage = () => {
     // 이미지 업로드 input의 onChange
     const saveImgFile = () => {
         const file = imgRef.current.files[0];
+        setImgname(file.name)
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setImgFile(reader.result);
-        };
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setImgFile(reader.result);
+            };
+            console.log("제목:",)
+            console.log(dateToString(startDate), "-", dateToString(endDate));
+            console.log(file);
+        }
     };
+
+    const dateToString = (date) => {
+        return date.getFullYear() + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0')
+    }
+
+    const handleRadio = (e) => {
+        setCategory(e.target.value);
+    }
+
+    const handleCreate = () => {
+        alert('챌린지 개설 완료!');
+        navigate('/songchallenge');
+        console.log(
+            '제목: ', title,
+            '시작일: ', dateToString(startDate),
+            '마감일: ', dateToString(endDate),
+            '미션',
+            '소개: ', explain,
+            '대표사진: ', imgFile,
+            '카테고리: ', category
+        )
+    }
 
     return (
         <Wrapper>
@@ -193,16 +283,18 @@ const CreatePage = () => {
             </div>
             </div>
             <Txt>미션 내용 입력</Txt>
-            <div style={{width:"720px"}}>
+            <div style={{width:"1020px"}}>
             <Txt>챌린지 소개</Txt>
+            <PlusTxt>글을 추가해 챌린지를 소개해보세요.</PlusTxt>
             <ExplainArea
-                maxlength="255"
+                maxLength="255"
                 rows="2" 
                 style={{resize: 'none'}}
                 onChange={handleExplain}/>
             <InputCount>{expcount}/255</InputCount>
             </div>
             <Txt>대표사진</Txt>
+            <PlusTxt>챌린지를 잘 설명할 수 있는 사진으로 선택해주세요. 멋진 썸네일은 인기의 비결!</PlusTxt>
             <Label for="profileImg">
                 <Box>
                     <img src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}/>
@@ -217,6 +309,47 @@ const CreatePage = () => {
             ref={imgRef}
             />
             <Txt>카테고리 선택</Txt>
+            <PlusTxt>어느 카테고리에 챌린지를 노출할까요?</PlusTxt>
+            <div style={{display:"flex"}}>
+            <RadioBtn
+                type='radio'
+                value="자격증/시험" 
+                id="test"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="test"><LabelBox>자격증/시험</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="공채" 
+                id="gong"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="gong"><LabelBox>공채</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="자유스터디" 
+                id="study"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="study"><LabelBox>자유스터디</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="취미" 
+                id="hobby"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="hobby"><LabelBox>취미</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="운동" 
+                id="exc"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="exc"><LabelBox>운동</LabelBox></RadioLabel></div>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+            <AgreeTxt><u>챌린지 개설 약관</u>에 동의하며 챌린지를 개설합니다.</AgreeTxt>
+            <CreateBtn onClick={handleCreate}>챌린지 개설하기</CreateBtn>
+            </div>
         </Wrapper>
     );
 };
