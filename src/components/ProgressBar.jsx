@@ -4,17 +4,11 @@ import styled from 'styled-components';
 const ProgressBarContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const TextWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+  font-family:'Pretendard';
 `;
 
 const ProgressBarWrapper = styled.div`
-  width: 180px; /* 프로그레스 바의 전체 너비 */
+  width: 170px; /* 프로그레스 바의 전체 너비 */
   height: 10px; /* 프로그레스 바의 높이 */
   border-radius: 10px; /* 모서리가 둥근 직사각형 모양 설정 */
   background-color: #ccc; /* 기본 회색 배경색 */
@@ -40,9 +34,6 @@ const PercentageNumber = styled.span`
 const ProgressBar = ({ percentage = 0 }) => {
   return (
     <ProgressBarContainer>
-        <TextWrapper>
-            <span>진행</span>
-        </TextWrapper>
       <ProgressBarWrapper>
         <ProgressBarFill percentage={percentage} />
       </ProgressBarWrapper>

@@ -6,6 +6,12 @@ const Wrapper = styled.div`
     margin-top:50px;
 `;
 
+const Title = styled.p`
+    font-family:'Pretendard';
+    font-weight:bold;
+    font-size: 1.7rem;
+`;
+
 const SeparateLine = styled.hr`
     border: none;
     border-top: 3px solid #000;
@@ -14,14 +20,14 @@ const SeparateLine = styled.hr`
     margin-top:-10px;
 `;
 
-const ChallengeDetail = () => {
+const RecruitDetailPage = () => {
     return (
         <Wrapper>
-            <h2>모집 중인 챌린지</h2>
+            <Title>모집 중인 챌린지</Title>
             <SeparateLine/>
-            <DetailBar/>
+            <DetailBar context="recruiting"/>
         </Wrapper>
     );
 };
 
-export default ChallengeDetail;
+export default RecruitDetailPage;

@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import Challenge from './Challenge';
+import RecruitDetail from './RecruitDetail';
+import OngoingDetail from './OngoingDetail';
+import CompletedDetail from './CompletedDetail';
 import ChallengeGuide from './ChallengeGuide';
 import FullCalendar from './FullCalendar';
 import ShowMission from './ShowMission';
@@ -19,7 +21,8 @@ const CustomButton = styled.button`
   cursor: pointer;
   position: relative;
   padding: 0;
-  font-size: 1.5rem;
+  font-family:'Pretendard';
+  font-size: 1.7rem;
   font-weight: bold;
   color: #000;
   margin-right: 2vw;
@@ -56,7 +59,7 @@ const SeparateLine = styled.hr`
     margin-top:0px;
 `;
 
-const DetailBar = () => {
+const DetailBar = ({context}) => {
     const [activeComponent, setActiveComponent] = useState('A');
 
     const handleComponentClick = (componentName) => {
@@ -66,7 +69,16 @@ const DetailBar = () => {
     const renderComponent = () => {
         switch (activeComponent) {
           case 'A':
-            return <Challenge />;
+            if (context === 'recruiting') {
+              return <RecruitDetail />;
+            } else if (context === 'ongoing') {
+              // 'ongoing' 컨텍스트에 대한 다른 컴포넌트 렌더링
+              return <OngoingDetail />;
+            } else if (context === 'completed') {
+              // 'completed' 컨텍스트에 대한 다른 컴포넌트 렌더링
+              return <CompletedDetail />;
+            }
+            break;
           case 'B':
             return <FullCalendar />;
           case 'C':
