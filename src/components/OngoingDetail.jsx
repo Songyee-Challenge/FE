@@ -92,7 +92,7 @@ const OngoingDetail = () => {
                 </InfoItem>
                 <InfoItem>
                 <InfoLabel>진행률&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-                <div><ProgressBar/></div>
+                <div style={{marginLeft:'-30px', width: '100%'}}><ProgressBar/></div>
                 </InfoItem>
             </ChallengeInfo>
             <Line />

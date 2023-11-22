@@ -17,7 +17,7 @@ const SeparateLine = styled.hr`
     border-top: 3px solid #000;
     width: 95%;
     margin-left:0px;
-    margin-top:-10px;
+    margin-top:10px;
 `;
 
 const CompletedDetailPage = () => {

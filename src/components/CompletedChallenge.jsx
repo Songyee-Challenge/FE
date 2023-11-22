@@ -70,7 +70,10 @@ const CompletedChallenge = () => {
                         <span>기간</span>
                         <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span>
                 </CompletedDetails>
-                <ProgressBar/>
+                <CompletedDetails>
+                        <span>진행</span>
+                        <span><ProgressBar/></span>
+                </CompletedDetails>
                 {/* 진행바 추가!! */}
                 <CompletedDetails>코딩 천재 되고 싶은 송 어딨나~</CompletedDetails>
             </CompletedInfo>

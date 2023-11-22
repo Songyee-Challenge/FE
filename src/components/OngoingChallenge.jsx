@@ -69,7 +69,10 @@ const OngoingChallenge = () => {
                         <span>기간</span>
                         <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span>
                 </OngoingDetails>
-                <ProgressBar/>
+                <OngoingDetails>
+                        <span>진행</span>
+                        <span><ProgressBar/></span>
+                </OngoingDetails>
                 {/* 진행바 기능 추가해야됨! */}
                 <OngoingDetails>몸짱 체력장 되고 싶은 송이 나와라!</OngoingDetails>
             </OngoingInfo>
