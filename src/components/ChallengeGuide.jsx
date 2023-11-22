@@ -9,8 +9,9 @@ const GuideWrapper = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 80%;
     margin-top: 30px;
-    margin-left: 50px;
+    margin-left: 7%;
     padding: 20px;
+    font-family:'Pretendard';
 `;
 
 const GuideContent=styled.div`
@@ -22,6 +23,8 @@ const GuideContent=styled.div`
 const GuideImg = styled.img`
   width: 68px;
   height: 80px;
+  margin-top:20px;
+  margin-left:10px;
   margin-right: -10px; /* 이미지와 텍스트 간격을 조절하기 위한 마진 값 */
 `;
 
@@ -42,8 +45,9 @@ const InfoBox = styled.div`
 const Point = styled.p`
     font-family:'Pretendard';
     font-size:20px;
+    font-weight:600;
     color: #FF6C11;
-    margin:5px;
+    margin-bottom:0px;
 `;
 
 const ChallengeGuide = () => {
