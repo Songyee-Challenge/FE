@@ -88,7 +88,7 @@ const HomePage = () => {
             <CategoryLine>
                 <CategoryTxt>모집 중인 챌린지</CategoryTxt>
                 <Line/>
-                <MoreBtn onClick={() => {navigate('/home/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
+                <MoreBtn onClick={() => {navigate('/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
             </CategoryLine>
             <CardContainer>
                 {ongoingdummy && ongoingdummy.map(challenge => (
