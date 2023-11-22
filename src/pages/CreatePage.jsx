@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CustomDatePicker from '../components/DatePicker';
+import photo from '../images/photo.png'
 
 const Wrapper = styled.div`
     padding: 50px 100px;
@@ -39,7 +40,7 @@ const InputCount = styled.div`
     font-family: 'Pretendard';
     font-size: 1.2rem;
     margin-top: 5px;
-    color: #42AF53;
+    color: #CECECE;
 `
 const SubTxt = styled.div`
     font-size: 1rem;
@@ -58,23 +59,79 @@ const Wave = styled.div`
     font-size: 1.7rem;
     font-weight: 600;
 `
+const ExplainArea = styled.textarea`
+    width: 700px;
+    height: 130px;
+    border-radius: 10px;
+    outline: 2px solid #D9D9D9;
+    border: none;
+    background: #FFF;
+    font-family: 'Pretendard';
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    &:focus {
+        outline: 2px solid #42AF53;
+        border: none;
+    }
+`
+const FileInput = styled.input`
+    display: none;
+`
+const Label = styled.label`
+`
+const Box = styled.div`
+    width: 253px;
+    height: 347px;
+    border-radius: 10px;
+    border: 3px solid #D9D9D9;
+    z-index: 3;
+`
+const PhotoTxt = styled.div`
+    width: 100%;
+    height: 50px;
+    background: rgba(153, 153, 153, 0.30);
+    margin-top: -100px;
+    z-index: 2;
+`
 
 const CreatePage = () => {
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [explain, setExplain] = useState("");
+    const [expcount, setExpcount] = useState(0);
+    const [imgFile, setImgFile] = useState("");
+    const imgRef = useRef();
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
         if (e.target.value.length > 30) {
-            e.target.value = e.target.value.slice(0, 30);
+            return
           }
         setInputCount(
-            e.target.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length
+            e.target.value.length
         );
-        console.log(inputcount);
     }
+    const handleExplain = (e) => {
+        setExplain(e.target.value);
+        if (e.target.value.length > 255) {
+            return
+        }
+        setExpcount(
+            e.target.value.length
+        );
+    }
+    // 이미지 업로드 input의 onChange
+    const saveImgFile = () => {
+        const file = imgRef.current.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImgFile(reader.result);
+        };
+    };
 
     return (
         <Wrapper>
@@ -109,8 +166,26 @@ const CreatePage = () => {
             </div>
             </div>
             <Txt>미션 내용 입력</Txt>
+            <div style={{width:"720px"}}>
             <Txt>챌린지 소개</Txt>
+            <ExplainArea
+                maxlength="255"
+                rows="2" 
+                style={{resize: 'none'}}
+                onChange={handleExplain}/>
+            <InputCount>{expcount}/255</InputCount>
+            </div>
             <Txt>대표사진</Txt>
+            <Label for="profileImg"><Box><img
+            src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}
+            /><PhotoTxt></PhotoTxt></Box></Label>
+            <FileInput
+            type="file"
+            accept="image/*"
+            id="profileImg"
+            onChange={saveImgFile}
+            ref={imgRef}
+            />
             <Txt>카테고리 선택</Txt>
         </Wrapper>
     );
