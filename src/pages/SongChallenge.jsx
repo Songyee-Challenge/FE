@@ -4,6 +4,7 @@ import TypeBar from '../components/TypeBar';
 import { Routes, Route } from 'react-router-dom';
 import RecruitDetail from '../pages/RecruitDetail';
 import OngoingDetail from '../pages/OngoingDetail';
+import CompletedDetail from './CompletedDetail';
 
 const ChallengeBox = styled.div`
     margin-left:3vw;
@@ -27,6 +28,7 @@ const SongChallenge = () => {
         />
         <Route path="/recruitdetail" element={<RecruitDetail />} />
         <Route path="/ongoingdetail" element={<OngoingDetail/> }/>
+        <Route path="/completeddetail" element={<CompletedDetail/>}/>
       </Routes>
         </ChallengeBox>
     );

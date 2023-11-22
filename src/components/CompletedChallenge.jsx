@@ -53,7 +53,7 @@ const CompletedChallenge = () => {
     const navigate = useNavigate();
 
     const handleImageClick = () => {
-        navigate('/');
+        navigate('/songchallenge/completeddetail');
     };
 
     return (

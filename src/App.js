@@ -14,6 +14,7 @@ import MyInfo from "./pages/MyInfo";
 import SongChallenge from "./pages/SongChallenge";
 import RecruitDetail from "./pages/RecruitDetail";
 import OngoingDetail from "./pages/OngoingDetail";
+import CompletedDetail from "./pages/CompletedDetail";
 import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
 import Diary from "./pages/Diary";
@@ -46,6 +47,10 @@ function App() {
                 <Route
                   path="/songchallenge/ongoingdetail"
                   element={<OngoingDetail />}
+                />
+                <Route
+                  path="/songchallenge/completeddetail"
+                  element={<CompletedDetail />}
                 />
               </Route>
 
