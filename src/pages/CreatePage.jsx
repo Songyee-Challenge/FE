@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CustomDatePicker from '../components/DatePicker';
-import photo from '../images/photo.png'
+import photo from '../images/photo.png';
+import camera from '../images/camera.svg';
 
 const Wrapper = styled.div`
     padding: 50px 100px;
@@ -86,13 +87,39 @@ const Box = styled.div`
     border-radius: 10px;
     border: 3px solid #D9D9D9;
     z-index: 3;
+    cursor: pointer;
+    > img {
+        position: relative;
+        z-index: 0;
+        object-fit: cover
+    }
 `
 const PhotoTxt = styled.div`
     width: 100%;
     height: 50px;
     background: rgba(153, 153, 153, 0.30);
-    margin-top: -100px;
-    z-index: 2;
+    margin-top: -50px;
+    position: relative;
+    z-index: 98;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 800;
+    line-height: 50px;
+    display: flex;
+`
+const Photodiv = styled.div`
+    display: flex;
+    justify-content: center;
+    > img {
+        display: flex;
+        justify-content: center;
+        width: 30px;
+        margin-right: 5px;
+    }
+    margin: auto;
 `
 
 const CreatePage = () => {
@@ -176,9 +203,12 @@ const CreatePage = () => {
             <InputCount>{expcount}/255</InputCount>
             </div>
             <Txt>대표사진</Txt>
-            <Label for="profileImg"><Box><img
-            src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}
-            /><PhotoTxt></PhotoTxt></Box></Label>
+            <Label for="profileImg">
+                <Box>
+                    <img src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}/>
+                    <PhotoTxt><Photodiv><img src={camera}/>사진 선택</Photodiv></PhotoTxt>
+                </Box>
+            </Label>
             <FileInput
             type="file"
             accept="image/*"
