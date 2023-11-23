@@ -71,12 +71,14 @@ const LoginPage = () => {
                 <Line/>
                 <RegInput
                     marginbottom="15px"
+                    inputwidth="577px"
                     name="email"
                     type="email"
                     placeholder='이메일'
                     value={email}
                     onChange={onChangeEmail}/>
                 <RegInput
+                    inputwidth="577px"
                     name="password"
                     type="password"
                     placeholder='비밀번호'
