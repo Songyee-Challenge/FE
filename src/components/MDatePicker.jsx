@@ -20,6 +20,7 @@ const MDatePicker = (props) => {
         locale={ko}
         dateFormat="yyyy년 MM월 dd일"
         minDate={props.minDate}
+        maxDate={props.maxDate}
       />
     </div>
   );

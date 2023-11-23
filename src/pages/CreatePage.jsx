@@ -6,6 +6,232 @@ import photo from '../images/photo.png';
 import camera from '../images/camera.svg';
 import { useNavigate } from 'react-router-dom';
 
+const CreatePage = () => {
+    const navigate = useNavigate();
+    const [title, setTitle] = useState("");
+    const [inputcount, setInputCount] = useState(0);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [missions, setMissions] = useState([]);
+    const [mtxt, setMtxt] = useState("");
+    const [mdate, setMdate] = useState(new Date());
+    const [nextId, setNextId] = useState(1);
+    const [explain, setExplain] = useState("");
+    const [expcount, setExpcount] = useState(0);
+    const [imgname, setImgname] = useState("");
+    const [imgFile, setImgFile] = useState("");
+    const imgRef = useRef();
+    const [category, setCategory] = useState("");
+
+    const handleTitle = (e) => {
+        setTitle(e.target.value);
+        if (e.target.value.length > 30) {
+            return
+          }
+        setInputCount(
+            e.target.value.length
+        );
+    }
+
+    // 미션 추가 관련
+    const handleMtxt = e => setMtxt(e.target.value);
+    const handleClick = () => {
+        const newList = missions.concat({
+            id: nextId,
+            name: mtxt,
+            date: mdate,
+            datestr: dateToString(mdate)
+        });
+        setNextId(nextId+1);
+        setMissions(newList);
+        setMtxt('');
+        setMdate(new Date());
+        console.log(newList);
+    };
+    const handleDelete = id => {
+        const newList = missions.filter(mission => mission.id !== id);
+        setMissions(newList);
+    };
+    const missionList = missions.map((mission,index) => 
+        <div key={mission.id}>
+            <li>
+                <span>미션 {index+1}.</span>
+                {mission.name}
+                <span>{mission.datestr}</span>
+                <button onClick={() => handleDelete(mission.id)}>delete</button>
+            </li>
+        </div>
+    );
+
+
+    const handleExplain = (e) => {
+        setExplain(e.target.value);
+        if (e.target.value.length > 500) {
+            return
+        }
+        setExpcount(
+            e.target.value.length
+        );
+    }
+    // 이미지 업로드 input의 onChange
+    const saveImgFile = () => {
+        const file = imgRef.current.files[0];
+        setImgname(file.name)
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setImgFile(reader.result);
+            };
+            console.log("제목:",)
+            console.log(dateToString(startDate), "-", dateToString(endDate));
+            console.log(file);
+        }
+    };
+
+    const dateToString = (date) => {
+        return date.getFullYear() + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0')
+    }
+
+    const handleRadio = (e) => {
+        setCategory(e.target.value);
+    }
+
+    const handleCreate = () => {
+        alert('챌린지 개설 완료!');
+        navigate('/songchallenge');
+        console.log(
+            '제목: ', title,
+            '시작일: ', dateToString(startDate),
+            '마감일: ', dateToString(endDate),
+            '미션',
+            '소개: ', explain,
+            '대표사진: ', imgFile,
+            '카테고리: ', category
+        )
+    }
+
+    return (
+        <Wrapper>
+            <Title>챌린지를 만들어주세요!</Title>
+            <Txt>챌린지 제목</Txt>
+            <div style={{width:"720px"}}>
+            <TitleInput
+                name='title' id='title'
+                value={title}
+                onChange={handleTitle} 
+                maxLength='30'/>
+            <InputCount>{inputcount}/30</InputCount>
+            </div>
+            <Txt>챌린지 기간</Txt>
+            <div style={{display:"flex"}}>
+            <div>
+            <SubTxt>챌린지 시작일</SubTxt>
+            <CustomDatePicker
+                selectedDate={startDate}
+                setSelectedDate={setStartDate}
+                minDate={new Date()}
+            />
+            </div>
+            <Wave>-</Wave>
+            <div>
+            <SubTxt>챌린지 마감일</SubTxt>
+            <CustomDatePicker
+                selectedDate={endDate}
+                setSelectedDate={setEndDate}
+                minDate={startDate}
+            />
+            </div>
+            </div>
+            <Txt>미션 내용 입력</Txt>
+            <MFlex>
+                <MInput 
+                    value={mtxt}
+                    onChange={handleMtxt}
+                    placeholder='미션 추가하기'
+                />
+                <MDatePicker
+                    selectedDate={mdate}
+                    setSelectedDate={setMdate}
+                    minDate={startDate}
+                    maxDate={endDate}/>
+                <MBtn onClick={handleClick}>추가하기</MBtn>
+            </MFlex>
+            <Mul>{missionList}</Mul>
+            <div style={{width:"1020px"}}>
+            <Txt>챌린지 소개</Txt>
+            <PlusTxt>글을 추가해 챌린지를 소개해보세요.</PlusTxt>
+            <ExplainArea
+                maxLength="500"
+                rows="2" 
+                style={{resize: 'none'}}
+                placeholder='예) 매일 1만보 걷고 건강해지기! 오늘부터 같이 해봐요 :)'
+                onChange={handleExplain}/>
+            <InputCount>{expcount}/500</InputCount>
+            </div>
+            <Txt>대표사진</Txt>
+            <PlusTxt>챌린지를 잘 설명할 수 있는 사진으로 선택해주세요. 멋진 썸네일은 인기의 비결!</PlusTxt>
+            <Label for="profileImg">
+                <Box>
+                    <img src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}/>
+                    <PhotoTxt><Photodiv><img src={camera}/>사진 선택</Photodiv></PhotoTxt>
+                </Box>
+            </Label>
+            <FileInput
+            type="file"
+            accept="image/*"
+            id="profileImg"
+            onChange={saveImgFile}
+            ref={imgRef}
+            />
+            <Txt>카테고리 선택</Txt>
+            <PlusTxt>어느 카테고리에 챌린지를 노출할까요?</PlusTxt>
+            <div style={{display:"flex"}}>
+            <RadioBtn
+                type='radio'
+                value="자격증/시험" 
+                id="test"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="test"><LabelBox>자격증/시험</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="공채" 
+                id="gong"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="gong"><LabelBox>공채</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="자유스터디" 
+                id="study"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="study"><LabelBox>자유스터디</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="취미" 
+                id="hobby"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="hobby"><LabelBox>취미</LabelBox></RadioLabel>
+            <RadioBtn
+                type='radio'
+                value="운동" 
+                id="exc"
+                name='category'
+                onChange={handleRadio}
+            /><RadioLabel for="exc"><LabelBox>운동</LabelBox></RadioLabel></div>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+            <AgreeTxt><u>챌린지 개설 약관</u>에 동의하며 챌린지를 개설합니다.</AgreeTxt>
+            <CreateBtn onClick={handleCreate}>챌린지 개설하기</CreateBtn>
+            </div>
+        </Wrapper>
+    );
+};
+
+export default CreatePage;
+
 const Wrapper = styled.div`
     padding: 50px 100px;
     font-family: 'Pretendard';
@@ -174,234 +400,35 @@ const CreateBtn = styled.div`
     cursor: pointer;
     margin-top: 80px;
 `
+const MFlex = styled.div`
+    display: flex;
+`
 const MInput = styled.input`
-    width: 1000px;
+    width: 800px;
     height: 70px;
     border-radius: 10px;
     border: 2px solid #D9D9D9;
     background: #FFF;
     padding: 0 20px;
     font-size: 1.2rem;
+    margin-right: 10px;
     &::placeholder {
         color: #D9D9D9;
         font-size: 1.2rem;
     }
 `
-
-const CreatePage = () => {
-    const navigate = useNavigate();
-    const [title, setTitle] = useState("");
-    const [inputcount, setInputCount] = useState(0);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const [missions, setMissions] = useState([]);
-    const [mtxt, setMtxt] = useState("");
-    const [mdate, setMdate] = useState(new Date());
-    const [nextId, setNextId] = useState(1);
-    const [explain, setExplain] = useState("");
-    const [expcount, setExpcount] = useState(0);
-    const [imgname, setImgname] = useState("");
-    const [imgFile, setImgFile] = useState("");
-    const imgRef = useRef();
-    const [category, setCategory] = useState("");
-
-    const handleTitle = (e) => {
-        setTitle(e.target.value);
-        if (e.target.value.length > 30) {
-            return
-          }
-        setInputCount(
-            e.target.value.length
-        );
-    }
-
-    // 미션 추가 관련
-    const handleMtxt = e => setMtxt(e.target.value);
-    const handleClick = () => {
-        const newList = missions.concat({
-            id: nextId,
-            name: mtxt,
-            date: mdate
-        });
-        setNextId(nextId+1);
-        setMissions(newList);
-        setMtxt('');
-        setMdate(new Date());
-        console.log(newList);
-    };
-    const handleDelete = id => {
-        const newList = missions.filter(mission => mission.id !== id);
-        setMissions(newList);
-    };
-    const missionList = missions.map((mission) => 
-        <div key={mission.id}>
-            <li><button onClick={() => handleDelete(mission.id)}>delete</button> {mission.name}</li>
-        </div>
-    );
-
-
-    const handleExplain = (e) => {
-        setExplain(e.target.value);
-        if (e.target.value.length > 500) {
-            return
-        }
-        setExpcount(
-            e.target.value.length
-        );
-    }
-    // 이미지 업로드 input의 onChange
-    const saveImgFile = () => {
-        const file = imgRef.current.files[0];
-        setImgname(file.name)
-        const reader = new FileReader();
-        if (file) {
-            reader.readAsDataURL(file);
-            reader.onloadend = () => {
-                setImgFile(reader.result);
-            };
-            console.log("제목:",)
-            console.log(dateToString(startDate), "-", dateToString(endDate));
-            console.log(file);
-        }
-    };
-
-    const dateToString = (date) => {
-        return date.getFullYear() + (date.getMonth() + 1).toString().padStart(2, '0') + date.getDate().toString().padStart(2, '0')
-    }
-
-    const handleRadio = (e) => {
-        setCategory(e.target.value);
-    }
-
-    const handleCreate = () => {
-        alert('챌린지 개설 완료!');
-        navigate('/songchallenge');
-        console.log(
-            '제목: ', title,
-            '시작일: ', dateToString(startDate),
-            '마감일: ', dateToString(endDate),
-            '미션',
-            '소개: ', explain,
-            '대표사진: ', imgFile,
-            '카테고리: ', category
-        )
-    }
-
-    return (
-        <Wrapper>
-            <Title>챌린지를 만들어주세요!</Title>
-            <Txt>챌린지 제목</Txt>
-            <div style={{width:"720px"}}>
-            <TitleInput
-                name='title' id='title'
-                value={title}
-                onChange={handleTitle} 
-                maxLength='30'/>
-            <InputCount>{inputcount}/30</InputCount>
-            </div>
-            <Txt>챌린지 기간</Txt>
-            <div style={{display:"flex"}}>
-            <div>
-            <SubTxt>챌린지 시작일</SubTxt>
-            <CustomDatePicker
-                selectedDate={startDate}
-                setSelectedDate={setStartDate}
-                minDate={new Date()}
-            />
-            </div>
-            <Wave>-</Wave>
-            <div>
-            <SubTxt>챌린지 마감일</SubTxt>
-            <CustomDatePicker
-                selectedDate={endDate}
-                setSelectedDate={setEndDate}
-                minDate={startDate}
-            />
-            </div>
-            </div>
-            <Txt>미션 내용 입력</Txt>
-            <MInput 
-                value={mtxt}
-                onChange={handleMtxt}
-                placeholder='미션 추가하기'
-            />
-            <MDatePicker
-                selectedDate={mdate}
-                setSelectedDate={setMdate}
-                minDate={startDate}
-                maxDate={endDate}/>
-            <button onClick={handleClick}>add</button>
-            <ul>{missionList}</ul>
-            <div style={{width:"1020px"}}>
-            <Txt>챌린지 소개</Txt>
-            <PlusTxt>글을 추가해 챌린지를 소개해보세요.</PlusTxt>
-            <ExplainArea
-                maxLength="500"
-                rows="2" 
-                style={{resize: 'none'}}
-                placeholder='예) 매일 1만보 걷고 건강해지기! 오늘부터 같이 해봐요 :)'
-                onChange={handleExplain}/>
-            <InputCount>{expcount}/500</InputCount>
-            </div>
-            <Txt>대표사진</Txt>
-            <PlusTxt>챌린지를 잘 설명할 수 있는 사진으로 선택해주세요. 멋진 썸네일은 인기의 비결!</PlusTxt>
-            <Label for="profileImg">
-                <Box>
-                    <img src={imgFile ? imgFile : photo} style={{width:"100%", height:"100%", borderRadius:'10px'}}/>
-                    <PhotoTxt><Photodiv><img src={camera}/>사진 선택</Photodiv></PhotoTxt>
-                </Box>
-            </Label>
-            <FileInput
-            type="file"
-            accept="image/*"
-            id="profileImg"
-            onChange={saveImgFile}
-            ref={imgRef}
-            />
-            <Txt>카테고리 선택</Txt>
-            <PlusTxt>어느 카테고리에 챌린지를 노출할까요?</PlusTxt>
-            <div style={{display:"flex"}}>
-            <RadioBtn
-                type='radio'
-                value="자격증/시험" 
-                id="test"
-                name='category'
-                onChange={handleRadio}
-            /><RadioLabel for="test"><LabelBox>자격증/시험</LabelBox></RadioLabel>
-            <RadioBtn
-                type='radio'
-                value="공채" 
-                id="gong"
-                name='category'
-                onChange={handleRadio}
-            /><RadioLabel for="gong"><LabelBox>공채</LabelBox></RadioLabel>
-            <RadioBtn
-                type='radio'
-                value="자유스터디" 
-                id="study"
-                name='category'
-                onChange={handleRadio}
-            /><RadioLabel for="study"><LabelBox>자유스터디</LabelBox></RadioLabel>
-            <RadioBtn
-                type='radio'
-                value="취미" 
-                id="hobby"
-                name='category'
-                onChange={handleRadio}
-            /><RadioLabel for="hobby"><LabelBox>취미</LabelBox></RadioLabel>
-            <RadioBtn
-                type='radio'
-                value="운동" 
-                id="exc"
-                name='category'
-                onChange={handleRadio}
-            /><RadioLabel for="exc"><LabelBox>운동</LabelBox></RadioLabel></div>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-            <AgreeTxt><u>챌린지 개설 약관</u>에 동의하며 챌린지를 개설합니다.</AgreeTxt>
-            <CreateBtn onClick={handleCreate}>챌린지 개설하기</CreateBtn>
-            </div>
-        </Wrapper>
-    );
-};
-
-export default CreatePage;
+const MBtn = styled.button`
+    width: 160px;
+    height: 70px;
+    border-radius: 10px;
+    background: #000;
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 20px;
+`
+const Mul = styled.ul`
+    list-style:none;
+    padding-left:0px;
+`
