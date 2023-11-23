@@ -24,6 +24,12 @@ const CreatePage = () => {
     const imgRef = useRef();
     const [category, setCategory] = useState("");
 
+    const [istitle, setIstitle] = useState(false);
+    const [isdate, setIsdate] = useState(false);
+    const [ismission, setIsmission] = useState(false);
+    const [isexplain, setIsexplain] = useState(false);
+    const [iscateg, setIscateg] = useState(false);
+
     const handleTitle = (e) => {
         setTitle(e.target.value);
         if (e.target.value.length > 30) {
@@ -56,8 +62,8 @@ const CreatePage = () => {
     const missionList = missions.map((mission,index) => 
         <ListBox key={mission.id}>
             <Mli>
-                <MissionNum>미션 {index+1}.</MissionNum>
-                <MissionDate>{mission.datestr}</MissionDate>
+                <MissionNum>미션 {index+1}</MissionNum>
+                <MissionDate> {mission.datestr}</MissionDate>
                 {mission.name}
                 <DelBtn onClick={() => handleDelete(mission.id)}>삭제</DelBtn>
             </Mli>
@@ -99,17 +105,22 @@ const CreatePage = () => {
     }
 
     const handleCreate = () => {
-        alert('챌린지 개설 완료!');
-        navigate('/songchallenge');
-        console.log(
-            '제목: ', title,
-            '시작일: ', dateToString(startDate),
-            '마감일: ', dateToString(endDate),
-            '미션',
-            '소개: ', explain,
-            '대표사진: ', imgFile,
-            '카테고리: ', category
-        )
+        if (inputcount > 0 && startDate !== endDate && missions.length > 0 && expcount > 0 && category !== "") {
+            alert('챌린지 개설 완료!');
+            navigate('/songchallenge');
+            console.log(
+                '제목: ', title,
+                '시작일: ', dateToString(startDate),
+                '마감일: ', dateToString(endDate),
+                '미션',
+                '소개: ', explain,
+                '대표사진: ', imgFile,
+                '카테고리: ', category
+            )
+        }
+        else {
+            alert('아직 입력하지 않은 부분이 있어요!');
+        }
     }
 
     return (
@@ -465,12 +476,12 @@ const ListBox = styled.div`
     width: 850px;
     color: #262626;
     height: 70px;
+    margin-bottom: 10px;
 `
 const Mli = styled.li`
     font-weight: 600;
     font-size: 1.2rem;
     line-height: 70px;
-    margin-bottom: 10px;
     padding-left: 30px;
     padding-right: 30px;
 `
