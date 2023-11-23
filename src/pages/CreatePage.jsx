@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CustomDatePicker from '../components/DatePicker';
+import MDatePicker from '../components/MDatePicker';
 import photo from '../images/photo.png';
 import camera from '../images/camera.svg';
 import { useNavigate } from 'react-router-dom';
@@ -10,13 +11,11 @@ const Wrapper = styled.div`
     font-family: 'Pretendard';
 `
 const Title = styled.div`
-    font-family: 'Pretendard';
     font-weight: 900;
     font-size: 2rem;
     margin-bottom: 50px;
 `
 const Txt = styled.div`
-    font-family: 'Pretendard';
     font-weight: 800;
     font-size: 1.7rem;
     margin-bottom: 10px;
@@ -29,7 +28,6 @@ const TitleInput = styled.input`
     outline: 2px solid #D9D9D9;
     border: none;
     background: #FFF;
-    font-family: 'Pretendard';
     font-size: 1.5rem;
     font-weight: 600;
     padding: 5px 10px;
@@ -40,7 +38,6 @@ const TitleInput = styled.input`
 `
 const InputCount = styled.div`
     text-align: right;
-    font-family: 'Pretendard-regular';
     font-size: 1.2rem;
     margin-top: 5px;
     color: #CECECE;
@@ -50,11 +47,9 @@ const SubTxt = styled.div`
     font-weight: 700;
     margin-top: 10px;
     margin-bottom: 10px;
-    font-family: 'Pretendard';
 `
 const PlusTxt = styled.div`
     font-weight: 600;
-    font-family: 'Pretendard-regular';
     font-size: 1.2rem;
     margin-bottom: 20px;
 `
@@ -76,7 +71,6 @@ const ExplainArea = styled.textarea`
     outline: 2px solid #D9D9D9;
     border: none;
     background: #FFF;
-    font-family: 'Pretendard';
     font-size: 1.2rem;
     font-weight: 500;
     padding: 10px;
@@ -147,7 +141,6 @@ const LabelBox = styled.div`
     height: 70px;
     border-radius: 30px;
     background-color: white;
-    font-family: 'Pretendard';
     text-align: center;
     line-height: 70px;
     border: 3px solid #D9D9D9;
@@ -165,7 +158,6 @@ const LabelBox = styled.div`
 const AgreeTxt = styled.div`
     color: #646464;
     font-weight: 700;
-    font-family: 'Pretendard';
     font-size: 1.2rem;
     margin-top: 90px;
 `
@@ -177,11 +169,23 @@ const CreateBtn = styled.div`
     color: white;
     text-align: center;
     line-height: 90px;
-    font-family: 'Pretendard';
     font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     margin-top: 80px;
+`
+const MInput = styled.input`
+    width: 1000px;
+    height: 70px;
+    border-radius: 10px;
+    border: 2px solid #D9D9D9;
+    background: #FFF;
+    padding: 0 20px;
+    font-size: 1.2rem;
+    &::placeholder {
+        color: #D9D9D9;
+        font-size: 1.2rem;
+    }
 `
 
 const CreatePage = () => {
@@ -190,6 +194,10 @@ const CreatePage = () => {
     const [inputcount, setInputCount] = useState(0);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const [missions, setMissions] = useState([]);
+    const [mtxt, setMtxt] = useState("");
+    const [mdate, setMdate] = useState(new Date());
+    const [nextId, setNextId] = useState(1);
     const [explain, setExplain] = useState("");
     const [expcount, setExpcount] = useState(0);
     const [imgname, setImgname] = useState("");
@@ -206,6 +214,32 @@ const CreatePage = () => {
             e.target.value.length
         );
     }
+
+    // 미션 추가 관련
+    const handleMtxt = e => setMtxt(e.target.value);
+    const handleClick = () => {
+        const newList = missions.concat({
+            id: nextId,
+            name: mtxt,
+            date: mdate
+        });
+        setNextId(nextId+1);
+        setMissions(newList);
+        setMtxt('');
+        setMdate(new Date());
+        console.log(newList);
+    };
+    const handleDelete = id => {
+        const newList = missions.filter(mission => mission.id !== id);
+        setMissions(newList);
+    };
+    const missionList = missions.map((mission) => 
+        <div key={mission.id}>
+            <li><button onClick={() => handleDelete(mission.id)}>delete</button> {mission.name}</li>
+        </div>
+    );
+
+
     const handleExplain = (e) => {
         setExplain(e.target.value);
         if (e.target.value.length > 500) {
@@ -286,7 +320,18 @@ const CreatePage = () => {
             </div>
             </div>
             <Txt>미션 내용 입력</Txt>
-
+            <MInput 
+                value={mtxt}
+                onChange={handleMtxt}
+                placeholder='미션 추가하기'
+            />
+            <MDatePicker
+                selectedDate={mdate}
+                setSelectedDate={setMdate}
+                minDate={startDate}
+                maxDate={endDate}/>
+            <button onClick={handleClick}>add</button>
+            <ul>{missionList}</ul>
             <div style={{width:"1020px"}}>
             <Txt>챌린지 소개</Txt>
             <PlusTxt>글을 추가해 챌린지를 소개해보세요.</PlusTxt>
