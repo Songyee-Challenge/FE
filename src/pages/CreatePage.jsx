@@ -5,6 +5,7 @@ import MDatePicker from '../components/MDatePicker';
 import photo from '../images/photo.png';
 import camera from '../images/camera.svg';
 import { useNavigate } from 'react-router-dom';
+import '../style/Radio.css';
 
 const CreatePage = () => {
     const navigate = useNavigate();
@@ -193,35 +194,35 @@ const CreatePage = () => {
                 id="test"
                 name='category'
                 onChange={handleRadio}
-            /><RadioLabel for="test"><LabelBox>자격증/시험</LabelBox></RadioLabel>
+            /><RadioLabel for="test">자격증/시험</RadioLabel>
             <RadioBtn
                 type='radio'
                 value="공채" 
                 id="gong"
                 name='category'
                 onChange={handleRadio}
-            /><RadioLabel for="gong"><LabelBox>공채</LabelBox></RadioLabel>
+            /><RadioLabel for="gong">공채</RadioLabel>
             <RadioBtn
                 type='radio'
                 value="자유스터디" 
                 id="study"
                 name='category'
                 onChange={handleRadio}
-            /><RadioLabel for="study"><LabelBox>자유스터디</LabelBox></RadioLabel>
+            /><RadioLabel for="study">자유스터디</RadioLabel>
             <RadioBtn
                 type='radio'
                 value="취미" 
                 id="hobby"
                 name='category'
                 onChange={handleRadio}
-            /><RadioLabel for="hobby"><LabelBox>취미</LabelBox></RadioLabel>
+            /><RadioLabel for="hobby">취미</RadioLabel>
             <RadioBtn
                 type='radio'
                 value="운동" 
                 id="exc"
                 name='category'
                 onChange={handleRadio}
-            /><RadioLabel for="exc"><LabelBox>운동</LabelBox></RadioLabel></div>
+            /><RadioLabel for="exc">운동</RadioLabel></div>
             <div style={{display:"flex", justifyContent:"space-between"}}>
             <AgreeTxt><u>챌린지 개설 약관</u>에 동의하며 챌린지를 개설합니다.</AgreeTxt>
             <CreateBtn onClick={handleCreate}>챌린지 개설하기</CreateBtn>
@@ -361,8 +362,6 @@ const RadioBtn = styled.input`
 const RadioLabel = styled.label`
     margin-right: 20px;
     cursor: pointer;
-`
-const LabelBox = styled.div`
     width: 150px;
     height: 70px;
     border-radius: 30px;
@@ -378,9 +377,32 @@ const LabelBox = styled.div`
         background: #000;
         color: white;
         border: 3px solid #000;
-        
+    }
+    &:checked {
+        background: #000;
+        color: white;
+        border: 3px solid #000;
     }
 `
+// const LabelBox = styled.div`
+//     width: 150px;
+//     height: 70px;
+//     border-radius: 30px;
+//     background-color: white;
+//     text-align: center;
+//     line-height: 70px;
+//     border: 3px solid #D9D9D9;
+//     font-weight: 600;
+//     font-size: 1.2rem;
+//     cursor: pointer;
+
+//     &:hover {
+//         background: #000;
+//         color: white;
+//         border: 3px solid #000;
+        
+//     }
+// `
 const AgreeTxt = styled.div`
     color: #646464;
     font-weight: 700;
