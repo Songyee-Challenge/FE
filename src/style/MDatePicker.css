@@ -6,6 +6,7 @@
     border: 2px solid #D9D9D9;
     background-color: #FFF;
     background-size: 97%;
+    cursor: pointer;
 }
 .mdatepicker-input:hover {
     background-image: url( "../images/calendar.svg" );

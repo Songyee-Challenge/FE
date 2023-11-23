@@ -53,14 +53,14 @@ const CreatePage = () => {
         setMissions(newList);
     };
     const missionList = missions.map((mission,index) => 
-        <div key={mission.id}>
-            <li>
-                <span>미션 {index+1}.</span>
+        <ListBox key={mission.id}>
+            <Mli>
+                <MissionNum>미션 {index+1}.</MissionNum>
+                <MissionDate>{mission.datestr}</MissionDate>
                 {mission.name}
-                <span>{mission.datestr}</span>
-                <button onClick={() => handleDelete(mission.id)}>delete</button>
-            </li>
-        </div>
+                <DelBtn onClick={() => handleDelete(mission.id)}>삭제</DelBtn>
+            </Mli>
+        </ListBox>
     );
 
 
@@ -436,4 +436,47 @@ const MBtn = styled.button`
 const Mul = styled.ul`
     list-style:none;
     padding-left:0px;
+`
+const ListBox = styled.div`
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    width: 850px;
+    color: #262626;
+    height: 70px;
+`
+const Mli = styled.li`
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 70px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+`
+const DelBtn = styled.button`
+    float: right;
+    margin-top: 15px;
+    display: flex;
+    width:60px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 3px;
+    padding-left: 15px;
+    font-size: 1rem;
+    &:hover {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+`
+const MissionDate = styled.span`
+    margin-left: 20px;
+    margin-right: 20px;
+`
+const MissionNum = styled.span`
 `
