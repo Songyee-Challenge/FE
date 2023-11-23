@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import MenuBox from '../components/MenuBox';
 import mymission from "../images/mymission.png";
@@ -82,6 +82,22 @@ let populardummy = [
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const [onGoingList, setOnGoingList] = useState([]);
+    const [hotList, setHotList] = useState([]);
+
+    // const getOngoing = () => {
+    //     axios.get('http://localhost:8000/api/v1/main/recruiting')
+    //     .then(response => {
+    //         console.log(response);
+    //         setOngoingList(response.data);
+    //         console.log(onGoingList);
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     getOngoing;
+    // }, []);
+
     return (
         <Wrapper>
             <MenuBox/>
