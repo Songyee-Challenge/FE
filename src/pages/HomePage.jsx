@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import MenuBox from '../components/MenuBox';
 import mymission from "../images/mymission.png";
@@ -82,13 +82,29 @@ let populardummy = [
 
 const HomePage = () => {
     const navigate = useNavigate();
+    const [onGoingList, setOnGoingList] = useState([]);
+    const [hotList, setHotList] = useState([]);
+
+    // const getOngoing = () => {
+    //     axios.get('http://localhost:8000/api/v1/main/recruiting')
+    //     .then(response => {
+    //         console.log(response);
+    //         setOngoingList(response.data);
+    //         console.log(onGoingList);
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     getOngoing;
+    // }, []);
+
     return (
         <Wrapper>
             <MenuBox/>
             <CategoryLine>
                 <CategoryTxt>모집 중인 챌린지</CategoryTxt>
                 <Line/>
-                <MoreBtn onClick={() => {navigate('/home/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
+                <MoreBtn onClick={() => {navigate('/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
             </CategoryLine>
             <CardContainer>
                 {ongoingdummy && ongoingdummy.map(challenge => (

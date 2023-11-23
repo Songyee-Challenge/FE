@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import RegInput from '../components/RegInput';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Wrapper = styled.div`
     text-align: center;
@@ -63,6 +64,20 @@ const LoginPage = () => {
     const onChangePw = (e) => {
         setPw(e.target.value);
     }
+
+    const handleLogin = () => {
+        // axios.post('http://localhost:8000/api/v1/user/signin', {
+        //     email: email,
+        //     password: pw
+        // })
+        // .then(response => {
+        //     console.log(response);
+        //     alert('로그인 성공!');
+        // })
+        // .catch(error => {
+        //     console.log('Error login: ', error);
+        // })
+    }
  
     return (
         <Wrapper>
@@ -71,18 +86,20 @@ const LoginPage = () => {
                 <Line/>
                 <RegInput
                     marginbottom="15px"
+                    inputwidth="577px"
                     name="email"
                     type="email"
                     placeholder='이메일'
                     value={email}
                     onChange={onChangeEmail}/>
                 <RegInput
+                    inputwidth="577px"
                     name="password"
                     type="password"
                     placeholder='비밀번호'
                     value={pw}
                     onChange={onChangePw}/>
-                <LoginBtn>로그인</LoginBtn>
+                <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
                 <RegBtn onClick={() => {
                     navigate('/signup')
                 }}>간편 회원가입하기</RegBtn>

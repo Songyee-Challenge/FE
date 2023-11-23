@@ -7,12 +7,12 @@ const StyledInput = styled.input`
     /* &:focus {
         outline: 2px solid #42AF53;
     } */
-    width: ${props => props.width};
+    width: ${props => props.inputwidth};
     height: 46px;
     padding: 0 10px 0 10px;
 `
 const Label = styled.div`
-    width: ${props => props.width};
+    width: ${props => props.labelwidth};
     height: 46px;
     cursor: pointer;
     border-radius: 2px;
@@ -25,15 +25,15 @@ const Label = styled.div`
 `
 
 const RegInput = (props) => {
-    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width, marginbottom } = props;
+    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width, inputwidth, marginbottom } = props;
     const [focus, setFocus] = useState(false);
     const handleFocus = () => {
         setFocus(!focus);
     }
     return (
-        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} width={width} marginbottom={marginbottom}>
+        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} labelwidth={width} marginbottom={marginbottom}>
         <StyledInput type={type} defaultValue={defaultValue} name={name} value={value} onChange={onChange} placeholder={placeholder} patter={pattern}
-         onFocus={handleFocus} onBlur={handleFocus}/>
+         onFocus={handleFocus} onBlur={handleFocus} inputwidth={inputwidth}/>
         </Label>
     );
 };
