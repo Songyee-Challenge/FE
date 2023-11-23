@@ -208,7 +208,7 @@ const CreatePage = () => {
     }
     const handleExplain = (e) => {
         setExplain(e.target.value);
-        if (e.target.value.length > 255) {
+        if (e.target.value.length > 500) {
             return
         }
         setExpcount(
@@ -286,16 +286,17 @@ const CreatePage = () => {
             </div>
             </div>
             <Txt>미션 내용 입력</Txt>
+
             <div style={{width:"1020px"}}>
             <Txt>챌린지 소개</Txt>
             <PlusTxt>글을 추가해 챌린지를 소개해보세요.</PlusTxt>
             <ExplainArea
-                maxLength="255"
+                maxLength="500"
                 rows="2" 
                 style={{resize: 'none'}}
                 placeholder='예) 매일 1만보 걷고 건강해지기! 오늘부터 같이 해봐요 :)'
                 onChange={handleExplain}/>
-            <InputCount>{expcount}/255</InputCount>
+            <InputCount>{expcount}/500</InputCount>
             </div>
             <Txt>대표사진</Txt>
             <PlusTxt>챌린지를 잘 설명할 수 있는 사진으로 선택해주세요. 멋진 썸네일은 인기의 비결!</PlusTxt>
