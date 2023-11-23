@@ -407,7 +407,8 @@ const MInput = styled.input`
     width: 800px;
     height: 70px;
     border-radius: 10px;
-    border: 2px solid #D9D9D9;
+    outline: 2px solid #D9D9D9;
+    border: none;
     background: #FFF;
     padding: 0 20px;
     font-size: 1.2rem;
@@ -415,6 +416,10 @@ const MInput = styled.input`
     &::placeholder {
         color: #D9D9D9;
         font-size: 1.2rem;
+    }
+    &:focus {
+        outline: 2px solid #42AF53;
+        border: none;
     }
 `
 const MBtn = styled.button`
