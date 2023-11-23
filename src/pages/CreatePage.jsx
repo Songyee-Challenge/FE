@@ -6,6 +6,7 @@ import photo from '../images/photo.png';
 import camera from '../images/camera.svg';
 import { useNavigate } from 'react-router-dom';
 import '../style/Radio.css';
+import axios from 'axios';
 
 const CreatePage = () => {
     const navigate = useNavigate();
@@ -106,6 +107,9 @@ const CreatePage = () => {
 
     const handleCreate = () => {
         if (inputcount > 0 && startDate !== endDate && missions.length > 0 && expcount > 0 && category !== "") {
+            // axios.post('http://localhost:8000/api/v1/challenge/post', {
+            //     // 보내주는 거 작성하기
+            // })
             alert('챌린지 개설 완료!');
             navigate('/songchallenge');
             console.log(
