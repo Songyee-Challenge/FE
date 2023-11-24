@@ -94,6 +94,7 @@ const HomePage = () => {
         .then(response => {
             console.log('imminent',response);
             setImminent(response.data);
+            console.log(ACCESS_TOKEN);
         })
     }
     const getHot = () => {

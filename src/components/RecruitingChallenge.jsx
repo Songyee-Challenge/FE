@@ -70,10 +70,12 @@ const RecruitExplain = styled.div`
 const RecruitingChallenge = ({challenges}) => {
     const navigate = useNavigate();
     const [recruit, setRecruit] = useState([]);
+    const [total, setTotal] = useState("0");
     let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
-    const handleImageClick = () => {
-        navigate('/songchallenge/recruitdetail');
+    const handleImageClick = (e) => {
+        //console.log(e.target.id);
+        navigate(`/songchallenge/recruitdetail`, { state: e.target.id });
     };
 
     const getRecruit = () => {
@@ -86,6 +88,7 @@ const RecruitingChallenge = ({challenges}) => {
         .then(response => {
             console.log(response.data);
             setRecruit(response.data);
+            setTotal(response.data.length);
         })
     }
 
@@ -95,18 +98,20 @@ const RecruitingChallenge = ({challenges}) => {
 
     return (
         <RecruitBox>
-            <h3 style={{marginBottom:'70px'}}>총 1개의 챌린지</h3>
+            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
             <RecruitList>
             {recruit && recruit.map(challenge=>(
                 <div>
                 <RecruitImageContainer onClick={handleImageClick}>    
-                    <RecruitImage src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}/>
+                    <RecruitImage id={challenge.challenge_id} src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}/>
                 </RecruitImageContainer>
                 <RecruitInfo>
                     <RecruitTitle>{challenge.challenge_title}</RecruitTitle>
                     <RecruitDetails>
                         <span>기간</span>
-                        <span style={{fontWeight:'bold'}}>{challenge.startDate}&nbsp;~&nbsp;{challenge.endDate}</span></RecruitDetails>
+                        <span style={{fontWeight:'bold'}}>{challenge.startDate.substring(0, 4)}.{challenge.startDate.substring(4, 6)}.{challenge.startDate.substring(6, 8)}
+                        &nbsp;~&nbsp;
+                        {challenge.endDate.substring(0, 4)}.{challenge.endDate.substring(4, 6)}.{challenge.endDate.substring(6, 8)}</span></RecruitDetails>
                     <RecruitExplain>{challenge.explain}</RecruitExplain>
                 </RecruitInfo>
                 </div>

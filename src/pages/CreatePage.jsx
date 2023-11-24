@@ -14,7 +14,7 @@ const CreatePage = () => {
     const [inputcount, setInputCount] = useState(0);
 
     const today = new Date();
-    const [startDate, setStartDate] = useState(new Date(today.setDate(today.getDate() + 1)));
+    const [startDate, setStartDate] = useState(new Date(today.setDate(today.getDate() - 22)));
     const [endDate, setEndDate] = useState(new Date(today));
     const [missions, setMissions] = useState([]);
     const [mtxt, setMtxt] = useState("");
@@ -195,7 +195,8 @@ const CreatePage = () => {
             <CustomDatePicker
                 selectedDate={startDate}
                 setSelectedDate={setStartDate}
-                minDate={new Date()}
+                //minDate={new Date()}
+                minDate={startDate}
             />
             </div>
             <Wave>-</Wave>

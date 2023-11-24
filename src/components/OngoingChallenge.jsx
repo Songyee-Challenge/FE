@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import example from '../images/exampleimage.png';
 import ProgressBar from './ProgressBar';
+import axios from 'axios';
 
 const OngoingBox = styled.div`
     margin-left:3vw;
@@ -11,23 +12,27 @@ const OngoingBox = styled.div`
 `;
 
 const OngoingList = styled.div`
-    width: calc(25% - 2vw);
-    margin: 0.5vw;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 50px;
 `;
 
 const OngoingImageContainer = styled.div`
     border: 2px solid #ffd700;
     border-radius: 30px;
     overflow: hidden;
-    width: 253px;
-    height: 347px;
+    width:253px;
+    height:347px;
     cursor: pointer;
 `;
 
 const OngoingImage = styled.img`
-    width: 100%;
-    height: auto;
+    width:100%;
+    height: 100%;
     border-bottom: 1px solid #ccc;
+    object-fit: cover;
 `;
 
 const OngoingInfo = styled.div`
@@ -50,34 +55,59 @@ const OngoingDetails = styled.p`
 
 const OngoingChallenge = () => {
     const navigate = useNavigate();
+    const [ongoing, setOngoing] = useState([]);
+    const [total, setTotal] = useState("0");
+    let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
-    const handleImageClick = () => {
-        navigate('/songchallenge/ongoingdetail');
+    const handleImageClick = (e) => {
+        console.log(e.target.id);
+        navigate(`/songchallenge/ongoingdetail`, { state: e.target.id });
     };
+
+    const getOngoing = () => {
+        axios.get('/api/v1/challenge/inprocess',  {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${ACCESS_TOKEN}`
+            }
+        })
+        .then(response => {
+            console.log(response.data);
+            setOngoing(response.data);
+            setTotal(response.data.length);
+        })
+    }
+
+    useEffect(() => {
+        getOngoing();
+    }, []);
 
     return (
         <OngoingBox>
-            <h3 style={{marginBottom:'70px'}}>총 1개의 챌린지</h3>
-            {/* {challenges.map(challenge=>()} */}
+            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
             <OngoingList>
+           {ongoing && ongoing.map(challenge => (
+            <div>
                 <OngoingImageContainer onClick={handleImageClick}>
-                    <OngoingImage src={example}/>
+                    <OngoingImage id={challenge.challenge_id} src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}/>
                 </OngoingImageContainer>
             <OngoingInfo>
-                <OngoingTitle>배드민턴 챌린지 (운동)</OngoingTitle>
+                <OngoingTitle>{challenge.challenge_title}</OngoingTitle>
                 <OngoingDetails>
                         <span>기간</span>
-                        <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span>
-                </OngoingDetails>
+                        <span style={{fontWeight:'bold'}}>{challenge.startDate.substring(0, 4)}.{challenge.startDate.substring(4, 6)}.{challenge.startDate.substring(6, 8)}
+                        &nbsp;~&nbsp;
+                        {challenge.endDate.substring(0, 4)}.{challenge.endDate.substring(4, 6)}.{challenge.endDate.substring(6, 8)}</span></OngoingDetails>
                 <OngoingDetails>
                         <span>진행</span>
-                        <span><ProgressBar/></span>
+                        <span><ProgressBar percentage={challenge.progressPercent}/></span>
                 </OngoingDetails>
                 {/* 진행바 기능 추가해야됨! */}
-                <OngoingDetails>몸짱 체력장 되고 싶은 송이 나와라!</OngoingDetails>
+                <OngoingDetails>{challenge.explain}</OngoingDetails>
             </OngoingInfo>
+            </div>
+            ))}
             </OngoingList>
-            {/* ))} */}
         </OngoingBox>
     );
 };
