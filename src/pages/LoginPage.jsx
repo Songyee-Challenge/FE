@@ -66,7 +66,7 @@ const LoginPage = () => {
     }
 
     const handleLogin = () => {
-        axios.post('http://localhost:8080/api/v1/user/signin', {
+        axios.post('/api/v1/user/signin', {
             email: email,
             password: pw,
         })

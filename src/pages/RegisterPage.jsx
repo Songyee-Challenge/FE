@@ -112,7 +112,7 @@ const RegisterPage = () => {
     // 코드 전송
     const sendCode = () => {
         if (isSMemail) {
-            axios.post('http://localhost:8080/api/v1/user/signup/email', {
+            axios.post('/api/v1/user/signup/email', {
                 email: email,
                 password: pw1,
                 name: username,
@@ -135,7 +135,7 @@ const RegisterPage = () => {
     };
     // 코드 검사
     const handleCode = (e) => {
-        axios.post('http://localhost:8080/api/v1/user/signup/email/verify', {
+        axios.post('/api/v1/user/signup/email/verify', {
             verificationCode: code
         })
         .then(response => {
@@ -196,7 +196,7 @@ const RegisterPage = () => {
 
     const handleSubmit = () => {
         if (codecheck) {
-            axios.post('http://localhost:8080/api/v1/user/signup', {
+            axios.post('/api/v1/user/signup', {
                 email: email,
                 password: pw1,
                 name: username,
