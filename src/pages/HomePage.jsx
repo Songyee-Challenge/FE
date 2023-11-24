@@ -102,7 +102,7 @@ const HomePage = () => {
         <Wrapper>
             <MenuBox/>
             <CategoryLine>
-                <CategoryTxt>모집 중인 챌린지</CategoryTxt>
+                <CategoryTxt>마감 임박 챌린지</CategoryTxt>
                 <Line/>
                 <MoreBtn onClick={() => {navigate('/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
             </CategoryLine>
