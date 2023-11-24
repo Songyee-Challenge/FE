@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Wrapper = styled.div`
   padding-top: 37px;
@@ -18,6 +19,7 @@ const ReviewBox = styled.div`
   border-top: 1px solid black;
   width: 75vw;
   display: flex;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`
@@ -32,7 +34,8 @@ const Date = styled.p`
   font-size: 2rem;
   font-weight: 900;
   margin-left: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  padding-top: 20px;
 `;
 
 const TxtDiv = styled.div`
@@ -80,6 +83,27 @@ const Num = styled.p`
 `;
 
 const MyReview = () => {
+  const [reviews, setReviews] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  const getReview = () => {
+    axios
+      .get("/api/v1/mypage/review", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setReviews(response.data);
+      });
+  };
+
+  useEffect(() => {
+    getReview();
+  }, []);
+
   const handleDelete = () => {
     alert("삭제하시겠습니까?");
   };
@@ -92,20 +116,21 @@ const MyReview = () => {
     <Wrapper>
       <Review>챌린지 소감</Review>
       <ReviewBox>
-        <Container>
-          <Date>2023.09.24</Date>
-          <TxtDiv>
-            <Txt>
-              매일 혼자 힘으로 해내기 어려웠던 문제들도 챌린지를 통해서 하니,
-              매일 성장하는 기분이다 훗 아자아자 화이팅~
-            </Txt>
-            <BtnBox>
-              <Btn onClick={handleEdit}>수정</Btn>
-              <Btn onClick={handleDelete}>삭제</Btn>
-            </BtnBox>
-          </TxtDiv>
-        </Container>
-        <Num>총 n개</Num>
+        <div>
+          {reviews.map((review) => (
+            <Container key={review.id}>
+              <Date>{review.writtenDate}</Date>
+              <TxtDiv>
+                <Txt value={review.content}></Txt>
+                <BtnBox>
+                  <Btn onClick={handleEdit}>수정</Btn>
+                  <Btn onClick={handleDelete}>삭제</Btn>
+                </BtnBox>
+              </TxtDiv>
+            </Container>
+          ))}
+        </div>
+        <Num>총 {reviews.length}개</Num>
       </ReviewBox>
     </Wrapper>
   );

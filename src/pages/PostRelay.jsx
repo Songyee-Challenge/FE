@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -55,10 +56,11 @@ const Title = styled.input`
 const Select = styled.select`
   border-radius: 10px;
   font-family: "Pretendard";
+  font-size: 1rem;
   width: 180px;
-  height: 30px;
+  height: 40px;
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 8px;
   cursor: pointer;
 `;
 
@@ -87,13 +89,73 @@ const Count = styled.div`
 const PostRelay = () => {
   const navigate = useNavigate();
   const [inputCount, setInputCount] = useState(0);
+  const [toggleOptions, setToggleOptions] = useState([]);
+  const [selectedChallenge, setSelectedChallenge] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  const getToggle = () => {
+    axios
+      .get("/api/v1/review/mychallenge", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setToggleOptions(response.data);
+        console.log(toggleOptions);
+      });
+  };
+
+  useEffect(() => {
+    getToggle();
+  }, []);
 
   const handleUpload = () => {
-    alert("소감이 업로드되었습니다.");
-    navigate("/diary");
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용을 모두 입력해주세요.");
+      return;
+    }
+
+    axios
+      .post(
+        "/api/v1/review/post",
+        {
+          title: title,
+          myChallenge: selectedChallenge,
+          content: content,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        alert("소감이 업로드되었습니다.");
+        navigate("/diary");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const onInputHandler = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const onChallengeSelect = (e) => {
+    setSelectedChallenge(e.target.value);
+  };
+
+  const onContentChange = (e) => {
+    setContent(e.target.value);
     setInputCount(e.target.value.length);
   };
 
@@ -106,17 +168,26 @@ const PostRelay = () => {
       <Box>
         <form>
           <FlexBox>
-            <Title type="text" placeholder="제목을 입력해주세요." />
-            <Select>
+            <Title
+              type="text"
+              placeholder="제목을 입력해주세요."
+              onChange={onInputHandler}
+            />
+            <Select onChange={onChallengeSelect}>
               <option>챌린지 선택</option>
+              {toggleOptions.map((option) => (
+                <option key={option.id} value={option.challenge_title}>
+                  {option.challenge_title}
+                </option>
+              ))}
             </Select>
           </FlexBox>
           <div>
             <Contents
               id="input_contents"
               placeholder="내용을 입력해주세요."
-              maxlength="255"
-              onChange={onInputHandler}
+              maxLength="255"
+              onChange={onContentChange}
             />
             <Count>
               <span>{inputCount}</span>

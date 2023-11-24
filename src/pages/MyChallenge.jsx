@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Mybar from "../components/Mybar";
 import styled from "styled-components";
 import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import MyReview from "./MyReview";
 import MyInfo from "./MyInfo";
 import profile from "../images/profile.png";
 import editprofile from "../images/editprofile.png";
+import axios from "axios";
 
 const Wrapper = styled.div`
   margin-left: 3vw;
@@ -109,6 +110,28 @@ const Num = styled.p`
 
 const MyChallenge = () => {
   const navigate = useNavigate();
+  const [Recruit, setRecruit] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  const getRecruit = () => {
+    axios
+      .get("/api/v1/mypage/challenge/recruiting", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setRecruit(response.data);
+        console.log(Recruit);
+      });
+  };
+
+  useEffect(() => {
+    getRecruit();
+  }, []);
+
   const [isProfileSelected, setIsProfileSelected] = useState(false);
 
   const handleImageUpload = () => {
