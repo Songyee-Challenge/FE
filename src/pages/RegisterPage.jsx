@@ -195,7 +195,7 @@ const RegisterPage = () => {
     }
 
     const handleSubmit = () => {
-        if (codecheck) {
+        //if (codecheck) {
             axios.post('/api/v1/user/signup', {
                 email: email,
                 password: pw1,
@@ -211,9 +211,9 @@ const RegisterPage = () => {
             .catch(error => {
                 console.error('Error handle signup: ', error);
             });
-        } else {
-            alert("코드 인증에 실패했습니다.");
-        }
+        // } else {
+        //     alert("코드 인증에 실패했습니다.");
+        // }
     }
 
 

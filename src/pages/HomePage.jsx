@@ -35,20 +35,20 @@ const MoreBtn = styled.div`
 `;
 const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: 253px 253px 253px 253px;
+  grid-template-columns: 280px 280px 280px 280px;
   justify-content: space-between;
   width: 70vw;
-  margin-left: 150px;
+  margin-left: 70px;
   margin-bottom: 50px;
 `;
 const ImgBox = styled.div`
   border: 4px solid #ffe27c;
   border-radius: 30px;
-  width: 180px;
+  width: 220px;
   height: 240px;
   overflow: hidden;
   cursor: pointer;
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 `;
 const MissionImg = styled.img`
   width: 100%;
@@ -60,24 +60,21 @@ const BtnContainer = styled.div`
   top: 75%;
   right: -20px;
 `;
-
-let ongoingdummy = [
-  { id: 1, src: { mymission } },
-  { id: 2, src: { mymission } },
-  { id: 3, src: { mymission } },
-  { id: 4, src: { mymission } },
-];
-
-let populardummy = [
-  { id: 1, src: { mymission } },
-  { id: 2, src: { mymission } },
-  { id: 3, src: { mymission } },
-  { id: 4, src: { mymission } },
-  { id: 5, src: { mymission } },
-  { id: 6, src: { mymission } },
-  { id: 7, src: { mymission } },
-  { id: 8, src: { mymission } },
-];
+const Title = styled.div`
+  font-family: "Pretendard";
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: black;
+  width: fit-content;
+  margin-bottom: 60px;
+  width: 220px;
+  text-align: left;
+  word-wrap: break-word;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -94,15 +91,27 @@ const HomePage = () => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log("imminent", response);
         setImminent(response.data);
-        console.log(Imminent);
-        console.log(ACCESS_TOKEN);
+      });
+  };
+  const getHot = () => {
+    axios
+      .get("/api/v1/main/hot", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log("hot: ", response);
+        setHotList(response.data);
       });
   };
 
   useEffect(() => {
     getImminent();
+    getHot();
   }, []);
 
   return (
@@ -122,14 +131,18 @@ const HomePage = () => {
       <CardContainer>
         {Imminent &&
           Imminent.map((challenge) => (
-            <ImgBox key={challenge.id}>
-              <MissionImg
-                src={challenge.picture}
-                onClick={() => {
-                  navigate("/home");
-                }}
-              />
-            </ImgBox>
+            <div>
+              <ImgBox key={challenge.challenge_id}>
+                <MissionImg
+                  referrerPolicy="no-referrer"
+                  src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}
+                  onClick={() => {
+                    navigate("/home");
+                  }}
+                />
+              </ImgBox>
+              <Title>{challenge.challenge_title}</Title>
+            </div>
           ))}
       </CardContainer>
       <BtnContainer>
@@ -148,16 +161,20 @@ const HomePage = () => {
         <Line style={{ width: "65vw" }} />
       </CategoryLine>
       <CardContainer>
-        {populardummy &&
-          populardummy.map((challenge) => (
-            <ImgBox>
-              <MissionImg
-                src={mymission}
-                onClick={() => {
-                  navigate("/home");
-                }}
-              />
-            </ImgBox>
+        {hotList &&
+          hotList.map((challenge) => (
+            <div>
+              <ImgBox>
+                <MissionImg
+                  referrerPolicy="no-referrer"
+                  src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}
+                  onClick={() => {
+                    navigate("/home");
+                  }}
+                />
+              </ImgBox>
+              <Title>{challenge.challenge_title}</Title>
+            </div>
           ))}
       </CardContainer>
     </Wrapper>
