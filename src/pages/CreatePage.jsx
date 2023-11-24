@@ -12,8 +12,10 @@ const CreatePage = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+
+    const today = new Date();
+    const [startDate, setStartDate] = useState(new Date(today.setDate(today.getDate() + 1)));
+    const [endDate, setEndDate] = useState(new Date(today));
     const [missions, setMissions] = useState([]);
     const [mtxt, setMtxt] = useState("");
     const [mdate, setMdate] = useState(new Date());
@@ -22,6 +24,7 @@ const CreatePage = () => {
     const [expcount, setExpcount] = useState(0);
     const [imgname, setImgname] = useState("");
     const [imgFile, setImgFile] = useState("");
+    const [realfile, setRealFile] = useState([]);
     const imgRef = useRef();
     const [category, setCategory] = useState("");
 
@@ -30,6 +33,8 @@ const CreatePage = () => {
     const [ismission, setIsmission] = useState(false);
     const [isexplain, setIsexplain] = useState(false);
     const [iscateg, setIscateg] = useState(false);
+
+    let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -45,10 +50,8 @@ const CreatePage = () => {
     const handleMtxt = e => setMtxt(e.target.value);
     const handleClick = () => {
         const newList = missions.concat({
-            id: nextId,
-            name: mtxt,
-            date: mdate,
-            datestr: dateToString(mdate)
+            mission: mtxt,
+            missionDate: dateToString(mdate)
         });
         setNextId(nextId+1);
         setMissions(newList);
@@ -64,8 +67,8 @@ const CreatePage = () => {
         <ListBox key={mission.id}>
             <Mli>
                 <MissionNum>미션 {index+1}</MissionNum>
-                <MissionDate> {mission.datestr}</MissionDate>
-                {mission.name}
+                <MissionDate> {mission.missionDate}</MissionDate>
+                {mission.mission}
                 <DelBtn onClick={() => handleDelete(mission.id)}>삭제</DelBtn>
             </Mli>
         </ListBox>
@@ -84,6 +87,7 @@ const CreatePage = () => {
     // 이미지 업로드 input의 onChange
     const saveImgFile = () => {
         const file = imgRef.current.files[0];
+        setRealFile(file);
         setImgname(file.name)
         const reader = new FileReader();
         if (file) {
@@ -91,8 +95,6 @@ const CreatePage = () => {
             reader.onloadend = () => {
                 setImgFile(reader.result);
             };
-            console.log("제목:",)
-            console.log(dateToString(startDate), "-", dateToString(endDate));
             console.log(file);
         }
     };
@@ -105,22 +107,69 @@ const CreatePage = () => {
         setCategory(e.target.value);
     }
 
+    // interface Uploader {
+    //     "title": title,
+    //     "startDate": dateToString(startDate),
+    //     "endDate": dateToString(endDate),
+    //     "category": category,
+    //     "explain": explain,
+    //     "missions": missions
+    //   };
+
     const handleCreate = () => {
+        const formData = new FormData();
+
+        const value = {
+            "title": title,
+            "startDate": dateToString(startDate),
+            "endDate": dateToString(endDate),
+            "category": category,
+            "explain": explain,
+            "missions": missions
+        }
+        
+        console.log(value);
+
+        const blob = new Blob([JSON.stringify(value)], {
+            type: 'application/json',
+          });
+        
+        formData.append('dto', blob);
+        formData.append("picture", realfile);
+        // FormData의 key 확인
+        for (let key of formData.keys()) {
+            console.log(key);
+        }
+        
+        // FormData의 value 확인
+        for (let value of formData.values()) {
+            console.log(value);
+        }
+
         if (inputcount > 0 && startDate !== endDate && missions.length > 0 && expcount > 0 && category !== "") {
-            // axios.post('http://localhost:8000/api/v1/challenge/post', {
-            //     // 보내주는 거 작성하기
-            // })
-            alert('챌린지 개설 완료!');
-            navigate('/songchallenge');
-            console.log(
-                '제목: ', title,
-                '시작일: ', dateToString(startDate),
-                '마감일: ', dateToString(endDate),
-                '미션',
-                '소개: ', explain,
-                '대표사진: ', imgFile,
-                '카테고리: ', category
-            )
+            axios.post('/api/v1/challenge/post', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': ` Bearer ${ACCESS_TOKEN}`
+                }
+            })
+            .then(response => {
+                alert('챌린지 개설 완료!');
+                navigate('/songchallenge');
+                console.log(response);
+            })
+            .catch(error => {
+                console.log('Error create: ', error);
+            })
+            // console.log(
+            //     '제목: ', title,
+            //     '시작일: ', dateToString(startDate),
+            //     '마감일: ', dateToString(endDate),
+            //     '미션',
+            //     '소개: ', explain,
+            //     '대표사진: ', imgFile,
+            //     '카테고리: ', category
+            // )
         }
         else {
             alert('아직 입력하지 않은 부분이 있어요!');

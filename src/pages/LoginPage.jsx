@@ -40,7 +40,7 @@ const LoginBtn = styled.div`
     cursor: pointer;
 `
 const RegBtn = styled.div`
-    width: 560px;
+    width: 577px;
     border-radius: 28px;
     border: 1px solid #5D5D5D;
     color: #1D1D1D;
@@ -48,7 +48,7 @@ const RegBtn = styled.div`
     font-weight: 700;
     line-height: 56px;
     margin: auto;
-    margin-top: 65px;
+    margin-top: 30px;
     cursor: pointer;
 `
 
@@ -66,17 +66,20 @@ const LoginPage = () => {
     }
 
     const handleLogin = () => {
-        // axios.post('http://localhost:8000/api/v1/user/signin', {
-        //     email: email,
-        //     password: pw
-        // })
-        // .then(response => {
-        //     console.log(response);
-        //     alert('로그인 성공!');
-        // })
-        // .catch(error => {
-        //     console.log('Error login: ', error);
-        // })
+        axios.post('/api/v1/user/signin', {
+            email: email,
+            password: pw,
+        })
+        .then(response => {
+            console.log(response);
+            localStorage.setItem("accessToken", response.data);
+            //console.log('accessToken: ', localStorage.getItem("accessToken"));
+            alert('로그인 성공!');
+            navigate('/home');
+        })
+        .catch(error => {
+            console.log('Error login: ', error);
+        })
     }
  
     return (

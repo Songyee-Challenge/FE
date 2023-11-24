@@ -112,13 +112,17 @@ const RegisterPage = () => {
     // 코드 전송
     const sendCode = () => {
         if (isSMemail) {
-            // axios.post('http://localhost:8000/api/v1/user/signup/email', {
-            //     email: email
-            // })
-            // .then(response => {
-            //     console.log(response);
+            axios.post('/api/v1/user/signup/email', {
+                email: email,
+                password: pw1,
+                name: username,
+                major: major,
+                student_id: stdID
+            })
+            .then(response => {
+                console.log(response);
             alert("숙명 이메일로 인증코드가 전송되었습니다.");
-            //})
+            })
         } else {
             alert("숙명 이메일 계정을 입력해주세요.")
         }
@@ -131,18 +135,21 @@ const RegisterPage = () => {
     };
     // 코드 검사
     const handleCode = (e) => {
-        // axios.post('http://localhost:8000/api/v1/user/signup/email/verify', {
-        //     code: code
-        // })
-        // .then(response => {
-        //     setCodecheck(true);
-        //     console.log(response);
-            alert("인증이 완료되었습니다.");
-        //})
-        // .catch(error => {
-        //     alert("코드 인증 실패");
-        //     console.error('Error handle code: ', error);
-        // })
+        axios.post('/api/v1/user/signup/email/verify', {
+            verificationCode: code
+        })
+        .then(response => {
+            console.log(response);
+            if (response === 'Verification failed. Please check the code.') {
+                alert("코드 인증에 실패했습니다. 다시 시도해주세요.");
+            } else {
+                setCodecheck(true);
+                alert('인증 완료!');
+            }
+        })
+        .catch(error => {
+            console.error('Error handle code: ', error);
+        })
     };
 
     // 비밀번호1
@@ -188,24 +195,25 @@ const RegisterPage = () => {
     }
 
     const handleSubmit = () => {
-        if (codecheck) {
-            // axios.post('http://localhost:8000/api/v1/user/signup', {
-            //     email: email,
-            //     password: pw1,
-            //     username: username, // 이름
-            //     major: major, // 전공
-            //     stdID: stdID // 학번
-            // })
-            // .then(response => {
+        //if (codecheck) {
+            axios.post('/api/v1/user/signup', {
+                email: email,
+                password: pw1,
+                name: username,
+                major: major, 
+                student_id: stdID 
+            })
+            .then(response => {
                 alert("회원가입이 완료되었습니다.");
                 navigate('/login');
-            // })
-            // .catch(error => {
-            //     console.error('Error handle signup: ', error);
-            // });
-        } else {
-            alert("코드 인증에 실패했습니다.");
-        }
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('Error handle signup: ', error);
+            });
+        // } else {
+        //     alert("코드 인증에 실패했습니다.");
+        // }
     }
 
 

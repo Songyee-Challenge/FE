@@ -101,12 +101,12 @@ const AgreePage = () => {
                 <Label for='check'>모두에게 기분 좋은 챌린지가 되도록 노력해주실거죠?</Label>
             </Checkdiv>
             <Checkdiv>
-                <Checkbox type='checkbox' id='check' onChange={handleCheck2}/>
-                <Label for='check'>챌린지에 참가한다는 건 소중한 시간을 투자하는 거예요. 책임감 있게 관리해주실 거죠?</Label>
+                <Checkbox type='checkbox' id='check2' onChange={handleCheck2}/>
+                <Label for='check2'>챌린지에 참가한다는 건 소중한 시간을 투자하는 거예요. 책임감 있게 관리해주실 거죠?</Label>
             </Checkdiv>
             <Checkdiv>
-                <Checkbox type='checkbox' id='check' onChange={handleCheck3}/>
-                <Label for='check'>공정한 미션 검토를 부탁드릴게요!</Label>
+                <Checkbox type='checkbox' id='check3' onChange={handleCheck3}/>
+                <Label for='check3'>공정한 미션 검토를 부탁드릴게요!</Label>
             </Checkdiv>
             <SubTxt style={{marginLeft:"60px", marginTop:"-45px"}}>유저가 개설한 챌린지의 미션 검토는 송이의숲에서 하지 않아요. 챌린지를 개설한 리더가 직접 검토해요.</SubTxt>
             </div>
