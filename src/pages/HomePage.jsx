@@ -4,6 +4,7 @@ import MenuBox from '../components/MenuBox';
 import mymission from "../images/mymission.png";
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import axios from 'axios';
 
 const Wrapper = styled.div`
     
@@ -82,21 +83,27 @@ let populardummy = [
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const [onGoingList, setOnGoingList] = useState([]);
+    const [Imminent, setImminent] = useState([]);
     const [hotList, setHotList] = useState([]);
+    let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
-    // const getOngoing = () => {
-    //     axios.get('http://localhost:8000/api/v1/main/recruiting')
-    //     .then(response => {
-    //         console.log(response);
-    //         setOngoingList(response.data);
-    //         console.log(onGoingList);
-    //     })
-    // }
+    const getImminent = () => {
+        axios.get('/api/v1/main/recruiting', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${ACCESS_TOKEN}`
+            }
+        })
+        .then(response => {
+            console.log(response);
+            setImminent(response.data);
+            console.log(Imminent);
+        })
+    }
 
-    // useEffect(() => {
-    //     getOngoing;
-    // }, []);
+    useEffect(() => {
+        getImminent();
+    }, []);
 
     return (
         <Wrapper>
@@ -107,8 +114,8 @@ const HomePage = () => {
                 <MoreBtn onClick={() => {navigate('/songchallenge')}}>MORE &nbsp;&nbsp;{'>'}</MoreBtn>
             </CategoryLine>
             <CardContainer>
-                {ongoingdummy && ongoingdummy.map(challenge => (
-                    <ImgBox><MissionImg src={mymission} onClick={() => {navigate('/home')}}/></ImgBox>
+                {Imminent && Imminent.map(challenge => (
+                    <ImgBox key={challenge.id}><MissionImg src={challenge.picture} onClick={() => {navigate('/home')}}/></ImgBox>
                 ))}
             </CardContainer>
             <BtnContainer>

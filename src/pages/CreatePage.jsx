@@ -147,7 +147,7 @@ const CreatePage = () => {
         }
 
         if (inputcount > 0 && startDate !== endDate && missions.length > 0 && expcount > 0 && category !== "") {
-            axios.post('http://localhost:8080/api/v1/challenge/post', formData, {
+            axios.post('/api/v1/challenge/post', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': ` Bearer ${ACCESS_TOKEN}`
