@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import example from '../images/exampleimage.png';
+import axios from 'axios';
 
 const RecruitBox = styled.div`
     margin-left:3vw;
@@ -48,7 +49,19 @@ const RecruitDetails = styled.p`
 `;
 
 const RecruitingChallenge = ({challenges}) => {
+    const [challenges, setChallenges] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/api/v1/challenge/recruiting')
+            .then((response)=>{
+                setChallenges(response.data);
+            })
+            .catch((error) => {
+                console.error('데이터 가져오기 실패:', error);
+            });
+    }, []);
 
     const handleImageClick = () => {
         navigate('/songchallenge/recruitdetail');
@@ -57,20 +70,24 @@ const RecruitingChallenge = ({challenges}) => {
     return (
         <RecruitBox>
             <h3 style={{marginBottom:'70px'}}>총 1개의 챌린지</h3>
-            {/* {challenges.map(challenge=>( */}
-            <RecruitList>
+            {challenges.map(challenge=>(
+            <RecruitList key={challenge.challenge_id}>
                 <RecruitImageContainer onClick={handleImageClick}>    
                     <RecruitImage src={example}/>
+                    {/* <RecruitImage src={challenge.filePath} alt="Challenge Image" /> */}
                 </RecruitImageContainer>
                 <RecruitInfo>
                     <RecruitTitle>KBS 한국어능력시험(자격증/시험)</RecruitTitle>
+                    {/* <RecruitTitle>{challenge.title}</RecruitTitle> */}
                     <RecruitDetails>
                         <span>기간</span>
                         <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span></RecruitDetails>
+                        {/* <sapn style={{ fontWeight: 'bold'}}>{`$challenge.startDate} ~ ${challenge.endDate}`}</sapn> */}
                     <RecruitDetails>한국어문학부 송이의 챌린지!</RecruitDetails>
+                    {/* <RecruitDetails>{challenge.explain}</RecruitDetails> */}
                 </RecruitInfo>
             </RecruitList>
-        {/* ))} */}
+        ))}
         </RecruitBox>
     );
 };
