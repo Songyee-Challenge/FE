@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Wrapper = styled.div`
   padding-top: 37px;
   font-family: "Pretendard";
 `;
 
-const Info = styled.div`
+const InfoTitle = styled.div`
   font-size: 1.4rem;
   border-bottom: 6px solid black;
   font-weight: bolder;
@@ -46,22 +47,46 @@ const Quit = styled.div`
 `;
 
 const MyInfo = () => {
+  const [infoData, setInfoData] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  const getInfo = () => {
+    axios
+      .get("/api/v1/mypage/info", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setInfoData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  useEffect(() => {
+    getInfo();
+  }, []);
+
   return (
     <Wrapper>
-      <Info>내 정보 관리</Info>
+      <InfoTitle>내 정보 관리</InfoTitle>
       <InfoBox>
         <Box>
           <Txt>이름</Txt>
           <Container>
-            <Txt>눈송이</Txt>
+            <Txt>{infoData.name}</Txt>
           </Container>
-          <Txt>휴대폰 번호</Txt>
+          <Txt>학번</Txt>
           <Container>
-            <Txt>01012345678</Txt>
+            <Txt>{infoData.student_id}</Txt>
           </Container>
           <Txt>현재 아이디(이메일)</Txt>
           <Container>
-            <Txt>mutsa1234@sookmyung.ac.kr</Txt>
+            <Txt>{infoData.email}</Txt>
           </Container>
           <Quit>
             <p style={{ color: "grey" }}>

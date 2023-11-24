@@ -146,6 +146,7 @@ const Diary = () => {
       })
       .then((response) => {
         console.log(response);
+        console.log(response.data.review_id);
         setRelayList(response.data);
       })
       .catch((error) => {
@@ -157,21 +158,18 @@ const Diary = () => {
     getDiary();
   }, []);
 
-  const handleLikeClick = (review_id) => {
+  const handleLikeClick = (e) => {
+    console.log(e.target.id);
+    console.log(ACCESS_TOKEN);
     axios
-      .post(`/api/v1/review/like/${review_id}`, {})
+      .post(`/api/v1/review/${e.target.id}/like`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
       .then((response) => {
-        if (response.data.success) {
-          setRelayList((prevList) =>
-            prevList.map((entry) =>
-              entry.review_id === review_id
-                ? { ...entry, isLiked: !entry.isLiked }
-                : entry
-            )
-          );
-        } else {
-          console.error("Failed to like diary entry");
-        }
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error liking diary entry:", error);
@@ -212,8 +210,9 @@ const Diary = () => {
             </Div>
             <LikeDiv>
               <LikeBtn
+                id={diaryEntry.review_id}
                 src={diaryEntry.isLiked ? like_on : like_off}
-                onClick={() => handleLikeClick(diaryEntry.review_id)}
+                onClick={handleLikeClick}
               />
               <Count>{diaryEntry.likeCount}</Count>
             </LikeDiv>
