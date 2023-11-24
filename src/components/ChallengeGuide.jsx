@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import guide from '../images/guide.png'
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 const GuideWrapper = styled.div`
     display: flex;
@@ -51,6 +53,30 @@ const Point = styled.p`
 `;
 
 const ChallengeGuide = () => {
+  const {state} = useLocation();
+    let ACCESS_TOKEN = localStorage.getItem("accessToken");
+    const [challenge, setChallenge] = useState([]);
+
+    const getChallenge = () => {
+        axios.get(`/api/v1/challenge/${state}`,  {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${ACCESS_TOKEN}`
+            }
+        })
+        .then((response) => {
+          console.log('챌린지: ',response.data);
+          setChallenge(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    };
+
+    useEffect(() => {
+        getChallenge();
+    }, []);
+
   return (
     <GuideWrapper>
         <GuideImg src={guide}/>
@@ -58,7 +84,7 @@ const ChallengeGuide = () => {
         <InfoBox>
             <Title>챌린지 가이드</Title>
             <Point>챌린지 개설자</Point>
-            <p>송이마을에 살고있는 &&학과 &&& 눈송이입니다</p>
+            <p>송이마을에 살고있는 {challenge.writer} 눈송이입니다</p>
             {/* '송이마을에 살고있는' {입력값} '눈송이입니다. */}
             <Point>챌린지를 시작하며</Point>
             <p>혼자서는 하기 힘들었던 매일의 습관!
