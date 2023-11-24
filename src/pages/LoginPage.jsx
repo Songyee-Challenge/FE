@@ -66,17 +66,20 @@ const LoginPage = () => {
     }
 
     const handleLogin = () => {
-        // axios.post('http://localhost:8000/api/v1/user/signin', {
-        //     email: email,
-        //     password: pw
-        // })
-        // .then(response => {
-        //     console.log(response);
-        //     alert('로그인 성공!');
-        // })
-        // .catch(error => {
-        //     console.log('Error login: ', error);
-        // })
+        axios.post('http://localhost:8080/api/v1/user/signin', {
+            email: email,
+            password: pw,
+        })
+        .then(response => {
+            console.log(response);
+            localStorage.setItem("accessToken", response.data);
+            //console.log('accessToken: ', localStorage.getItem("accessToken"));
+            alert('로그인 성공!');
+            navigate('/home');
+        })
+        .catch(error => {
+            console.log('Error login: ', error);
+        })
     }
  
     return (
