@@ -40,7 +40,7 @@ const LoginBtn = styled.div`
     cursor: pointer;
 `
 const RegBtn = styled.div`
-    width: 560px;
+    width: 577px;
     border-radius: 28px;
     border: 1px solid #5D5D5D;
     color: #1D1D1D;
@@ -48,7 +48,7 @@ const RegBtn = styled.div`
     font-weight: 700;
     line-height: 56px;
     margin: auto;
-    margin-top: 65px;
+    margin-top: 30px;
     cursor: pointer;
 `
 

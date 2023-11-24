@@ -12,8 +12,10 @@ const CreatePage = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [inputcount, setInputCount] = useState(0);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+
+    const today = new Date();
+    const [startDate, setStartDate] = useState(new Date(today.setDate(today.getDate() + 1)));
+    const [endDate, setEndDate] = useState(new Date(today));
     const [missions, setMissions] = useState([]);
     const [mtxt, setMtxt] = useState("");
     const [mdate, setMdate] = useState(new Date());
@@ -93,8 +95,6 @@ const CreatePage = () => {
             reader.onloadend = () => {
                 setImgFile(reader.result);
             };
-            console.log("제목:",)
-            console.log(dateToString(startDate), "-", dateToString(endDate));
             console.log(file);
         }
     };
