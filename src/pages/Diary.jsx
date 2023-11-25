@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import profile from "../images/profile.png";
 import like_off from "../images/like_off.png";
 import like_on from "../images/like_on.png";
+import axios from "axios";
 
 const Wrapper = styled.div`
   padding-top: 30px;
@@ -47,6 +48,8 @@ const DiaryBox = styled.div`
   border-radius: 10px;
   height: 250px;
   background-color: #f2f2f2;
+  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const FlexBox = styled.div`
@@ -93,11 +96,11 @@ const Date = styled.p`
 const Title = styled.p`
   font-size: 1.3rem;
   font-weight: bolder;
-  margin-top: 3px;
+  margin-top: 5px;
 `;
 
 const SubTitle = styled.p`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bolder;
   margin-top: -15px;
 `;
@@ -130,9 +133,47 @@ const Contents = styled.p`
 const Diary = () => {
   const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
+  const [relayList, setRelayList] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
-  const handleLikeClick = () => {
-    setIsLiked((prev) => !prev);
+  const getDiary = () => {
+    axios
+      .get("/api/v1/review/all", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.review_id);
+        setRelayList(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  useEffect(() => {
+    getDiary();
+  }, []);
+
+  const handleLikeClick = (e) => {
+    console.log(e.target.id);
+    console.log(ACCESS_TOKEN);
+    axios
+      .post(`/api/v1/review/${e.target.id}/like`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error liking diary entry:", error);
+      });
   };
 
   return (
@@ -153,29 +194,32 @@ const Diary = () => {
         진심이 담긴 송이들의 소감이 모여 아름다운 물결을 이룹니다.
       </Sub>
 
-      <DiaryBox>
-        <FlexBox>
-          <ImgContainer>
-            <ProfileImg src={profile} />
-          </ImgContainer>
-          <Div>
-            <Name>눈송이</Name>
-            <Date>2023.10.21</Date>
-          </Div>
-          <Div>
-            <Title>왕복 1번도 겨우 할까말까 하던 내가 3번을 연속으로!</Title>
-            <SubTitle>수영 챌린지 (운동)</SubTitle>
-          </Div>
-          <LikeDiv>
-            <LikeBtn
-              src={isLiked ? like_on : like_off}
-              onClick={handleLikeClick}
-            />
-            <Count>10</Count>
-          </LikeDiv>
-        </FlexBox>
-        <Contents>내용</Contents>
-      </DiaryBox>
+      {relayList.map((diaryEntry) => (
+        <DiaryBox key={diaryEntry.review_id}>
+          <FlexBox>
+            <ImgContainer>
+              <ProfileImg src={profile} />
+            </ImgContainer>
+            <Div>
+              <Name>{diaryEntry.writer}</Name>
+              <Date>{diaryEntry.createdDate}</Date>
+            </Div>
+            <Div>
+              <Title>{diaryEntry.title}</Title>
+              <SubTitle>{diaryEntry.myChallenge}</SubTitle>
+            </Div>
+            <LikeDiv>
+              <LikeBtn
+                id={diaryEntry.review_id}
+                src={diaryEntry.isLiked ? like_on : like_off}
+                onClick={handleLikeClick}
+              />
+              <Count>{diaryEntry.likeCount}</Count>
+            </LikeDiv>
+          </FlexBox>
+          <Contents>{diaryEntry.content}</Contents>
+        </DiaryBox>
+      ))}
     </Wrapper>
   );
 };

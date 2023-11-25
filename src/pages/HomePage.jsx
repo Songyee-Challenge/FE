@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import MenuBox from '../components/MenuBox';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import MenuBox from "../components/MenuBox";
 import mymission from "../images/mymission.png";
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import Button from "../components/Button";
+import axios from "axios";
 
-const Wrapper = styled.div`
-    
-`
+const Wrapper = styled.div``;
 const CategoryLine = styled.div`
-    display: flex;
-    margin: 30px 60px;
-`
+  display: flex;
+  margin: 30px 60px;
+`;
 const CategoryTxt = styled.div`
-    font-family: 'Dongle-regular';
-    font-size: 2.5rem;
-    line-height: 70px;
-    margin-right: 20px;
-    font-weight: 500;
-`
+  font-family: "Dongle-regular";
+  font-size: 2.5rem;
+  line-height: 70px;
+  margin-right: 20px;
+  font-weight: 500;
+`;
 const Line = styled.div`
-    background: #000;
-    height:4px;
-    border:0;
-    width: 60vw;
-    margin-top: 33px;
-`
+  background: #000;
+  height: 4px;
+  border: 0;
+  width: 60vw;
+  margin-top: 33px;
+`;
 const MoreBtn = styled.div`
-    font-family: 'Dongle-regular';
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 2.5rem;
-    line-height: 70px;
-    margin-left: 20px;
-`
+  font-family: "Dongle-regular";
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 2.5rem;
+  line-height: 70px;
+  margin-left: 20px;
+`;
 const CardContainer = styled.div`
   display: grid;
   grid-template-columns: 280px 280px 280px 280px;
@@ -58,6 +56,7 @@ const MissionImg = styled.img`
   object-fit: cover;
 `;
 const BtnContainer = styled.div`
+
     position: fixed;
     top: 75%;
     right: -20px;
@@ -79,10 +78,11 @@ const Title = styled.div`
 `
 
 const HomePage = () => {
-    const navigate = useNavigate();
-    const [Imminent, setImminent] = useState([]);
-    const [hotList, setHotList] = useState([]);
-    let ACCESS_TOKEN = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  const [Imminent, setImminent] = useState([]);
+  const [hotList, setHotList] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
 
     const getImminent = () => {
         axios.get('/api/v1/main/recruiting', {
@@ -94,6 +94,7 @@ const HomePage = () => {
         .then(response => {
             console.log('imminent',response);
             setImminent(response.data);
+            console.log(ACCESS_TOKEN);
         })
     }
     const getHot = () => {

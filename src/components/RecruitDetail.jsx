@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import example from '../images/exampleimage.png';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  margin-top: 70px;
+  margin-top: 20px;
   margin-left: 50px;
   font-family: 'Pretendard';
 `;
@@ -16,12 +18,21 @@ const ContentWrapper = styled.div`
   display: flex;
 `;
 
-const ChallengeImg = styled.img`
+const ChDiv = styled.div`
+  border: 2px solid #ffd700;
+  border-radius: 30px;
+  overflow: hidden;
   width: 382px;
   height: 466px;
   margin-left: -100px;
   margin-right: 80px;
   margin-top:35px;
+`
+
+const ChallengeImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const TextWrapper = styled.div`
@@ -76,42 +87,86 @@ const Line = styled.hr`
   margin-left: -10px;
   margin-right: 60px;
 `;
+const Explain = styled.p`
+  font-size: 24px;
+  width: 700px;
+  word-break:break-all;
+  white-space: pre-line;
+`
 
 const Challenge = () => {
+  const {state} = useLocation();
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+  const [challenge, setChallenge] = useState([]);
+  const [length, setLength] = useState("");
+
+  const getChallenge = () => {
+    axios.get(`/api/v1/challenge/${state}`,  {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ` Bearer ${ACCESS_TOKEN}`
+      }
+  })
+  .then((response) => {
+    console.log('챌린지: ',response.data);
+    setChallenge(response.data);
+    setLength(response.data.missions.length);
+  })
+  .catch(error => {
+    console.log(error);
+  })
+  }
+
+  useEffect(() => {
+    getChallenge();
+  }, [])
+
+  const handleSubmit = () => {
+    axios.post(`/api/v1/challenge/register/${state}`,{}, {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ` Bearer ${ACCESS_TOKEN}`
+      } 
+    })
+    .then (response => {
+      console.log(response);
+      alert('챌린지 신청 완료');
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
   return (
     <Wrapper>
       <ContentWrapper>
-        <ChallengeImg src={example} />
+        <ChDiv><ChallengeImg src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`} /></ChDiv>
         <TextWrapper>
-          <h2 style={{ fontSize: '36px', fontWeight: 'bold' }}>KBS 한국어능력시험(자격증/시험)</h2>
-          <p style={{ fontSize: '24px' }}>
-            한국어문학부 송이의 챌린지!
-            <br />
-            1~2등급을 목표로 해요. 4주동안 빡세게 진행할 송이들 구합니다!
-            <br />
-            우리 같이 갓생 살아요 &gt;&lt;
-          </p>
+          <h2 style={{ fontSize: '36px', fontWeight: 'bold' }}>{challenge.challenge_title}</h2>
+          <Explain>
+            {challenge.explain}
+          </Explain>
           <Line />
           <ChallengeInfo>
             <InfoItem>
               <InfoLabel>개설자&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-              <div>한국어문학부 박연빈</div>
+              <div>{challenge.writer}</div>
             </InfoItem>
             <InfoItem>
               <InfoLabel>기간&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-              <div>2023.10.30~2023.11.30</div>
+              <div>{challenge.startDate}&nbsp;~&nbsp;{challenge.endDate}</div>
             </InfoItem>
             <InfoItem>
-              <InfoLabel>미션 빈도</InfoLabel>
-              <div>이틀</div>
+              <InfoLabel>미션 개수</InfoLabel>
+              <div>{length} 개</div>
             </InfoItem>
             <InfoItem>
               <InfoLabel>신청 인원</InfoLabel>
-              <div>20명</div>
+              <div>{challenge.participantsNumber} 명</div>
             </InfoItem>
           </ChallengeInfo>
           <Line />
-          <ChallengeBtn>챌린지 도전하기</ChallengeBtn>
+          <ChallengeBtn onClick={handleSubmit}>챌린지 도전하기</ChallengeBtn>
         </TextWrapper>
       </ContentWrapper>
     </Wrapper>
