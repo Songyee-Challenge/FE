@@ -104,8 +104,22 @@ const MyReview = () => {
     getReview();
   }, []);
 
-  const handleDelete = () => {
-    alert("삭제하시겠습니까?");
+  const handleDelete = (id) => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      axios
+        .delete(`/api/v1/mypage/review/delete/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("삭제 실패", error);
+        });
+    }
   };
 
   const handleEdit = () => {
@@ -118,13 +132,13 @@ const MyReview = () => {
       <ReviewBox>
         <div>
           {reviews.map((review) => (
-            <Container key={review.id}>
+            <Container key={review.review_id}>
               <Date>{review.writtenDate}</Date>
               <TxtDiv>
                 <Txt value={review.content}></Txt>
                 <BtnBox>
                   <Btn onClick={handleEdit}>수정</Btn>
-                  <Btn onClick={handleDelete}>삭제</Btn>
+                  <Btn onClick={() => handleDelete(review.review_id)}>삭제</Btn>
                 </BtnBox>
               </TxtDiv>
             </Container>

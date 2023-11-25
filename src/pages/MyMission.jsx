@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import mymission from "../images/mymission.png";
 import checked from "../images/checked.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Wrapper = styled.div`
   padding-top: 15px;
@@ -127,6 +128,30 @@ const Label = styled.label`
 
 const MyMission = () => {
   const navigate = useNavigate();
+  const [missionList, setMissionList] = useState([]);
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
+
+  const getMission = () => {
+    axios
+      .get("/api/v1/mypage/misson", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: ` Bearer ${ACCESS_TOKEN}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setMissionList(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
+  useEffect(() => {
+    getMission();
+  }, []);
+
   return (
     <Wrapper>
       <Mission>
@@ -147,11 +172,12 @@ const MyMission = () => {
                 navigate("/");
               }}
             >
-              <Sub>온라인/오프라인으로 함께 기말고사 공부 도전해봐요</Sub>
-              <Title>기말고사 스터디 챌린지</Title>
+              <Sub>{missionList.explain}</Sub>
+              <Title>{missionList.title}</Title>
             </TitleBox>
             <MissionNum>
-              내가 참여한 미션<Number>3/6</Number>개
+              내가 참여한 미션
+              <Number>{missionList.participantsNumber}/6</Number>개
             </MissionNum>
             <Btn
               onClick={() => {
@@ -162,11 +188,9 @@ const MyMission = () => {
             </Btn>
           </HeadDiv>
           <CheckDiv>
-            <Date>2023.09.21 화</Date>
+            <Date>{missionList.missionDate}</Date>
             <CheckBox type="checkbox" id="mycheck" />
-            <Label for="mycheck">
-              미션 1. 챌린지 첫날, 챌린지를 시작하게 된 계기를 함께 나눠봅시다!
-            </Label>
+            <Label for="mycheck">미션 {missionList.mission}</Label>
           </CheckDiv>
         </ContentBox>
       </MissionBox>
