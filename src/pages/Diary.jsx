@@ -161,15 +161,26 @@ const Diary = () => {
   const handleLikeClick = (e) => {
     console.log(e.target.id);
     console.log(ACCESS_TOKEN);
+    window.location.reload();
     axios
-      .post(`/api/v1/review/${e.target.id}/like`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: ` Bearer ${ACCESS_TOKEN}`,
-        },
-      })
+      .post(
+        `/api/v1/review/${e.target.id}/like`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ` Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      )
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        if (response.data === 1) {
+          isLiked = 1;
+        } else {
+          isLiked = 0;
+        }
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error liking diary entry:", error);
@@ -211,7 +222,7 @@ const Diary = () => {
             <LikeDiv>
               <LikeBtn
                 id={diaryEntry.review_id}
-                src={diaryEntry.isLiked ? like_on : like_off}
+                src={isLiked ? like_on : like_off}
                 onClick={handleLikeClick}
               />
               <Count>{diaryEntry.likeCount}</Count>
