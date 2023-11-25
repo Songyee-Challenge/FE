@@ -84,7 +84,7 @@ const HomePage = () => {
 
   const getImminent = () => {
     axios
-      .get("/api/v1/main/recruiting", {
+      .get("/api/v1/main/imminent", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,

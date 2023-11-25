@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import example from '../images/exampleimage.png';
 import ProgressBar from './ProgressBar';
+import axios from 'axios';
 
 const CompletedBox = styled.div`
     margin-left:3vw;
@@ -11,23 +12,27 @@ const CompletedBox = styled.div`
 `;
 
 const CompletedList = styled.div`
- width: calc(25% - 2vw);
- margin: 0.5vw;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 50px;
 `;
 
 const CompletedImageContainer = styled.div`
-    border : 2px solid #ffd700;
+    border: 2px solid #ffd700;
     border-radius: 30px;
     overflow: hidden;
-    width: 253px;
-    height: 347px;
+    width:253px;
+    height:347px;
     cursor: pointer;
 `;
 
 const CompletedImage = styled.img`
-    width: 100%;
-    height: auto;
+    width:100%;
+    height: 100%;
     border-bottom: 1px solid #ccc;
+    object-fit: cover;
 `;
 
 const CompletedInfo = styled.div`
@@ -51,33 +56,63 @@ const CompletedDetails =styled.p`
 
 const CompletedChallenge = () => {
     const navigate = useNavigate();
+    const [complete, setComplete] = useState([]);
+    const [total, setTotal] = useState("0");
+    let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
-    const handleImageClick = () => {
-        navigate('/songchallenge/completeddetail');
+    const handleImageClick = (e) => {
+        //console.log(e.target.id);
+        navigate(`/songchallenge/completeddetail`, { state: e.target.id });
     };
+
+    const getCompleted = () => {
+        axios.get('/api/v1/challenge/finished',  {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': ` Bearer ${ACCESS_TOKEN}`
+            }
+        })
+        .then(response => {
+            console.log(response.data);
+            setComplete(response.data);
+            setTotal(response.data.length);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+    useEffect(() => {
+        getCompleted();
+    }, []);
 
     return (
         <CompletedBox>
-            <h3 style={{marginBottom:'70px'}}>총 1개의 챌린지</h3>
-            {/* {challenges.map(challenge=>( */}
+            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
             <CompletedList>
+            {complete && complete.map(challenge=>( 
+                <div>
                 <CompletedImageContainer onClick={handleImageClick}>
-                    <CompletedImage src={example}/>
+                    <CompletedImage id={challenge.challenge_id} src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}/>
                 </CompletedImageContainer>
             <CompletedInfo>
-                <CompletedTitle>자바스크립트 챌린지 (자유 스터디)</CompletedTitle>
+                <CompletedTitle>{challenge.challenge_title}</CompletedTitle>
                 <CompletedDetails>
-                        <span>기간</span>
-                        <span style={{fontWeight:'bold'}}>2023.10.16~2023.10.22</span>
+                    <span>기간</span>
+                    <span style={{fontWeight:'bold'}}>{challenge.startDate.substring(0, 4)}.{challenge.startDate.substring(4, 6)}.{challenge.startDate.substring(6, 8)}
+                    &nbsp;~&nbsp;
+                    {challenge.endDate.substring(0, 4)}.{challenge.endDate.substring(4, 6)}.{challenge.endDate.substring(6, 8)}</span>
                 </CompletedDetails>
                 <CompletedDetails>
                         <span>진행</span>
-                        <span><ProgressBar/></span>
+                        <span><ProgressBar percentage={challenge.progressPercent}/></span>
                 </CompletedDetails>
                 {/* 진행바 추가!! */}
-                <CompletedDetails>코딩 천재 되고 싶은 송 어딨나~</CompletedDetails>
+                <CompletedDetails>{challenge.explain}</CompletedDetails>
             </CompletedInfo>
-            </CompletedList>
+            </div>
+        ))}
+        </CompletedList>
         </CompletedBox>
     );
 };
