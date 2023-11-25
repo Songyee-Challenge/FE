@@ -5,6 +5,7 @@ import OngoingChallenge from './OngoingChallenge';
 import CompletedChallenge from './CompletedChallenge';
 import searchicon from '../images/search.png';
 import filter from '../images/filter.png';
+import axios from 'axios';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -78,10 +79,26 @@ const FilterIcon = styled.img`
 
 const TypeBar = ({ onSelectType }) => {
   const [activeComponent, setActiveComponent] = useState('A');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const handleComponentClick = (componentName) => {
     setActiveComponent(componentName);
     onSelectType && onSelectType(componentName);
+  };
+
+  const handleSearch = () => {
+    axios
+      .get('http://localhost:8080/api/vi/challenge/search', {
+        params: {
+          searchWord: searchTerm
+        },
+      })
+      .then((response) => {
+        console.log('검색 결과:', response.data);
+      })
+      .catch((error) => {
+        console.error('검색 실패:', error);
+      });
   };
 
   const renderComponent = () => {
@@ -124,8 +141,12 @@ const TypeBar = ({ onSelectType }) => {
           </CustomButton>
         </div>
         <SearchContainer>
-            <SearchInput type="text" />
-            <SearchIcon src={searchicon} />
+            <SearchInput 
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <SearchIcon src={searchicon} onClick={handleSearch} />
             <FilterIcon src={filter}/>
         </SearchContainer>
       </ButtonContainer>
