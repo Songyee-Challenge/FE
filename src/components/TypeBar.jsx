@@ -79,7 +79,8 @@ const FilterIcon = styled.img`
 
 const TypeBar = ({ onSelectType }) => {
   const [activeComponent, setActiveComponent] = useState('A');
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
+  let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   const handleComponentClick = (componentName) => {
     setActiveComponent(componentName);
@@ -87,11 +88,14 @@ const TypeBar = ({ onSelectType }) => {
   };
 
   const handleSearch = () => {
-    axios
-      .get('http://localhost:8080/api/vi/challenge/search', {
+    axios.get(`/api/v1/challenge/search`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': ` Bearer ${ACCESS_TOKEN}`
+        },
         params: {
           searchWord: searchTerm
-        },
+        }
       })
       .then((response) => {
         console.log('검색 결과:', response.data);
