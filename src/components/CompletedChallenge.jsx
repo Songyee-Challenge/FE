@@ -62,7 +62,8 @@ const CompletedChallenge = () => {
 
     const handleImageClick = (e) => {
         //console.log(e.target.id);
-        navigate(`/songchallenge/completeddetail`, { state: e.target.id });
+        navigate(`/songchallenge/completeddetail`, { state: {state: e.target.id, 
+            start: e.target.parentElement.parentElement.children[1].children[1].children[1].textContent}});
     };
 
     const getCompleted = () => {

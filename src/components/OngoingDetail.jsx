@@ -83,7 +83,7 @@ const OngoingDetail = () => {
   const [length, setLength] = useState("");
 
   const getChallenge = () => {
-    axios.get(`/api/v1/challenge/${state}`,  {
+    axios.get(`/api/v1/challenge/${state.state}`,  {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': ` Bearer ${ACCESS_TOKEN}`
@@ -122,9 +122,7 @@ const OngoingDetail = () => {
                 </InfoItem>
                 <InfoItem>
                 <InfoLabel>기간&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-                <div><span style={{fontWeight:'bold'}}>{startDate}
-                    &nbsp;~&nbsp;
-                    {endDate}</span></div>
+                <div><span style={{fontWeight:'bold'}}>{state.start}</span></div>
                 </InfoItem>
                 <InfoItem>
                 <InfoLabel>미션 개수</InfoLabel>

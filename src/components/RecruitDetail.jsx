@@ -99,9 +99,11 @@ const Challenge = () => {
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
   const [challenge, setChallenge] = useState([]);
   const [length, setLength] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const getChallenge = () => {
-    axios.get(`/api/v1/challenge/${state}`,  {
+    axios.get(`/api/v1/challenge/${state.state}`,  {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': ` Bearer ${ACCESS_TOKEN}`
@@ -111,6 +113,8 @@ const Challenge = () => {
     console.log('챌린지: ',response.data);
     setChallenge(response.data);
     setLength(response.data.missions.length);
+    setStartDate(response.data.startDate.substring(0, 4)+"."+response.data.startDate.substring(4, 6)+"."+response.data.startDate.substring(6, 8));
+    setEndDate(response.data.endDate.substring(0, 4)+"."+response.data.endDate.substring(4, 6)+"."+response.data.endDate.substring(6, 8));
   })
   .catch(error => {
     console.log(error);
@@ -122,7 +126,7 @@ const Challenge = () => {
   }, [])
 
   const handleSubmit = () => {
-    axios.post(`/api/v1/challenge/register/${state}`,{}, {
+    axios.post(`/api/v1/challenge/register/${state.state}`,{}, {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': ` Bearer ${ACCESS_TOKEN}`
@@ -154,7 +158,7 @@ const Challenge = () => {
             </InfoItem>
             <InfoItem>
               <InfoLabel>기간&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-              <div>{challenge.startDate}&nbsp;~&nbsp;{challenge.endDate}</div>
+              <div>{startDate} ~ {endDate}</div>
             </InfoItem>
             <InfoItem>
               <InfoLabel>미션 개수</InfoLabel>

@@ -50,6 +50,7 @@ const CreatePage = () => {
     const handleMtxt = e => setMtxt(e.target.value);
     const handleClick = () => {
         const newList = missions.concat({
+            id:nextId,
             mission: mtxt,
             missionDate: dateToString(mdate)
         });

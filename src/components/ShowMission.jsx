@@ -38,7 +38,7 @@ const ShowMission = () => {
     const [missions, setMissions] = useState([]);
 
     const getChallenge = () => {
-        axios.get(`/api/v1/challenge/${state}`,  {
+        axios.get(`/api/v1/challenge/${state.state}`,  {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': ` Bearer ${ACCESS_TOKEN}`
