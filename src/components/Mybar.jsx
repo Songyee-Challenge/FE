@@ -53,6 +53,14 @@ const Mybar = () => {
       <BarBox>
         <MenuTxt>내 도전들</MenuTxt>
         <Txt
+          isCurrent={location.pathname === "/my"}
+          onClick={() => {
+            navigate("/my");
+          }}
+        >
+          챌린지
+        </Txt>
+        <Txt
           isCurrent={location.pathname === "/my/mission"}
           onClick={() => {
             navigate("/my/mission");

@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   width: 92vw;
   font-family: "Pretendard";
+  padding-bottom: 30px;
 `;
 
 const Relay = styled.div`
@@ -20,7 +21,7 @@ const Relay = styled.div`
 `;
 
 const RelayTxt = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bolder;
 `;
 
@@ -33,6 +34,7 @@ const Btn = styled.button`
   font-size: 1rem;
   margin: auto 0px 10px auto;
   cursor: pointer;
+  font-weight: bolder;
 `;
 
 const Moment = styled.p`
@@ -42,6 +44,7 @@ const Moment = styled.p`
 
 const Sub = styled.p`
   font-size: 1.1rem;
+  margin-bottom: 40px;
 `;
 
 const DiaryBox = styled.div`
@@ -49,7 +52,7 @@ const DiaryBox = styled.div`
   border-radius: 10px;
   height: 250px;
   background-color: #f2f2f2;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 20px;
 `;
 
@@ -87,14 +90,13 @@ const Name = styled.p`
   font-size: 1rem;
   font-weight: bolder;
 `;
-const LikeBtn = styled.div`
-`;
+const LikeBtn = styled.div``;
 const LikeImg = styled.img`
   width: 34px;
   height: 32px;
   margin-top: 15px;
   cursor: pointer;
-`
+`;
 const Date = styled.p`
   margin-top: -10px;
   color: grey;
@@ -174,12 +176,11 @@ const Diary = () => {
         }
       )
       .then((response) => {
-        console.log("like",response);
+        console.log("like", response);
         if (response.data === 1) {
           isLike[e.target.parentElement.id] = true;
           console.log(isLike);
         } else {
-          
         }
         window.location.reload();
       })
@@ -222,8 +223,11 @@ const Diary = () => {
             </Div>
             <LikeDiv>
               <LikeBtn onClick={handleLikeClick} id={diaryEntry.review_id}>
-                {diaryEntry.like === true? <LikeImg src={like_on}/> :
-                <LikeImg src={like_off}/>}
+                {diaryEntry.like === true ? (
+                  <LikeImg src={like_on} />
+                ) : (
+                  <LikeImg src={like_off} />
+                )}
               </LikeBtn>
               <Count>{diaryEntry.likeCount}</Count>
             </LikeDiv>

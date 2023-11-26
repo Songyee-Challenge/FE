@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Wrapper = styled.div`
@@ -18,6 +19,7 @@ const InfoTitle = styled.div`
 const InfoBox = styled.div`
   border-top: 1px solid black;
   width: 75vw;
+  margin-bottom: 50px;
 `;
 
 const Box = styled.div`
@@ -46,8 +48,14 @@ const Quit = styled.div`
   font-size: 1.1rem;
 `;
 
+const DeleteUser = styled.div`
+  font-size: 1.2rem;
+  cursor: pointer;
+`;
+
 const MyInfo = () => {
   const [infoData, setInfoData] = useState([]);
+  const navigate = useNavigate();
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   const getInfo = () => {
@@ -71,6 +79,25 @@ const MyInfo = () => {
     getInfo();
   }, []);
 
+  const handleUserDelete = () => {
+    if (window.confirm("정말 탈퇴하시겠습니까?")) {
+      axios
+        .delete("/api/v1/mypage/delete-user", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        })
+        .then((response) => {
+          navigate("/login");
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("삭제 실패", error);
+        });
+    }
+  };
+
   return (
     <Wrapper>
       <InfoTitle>내 정보 관리</InfoTitle>
@@ -80,11 +107,13 @@ const MyInfo = () => {
           <Container>
             <Txt>{infoData.name}</Txt>
           </Container>
-          <Txt>학번(전공)</Txt>
+          <Txt>전공</Txt>
           <Container>
-            <Txt>
-              {infoData.student_id} ({infoData.major})
-            </Txt>
+            <Txt>{infoData.major}</Txt>
+          </Container>
+          <Txt>학번</Txt>
+          <Container>
+            <Txt>{infoData.student_id}</Txt>
           </Container>
           <Txt>현재 아이디(이메일)</Txt>
           <Container>
@@ -94,7 +123,9 @@ const MyInfo = () => {
             <p style={{ color: "grey" }}>
               더 이상 송이의 숲을 사용하지 않는다면
             </p>
-            <Txt>회원탈퇴 바로가기 &gt;</Txt>
+            <DeleteUser onClick={() => handleUserDelete()}>
+              회원탈퇴 바로하기 {"   >"}
+            </DeleteUser>
           </Quit>
         </Box>
       </InfoBox>

@@ -10,19 +10,12 @@ import editprofile from "../images/editprofile.png";
 import axios from "axios";
 import ProgressBar from "../components/ProgressBar";
 import example from "../images/exampleimage.png";
-import MyRecruit from "../pages/MyRecruit";
-import MyOngoing from "../pages/MyOngoing";
-import MyCompleted from "../pages/MyCompleted";
 
 const Wrapper = styled.div`
-  margin-left: 3vw;
-  padding-top: 10px;
   display: flex;
 `;
 
-const MyBox = styled.div`
-  margin-left: 3vw;
-`;
+const MyBox = styled.div``;
 
 const ForestBox = styled.div`
   margin-top: 5rem;
@@ -102,11 +95,10 @@ const Box = styled.div`
   width: 75vw;
   border-top: 2px solid black;
   margin-bottom: 30px;
-  display: flex;
 `;
 
 const ChallengeBox = styled.div`
-  width: 60vw;
+  width: 35vw;
   font-size: 1.2rem;
   color: grey;
   padding: 1rem 0rem;
@@ -200,15 +192,12 @@ const Num = styled.p`
   margin-top: 20px;
 `;
 
-const MyChallenge = () => {
+const MyCompleted = () => {
   const navigate = useNavigate();
   const [Username, setUsername] = useState([]);
   const [Recruit, setRecruit] = useState([]);
   const [Inprocess, setInprocess] = useState([]);
   const [Finished, setFinished] = useState([]);
-  const [RecruitCount, setRecruitCount] = useState([]);
-  const [InprocessCount, setInprocessCount] = useState([]);
-  const [FinishedCount, setFinishedCount] = useState([]);
   const [total, setTotal] = useState("0");
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
@@ -228,7 +217,7 @@ const MyChallenge = () => {
 
   const getRecruit = () => {
     axios
-      .get("/api/v1/mypage/challenge/recruiting/top2", {
+      .get("/api/v1/mypage/challenge/recruiting", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -237,14 +226,12 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setRecruit(response.data);
-        setRecruitCount(response.data[0]);
-        console.log(RecruitCount);
       });
   };
 
   const getInprocess = () => {
     axios
-      .get("/api/v1/mypage/challenge/inprocess/top2", {
+      .get("/api/v1/mypage/challenge/inprocess", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -253,13 +240,12 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setInprocess(response.data);
-        setInprocessCount(response.data[0]);
       });
   };
 
   const getFinished = () => {
     axios
-      .get("/api/v1/mypage/challenge/finished/top2", {
+      .get("/api/v1/mypage/challenge/finished", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -268,7 +254,6 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setFinished(response.data);
-        setFinishedCount(response.data[0]);
       });
   };
 
@@ -317,7 +302,6 @@ const MyChallenge = () => {
   };
   return (
     <Wrapper>
-      <Mybar />
       <MyBox>
         <Routes>
           <Route
@@ -342,116 +326,9 @@ const MyChallenge = () => {
                   </ForestUser>
                   <ForestTxt>눈송이들과 함께 갓생 라이프 시작해봐!</ForestTxt>
                 </ForestBox>
-
-                <Type>
-                  <p>예정된 챌린지</p>
-                  <Num>총 {RecruitCount.myChallengeCount}개</Num>
-                  <More
-                    onClick={() => {
-                      navigate("/my/recruit");
-                    }}
-                  >
-                    MORE &gt;
-                  </More>
-                </Type>
-                <Box>
-                  {Recruit.map((recruit) => (
-                    <ChallengeBox key={recruit.challenge_id}>
-                      <ChDiv>
-                        <ChallengeImg
-                          src={`http://localhost:8080/api/v1/picture?pictureName=${recruit.picture}`}
-                        />
-                      </ChDiv>
-                      <TextWrapper>
-                        <TitleDiv>
-                          <Title>{recruit.challenge_title}</Title>
-                        </TitleDiv>
-                        <ChallengeInfo>
-                          <InfoItem>
-                            <InfoLabel>
-                              기간: {recruit.startDate.substring(0, 4)}.
-                              {recruit.startDate.substring(4, 6)}.
-                              {recruit.startDate.substring(6, 8)} ~{" "}
-                              {recruit.endDate.substring(0, 4)}.
-                              {recruit.endDate.substring(4, 6)}.
-                              {recruit.endDate.substring(6, 8)}
-                            </InfoLabel>
-                          </InfoItem>
-                          <InfoItem>
-                            <InfoLabel>진행률: </InfoLabel>
-                            <InfoLabel>
-                              <ProgressBar
-                                percentage={recruit.progressPercent}
-                              />
-                            </InfoLabel>
-                          </InfoItem>
-                          <ShowMissionbtn
-                            onClick={handleClickBtn}
-                            id={recruit.challenge_id}
-                          >
-                            챌린지 보러가기
-                          </ShowMissionbtn>
-                        </ChallengeInfo>
-                      </TextWrapper>
-                    </ChallengeBox>
-                  ))}
-                </Box>
-                <Type>
-                  <p>진행 중인 챌린지</p>
-                  <Num>총 {InprocessCount.myChallengeCount}개</Num>
-                  <More
-                    onClick={() => {
-                      navigate("/my/ongoing");
-                    }}
-                  >
-                    MORE &gt;
-                  </More>
-                </Type>
-                <Box>
-                  {Inprocess.map((inprocess) => (
-                    <ChallengeBox key={inprocess.challenge_id}>
-                      <ChDiv>
-                        <ChallengeImg
-                          src={`http://localhost:8080/api/v1/picture?pictureName=${inprocess.picture}`}
-                        />
-                      </ChDiv>
-                      <TextWrapper>
-                        <TitleDiv>
-                          <Title>{inprocess.challenge_title}</Title>
-                        </TitleDiv>
-                        <ChallengeInfo>
-                          <InfoItem>
-                            <InfoLabel>
-                              기간: {inprocess.startDate.substring(0, 4)}.
-                              {inprocess.startDate.substring(4, 6)}.
-                              {inprocess.startDate.substring(6, 8)} ~{" "}
-                              {inprocess.endDate.substring(0, 4)}.
-                              {inprocess.endDate.substring(4, 6)}.
-                              {inprocess.endDate.substring(6, 8)}
-                            </InfoLabel>
-                          </InfoItem>
-                          <InfoItem>
-                            <InfoLabel>진행률: </InfoLabel>
-                            <InfoLabel>
-                              <ProgressBar
-                                percentage={inprocess.progressPercent}
-                              />
-                            </InfoLabel>
-                          </InfoItem>
-                          <ShowMissionbtn
-                            onClick={handleClickBtn}
-                            id={inprocess.challenge_id}
-                          >
-                            챌린지 보러가기
-                          </ShowMissionbtn>
-                        </ChallengeInfo>
-                      </TextWrapper>
-                    </ChallengeBox>
-                  ))}
-                </Box>
                 <Type>
                   <p>종료된 챌린지</p>
-                  <Num>총 {FinishedCount.myChallengeCount}개</Num>
+                  <Num>총 {Finished.length}개</Num>
                   <More
                     onClick={() => {
                       navigate("/my/completed");
@@ -462,44 +339,46 @@ const MyChallenge = () => {
                 </Type>
                 <Box>
                   {Finished.map((finished) => (
-                    <ChallengeBox key={finished.challenge_id}>
-                      <ChDiv>
-                        <ChallengeImg
-                          src={`http://localhost:8080/api/v1/picture?pictureName=${finished.picture}`}
-                        />
-                      </ChDiv>
-                      <TextWrapper>
-                        <TitleDiv>
-                          <Title>{finished.challenge_title}</Title>
-                        </TitleDiv>
-                        <ChallengeInfo>
-                          <InfoItem>
-                            <InfoLabel>
-                              기간: {finished.startDate.substring(0, 4)}.
-                              {finished.startDate.substring(4, 6)}.
-                              {finished.startDate.substring(6, 8)} ~{" "}
-                              {finished.endDate.substring(0, 4)}.
-                              {finished.endDate.substring(4, 6)}.
-                              {finished.endDate.substring(6, 8)}
-                            </InfoLabel>
-                          </InfoItem>
-                          <InfoItem>
-                            <InfoLabel>진행률: </InfoLabel>
-                            <InfoLabel>
-                              <ProgressBar
-                                percentage={finished.progressPercent}
-                              />
-                            </InfoLabel>
-                          </InfoItem>
-                          <ShowMissionbtn
-                            onClick={handleClickBtn}
-                            id={finished.challenge_id}
-                          >
-                            챌린지 보러가기
-                          </ShowMissionbtn>
-                        </ChallengeInfo>
-                      </TextWrapper>
-                    </ChallengeBox>
+                    <div style={{ display: "inline-block" }}>
+                      <ChallengeBox key={finished.challenge_id}>
+                        <ChDiv>
+                          <ChallengeImg
+                            src={`http://localhost:8080/api/v1/picture?pictureName=${finished.picture}`}
+                          />
+                        </ChDiv>
+                        <TextWrapper>
+                          <TitleDiv>
+                            <Title>{finished.challenge_title}</Title>
+                          </TitleDiv>
+                          <ChallengeInfo>
+                            <InfoItem>
+                              <InfoLabel>
+                                기간: {finished.startDate.substring(0, 4)}.
+                                {finished.startDate.substring(4, 6)}.
+                                {finished.startDate.substring(6, 8)} ~{" "}
+                                {finished.endDate.substring(0, 4)}.
+                                {finished.endDate.substring(4, 6)}.
+                                {finished.endDate.substring(6, 8)}
+                              </InfoLabel>
+                            </InfoItem>
+                            <InfoItem>
+                              <InfoLabel>진행률: </InfoLabel>
+                              <InfoLabel>
+                                <ProgressBar
+                                  percentage={finished.progressPercent}
+                                />
+                              </InfoLabel>
+                            </InfoItem>
+                            <ShowMissionbtn
+                              onClick={handleClickBtn}
+                              id={finished.challenge_id}
+                            >
+                              챌린지 보러가기
+                            </ShowMissionbtn>
+                          </ChallengeInfo>
+                        </TextWrapper>
+                      </ChallengeBox>
+                    </div>
                   ))}
                 </Box>
                 <Outlet />
@@ -510,13 +389,10 @@ const MyChallenge = () => {
           <Route path="mission" element={<MyMission />} />
           <Route path="review" element={<MyReview />} />
           <Route path="info" element={<MyInfo />} />
-          <Route path="recruit" element={<MyRecruit />} />
-          <Route path="ongoing" element={<MyOngoing />} />
-          <Route path="completed" element={<MyCompleted />} />
         </Routes>
       </MyBox>
     </Wrapper>
   );
 };
 
-export default MyChallenge;
+export default MyCompleted;

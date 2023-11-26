@@ -11,6 +11,9 @@ import MyChallenge from "./pages/MyChallenge";
 import MyMission from "./pages/MyMission";
 import MyReview from "./pages/MyReview";
 import MyInfo from "./pages/MyInfo";
+import MyRecruit from "./pages/MyRecruit";
+import MyOngoing from "./pages/MyOngoing";
+import MyCompleted from "./pages/MyCompleted";
 import SongChallenge from "./pages/SongChallenge";
 import RecruitDetailPage from "./pages/RecruitDetailPage";
 import OngoingDetailPage from "./pages/OngoingDetailPage";
@@ -58,6 +61,9 @@ function App() {
                 <Route path="/my/mission" element={<MyMission />} />
                 <Route path="/my/review" element={<MyReview />} />
                 <Route path="/my/info" element={<MyInfo />} />
+                <Route path="/my/recruit" element={<MyRecruit />} />
+                <Route path="/my/ongoing" element={<MyOngoing />} />
+                <Route path="/my/completed" element={<MyCompleted />} />
               </Route>
               <Route path="/diary" element={<Diary />}></Route>
               <Route path="/diary/post" element={<PostRelay />} />

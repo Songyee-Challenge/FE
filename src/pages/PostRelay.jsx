@@ -29,6 +29,8 @@ const Btn = styled.button`
   font-size: 1rem;
   margin: auto 0px 10px auto;
   cursor: pointer;
+  font-family: "Pretendard";
+  font-weight: bolder;
 `;
 
 const Box = styled.div`
@@ -57,15 +59,18 @@ const Select = styled.select`
   border-radius: 10px;
   font-family: "Pretendard";
   font-size: 1rem;
-  width: 180px;
-  height: 40px;
+  width: 300px;
+  height: 50px;
   margin-left: 20px;
-  margin-top: 8px;
+  margin-top: 0px;
   cursor: pointer;
+  padding-left: 10px;
 `;
 
 const Contents = styled.textarea`
   border: none;
+  border-radius: 10px;
+  border-radius: 5px;
   outline: none;
   resize: none;
   background-color: #f2f2f2;
