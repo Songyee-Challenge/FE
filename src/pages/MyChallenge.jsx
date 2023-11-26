@@ -99,6 +99,7 @@ const Box = styled.div`
   width: 75vw;
   border-top: 2px solid black;
   margin-bottom: 30px;
+  display: flex;
 `;
 
 const ChallengeBox = styled.div`
@@ -107,6 +108,19 @@ const ChallengeBox = styled.div`
   color: grey;
   padding: 1rem 0rem;
   display: flex;
+`;
+
+const Title = styled.h2`
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const TitleDiv = styled.div`
+  width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 `;
 
 const ChDiv = styled.div`
@@ -171,7 +185,9 @@ const ShowMissionbtn = styled.button`
 `;
 
 const Num = styled.p`
-  margin: 0px 30px 5px auto;
+  margin-top: 20px;
+  padding-top: 6px;
+  margin-left: 20px;
   color: black;
   font-weight: bolder;
   font-family: "Pretendard";
@@ -276,9 +292,18 @@ const MyChallenge = () => {
   };
 
   const handleClickBtn = (e) => {
-    console.log(e.target.parentElement.children[0].children[0].textContent.substring(4));
-    navigate(`/songchallenge/ongoingdetail`, { state: {state: e.target.id, 
-      start:e.target.parentElement.children[0].children[0].textContent.substring(4)}});
+    console.log(
+      e.target.parentElement.children[0].children[0].textContent.substring(4)
+    );
+    navigate(`/songchallenge/ongoingdetail`, {
+      state: {
+        state: e.target.id,
+        start:
+          e.target.parentElement.children[0].children[0].textContent.substring(
+            4
+          ),
+      },
+    });
   };
   return (
     <Wrapper>
@@ -310,6 +335,7 @@ const MyChallenge = () => {
 
                 <Type>
                   <p>예정된 챌린지</p>
+                  <Num>총 {Recruit.length}개</Num>
                   <More
                     onClick={() => {
                       navigate("/songchallenge");
@@ -319,7 +345,6 @@ const MyChallenge = () => {
                   </More>
                 </Type>
                 <Box>
-                  <Num>총 {Recruit.length}개</Num>
                   {Recruit.map((recruit) => (
                     <ChallengeBox key={recruit.challenge_id}>
                       <ChDiv>
@@ -328,13 +353,18 @@ const MyChallenge = () => {
                         />
                       </ChDiv>
                       <TextWrapper>
-                        <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>
-                          {recruit.challenge_title}
-                        </h2>
+                        <TitleDiv>
+                          <Title>{recruit.challenge_title}</Title>
+                        </TitleDiv>
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {recruit.startDate.substring(0,4)}.{recruit.startDate.substring(4,6)}.{recruit.startDate.substring(6,8)} ~ {recruit.endDate.substring(0,4)}.{recruit.endDate.substring(4,6)}.{recruit.endDate.substring(6,8)}
+                              기간: {recruit.startDate.substring(0, 4)}.
+                              {recruit.startDate.substring(4, 6)}.
+                              {recruit.startDate.substring(6, 8)} ~{" "}
+                              {recruit.endDate.substring(0, 4)}.
+                              {recruit.endDate.substring(4, 6)}.
+                              {recruit.endDate.substring(6, 8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -346,7 +376,8 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={handleClickBtn} id={recruit.challenge_id}
+                            onClick={handleClickBtn}
+                            id={recruit.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>
@@ -357,6 +388,7 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>진행 중인 챌린지</p>
+                  <Num>총 {Inprocess.length}개</Num>
                   <More
                     onClick={() => {
                       navigate("/songchallenge");
@@ -366,7 +398,6 @@ const MyChallenge = () => {
                   </More>
                 </Type>
                 <Box>
-                  <Num>총 {Inprocess.length}개</Num>
                   {Inprocess.map((inprocess) => (
                     <ChallengeBox key={inprocess.challenge_id}>
                       <ChDiv>
@@ -375,13 +406,18 @@ const MyChallenge = () => {
                         />
                       </ChDiv>
                       <TextWrapper>
-                        <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>
-                          {inprocess.challenge_title}
-                        </h2>
+                        <TitleDiv>
+                          <Title>{inprocess.challenge_title}</Title>
+                        </TitleDiv>
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {inprocess.startDate.substring(0,4)}.{inprocess.startDate.substring(4,6)}.{inprocess.startDate.substring(6,8)} ~ {inprocess.endDate.substring(0,4)}.{inprocess.endDate.substring(4,6)}.{inprocess.endDate.substring(6,8)}
+                              기간: {inprocess.startDate.substring(0, 4)}.
+                              {inprocess.startDate.substring(4, 6)}.
+                              {inprocess.startDate.substring(6, 8)} ~{" "}
+                              {inprocess.endDate.substring(0, 4)}.
+                              {inprocess.endDate.substring(4, 6)}.
+                              {inprocess.endDate.substring(6, 8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -393,7 +429,8 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={handleClickBtn} id={inprocess.challenge_id}
+                            onClick={handleClickBtn}
+                            id={inprocess.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>
@@ -404,6 +441,7 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>종료된 챌린지</p>
+                  <Num>총 {Finished.length}개</Num>
                   <More
                     onClick={() => {
                       navigate("/songchallenge");
@@ -413,7 +451,6 @@ const MyChallenge = () => {
                   </More>
                 </Type>
                 <Box>
-                  <Num>총 {Finished.length}개</Num>
                   {Finished.map((finished) => (
                     <ChallengeBox key={finished.challenge_id}>
                       <ChDiv>
@@ -422,13 +459,18 @@ const MyChallenge = () => {
                         />
                       </ChDiv>
                       <TextWrapper>
-                        <h2 style={{ fontSize: "20px", fontWeight: "bold" }}>
-                          {finished.challenge_title}
-                        </h2>
+                        <TitleDiv>
+                          <Title>{finished.challenge_title}</Title>
+                        </TitleDiv>
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {finished.startDate.substring(0,4)}.{finished.startDate.substring(4,6)}.{finished.startDate.substring(6,8)} ~ {finished.endDate.substring(0,4)}.{finished.endDate.substring(4,6)}.{finished.endDate.substring(6,8)}
+                              기간: {finished.startDate.substring(0, 4)}.
+                              {finished.startDate.substring(4, 6)}.
+                              {finished.startDate.substring(6, 8)} ~{" "}
+                              {finished.endDate.substring(0, 4)}.
+                              {finished.endDate.substring(4, 6)}.
+                              {finished.endDate.substring(6, 8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -440,7 +482,8 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={handleClickBtn} id={finished.challenge_id}
+                            onClick={handleClickBtn}
+                            id={finished.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>
