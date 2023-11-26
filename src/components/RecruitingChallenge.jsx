@@ -74,8 +74,9 @@ const RecruitingChallenge = ({challenges}) => {
     let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
     const handleImageClick = (e) => {
-        //console.log(e.target.id);
-        navigate(`/songchallenge/recruitdetail`, { state: e.target.id });
+        console.log(e.target.parentElement.parentElement.children[1].children[1].children[1].textContent);
+        navigate(`/songchallenge/recruitdetail`, { state: {state: e.target.id, 
+            start: e.target.parentElement.parentElement.children[1].children[1].children[1].textContent}});
     };
 
     const getRecruit = () => {

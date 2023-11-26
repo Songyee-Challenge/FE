@@ -85,7 +85,7 @@ const CompletedDetail = () => {
   const [length, setLength] = useState("");
 
   const getChallenge = () => {
-    axios.get(`/api/v1/challenge/${state}`,  {
+    axios.get(`/api/v1/challenge/${state.state}`,  {
       headers: {
           'Content-Type': 'application/json',
           'Authorization': ` Bearer ${ACCESS_TOKEN}`
@@ -124,9 +124,7 @@ const CompletedDetail = () => {
                 </InfoItem>
                 <InfoItem>
                 <InfoLabel>기간&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</InfoLabel>
-                <span style={{fontWeight:'bold'}}>{startDate}
-                    &nbsp;~&nbsp;
-                    {endDate}</span>
+                <span style={{fontWeight:'bold'}}>{state.start}</span>
                 </InfoItem>
                 <InfoItem>
                 <InfoLabel>미션 개수</InfoLabel>

@@ -6,6 +6,7 @@ import CompletedDetail from './CompletedDetail';
 import ChallengeGuide from './ChallengeGuide';
 import FullCalendar from './FullCalendar';
 import ShowMission from './ShowMission';
+import { useLocation } from 'react-router-dom';
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -61,6 +62,8 @@ const SeparateLine = styled.hr`
 
 const DetailBar = ({context}) => {
     const [activeComponent, setActiveComponent] = useState('A');
+    const state = useLocation();
+    console.log("bar",state);
 
     const handleComponentClick = (componentName) => {
         setActiveComponent(componentName);
@@ -70,7 +73,7 @@ const DetailBar = ({context}) => {
         switch (activeComponent) {
           case 'A':
             if (context === 'recruiting') {
-              return <RecruitDetail />;
+              return <RecruitDetail value={state.state} start={state.start}/>;
             } else if (context === 'ongoing') {
               // 'ongoing' 컨텍스트에 대한 다른 컴포넌트 렌더링
               return <OngoingDetail />;
