@@ -22,7 +22,7 @@ const CustomButton = styled.button`
   position: relative;
   padding: 0;
   font-family:'Pretendard';
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   color: #000;
   margin-right: 2vw;
@@ -38,6 +38,7 @@ const CustomButton = styled.button`
       left: 0;
       width: 100%;
       height: 4px;
+      border-radius: 50px;
       background-color: #000;
     }
   }

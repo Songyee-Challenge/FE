@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const MenuBoxContainer = styled.div`
@@ -29,14 +30,20 @@ const Menu = styled.div`
 `
 
 const MenuBox = () => {
+    const navigate = useNavigate();
+
+    const handleMenu = (e) => {
+        console.log(e.target.id);
+        navigate(`/category/${e.target.id}`, {state: e.target.id});
+    }
     return (
         <MenuBoxContainer>
                 <Box>
-                    <Menu>자격증/<br/>&nbsp;시험</Menu>
-                    <Menu>공채</Menu>
-                    <Menu>&nbsp;자유<br/>스터디</Menu>
-                    <Menu>취미</Menu>
-                    <Menu>운동</Menu>
+                    <Menu onClick={() => {navigate('/category/test')}}>자격증/<br/>&nbsp;시험</Menu>
+                    <Menu onClick={handleMenu} id="공채">공채</Menu>
+                    <Menu onClick={handleMenu} id="자유스터디">&nbsp;자유<br/>스터디</Menu>
+                    <Menu onClick={handleMenu} id="취미">취미</Menu>
+                    <Menu onClick={handleMenu} id="운동">운동</Menu>
                 </Box>
         </MenuBoxContainer>
     );

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import example from '../images/exampleimage.png';
 import ProgressBar from './ProgressBar';
 import axios from 'axios';
+import Button from './Button';
 
 const CompletedBox = styled.div`
     margin-left:3vw;
@@ -52,6 +53,11 @@ const CompletedDetails =styled.p`
     font-size:1.1rem;
     display: flex;
     justify-content: space-between;
+`;
+const BtnContainer = styled.div`
+  position: fixed;
+  top: 75%;
+  right: -20px;
 `;
 
 const CompletedChallenge = () => {
@@ -114,6 +120,17 @@ const CompletedChallenge = () => {
             </div>
         ))}
         </CompletedList>
+        <BtnContainer>
+        <Button
+          fontSize="2.3rem"
+          title={`챌린지 생성\n \u00A0바로가기`}
+          marginTop="25px"
+          marginLeft="15px"
+          onClick={() => {
+            navigate("/agree");
+          }}
+        />
+      </BtnContainer>
         </CompletedBox>
     );
 };

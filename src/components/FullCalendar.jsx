@@ -19,7 +19,7 @@ const DashBoard = () => {
     const sd = state.state.start.substring(0, 4)+"-"+state.state.start.substring(5, 7)+"-"+state.state.start.substring(8, 10);
     const [ms, setMs] = useState([]);
 
-    console.log(sd);
+    console.log("sd",sd);
 
     const dateClick = (info) => {
         alert(info.dateStr);
