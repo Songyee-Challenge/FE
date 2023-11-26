@@ -66,7 +66,7 @@ const Title = styled.div`
   font-size: 1.2rem;
   color: black;
   width: fit-content;
-  margin-bottom: 60px;
+  margin-bottom: 5px;
   width: 220px;
   text-align: left;
   word-wrap: break-word;
@@ -75,6 +75,19 @@ const Title = styled.div`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 `;
+const Date = styled.div`
+    margin-bottom: 60px;
+    font-family: "Pretendard";
+    font-weight: 600;
+    font-size: 1rem;
+    color: #646464;
+    margin-top: 0.5rem;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 225px;
+`
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -115,8 +128,8 @@ const HomePage = () => {
   }, []);
 
   const handleImageClick = (e) => {
-    console.log(e.target.parentElement.id);
-    navigate(`/songchallenge/recruitdetail`, { state: {state: e.target.parentElement.id}});
+    console.log(e.target.parentElement.parentElement.children[2].textContent);
+    navigate(`/songchallenge/recruitdetail`, { state: {state: e.target.parentElement.id, start: e.target.parentElement.parentElement.children[2].textContent }});
 };
 
   return (
@@ -147,6 +160,7 @@ const HomePage = () => {
                 />
               </ImgBox>
               <Title>{challenge.challenge_title}</Title>
+              <Date>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)}.{challenge.startDate.substring(6,8)} ~ {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</Date>
             </div>
           ))}
       </CardContainer>
@@ -179,6 +193,8 @@ const HomePage = () => {
                 />
               </ImgBox>
               <Title>{challenge.challenge_title}</Title>
+              <Date>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)},{challenge.startDate.substring(6,8)} ~ 
+              {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</Date>
             </div>
           ))}
       </CardContainer>

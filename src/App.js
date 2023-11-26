@@ -19,6 +19,8 @@ import AgreePage from "./pages/AgreePage";
 import CreatePage from "./pages/CreatePage";
 import Diary from "./pages/Diary";
 import PostRelay from "./pages/PostRelay";
+import CategoryPage from "./pages/CategoryPage";
+import TestCategoryPage from "./pages/TestCategoryPage";
 
 function App() {
   const location = useLocation();
@@ -53,7 +55,8 @@ function App() {
                   element={<CompletedDetailPage />}
                 />
               </Route>
-
+              <Route path="/category/:id" element={<CategoryPage/>}/>
+              <Route path="/category/test" element={<TestCategoryPage/>}/>
               <Route path="/my" element={<MyChallenge />}>
                 <Route path="/my/mission" element={<MyMission />} />
                 <Route path="/my/review" element={<MyReview />} />

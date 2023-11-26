@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import example from '../images/exampleimage.png';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Button from './Button';
+import Button from '../components/Button';
 
 const RecruitBox = styled.div`
     margin-left:3vw;
@@ -73,11 +72,28 @@ const BtnContainer = styled.div`
   top: 75%;
   right: -20px;
 `;
+const Title = styled.div`
+    font-family: 'Pretendard';
+    font-weight:bold;
+    font-size: 1.7rem;
+    margin-right: 2vw;
+    margin-top:30px;
+    margin-bottom: 30px;
+`
+const SeparateLine = styled.hr`
+    border: none;
+    border-top: 3px solid #000;
+    margin-right: 3vw;
+    margin-left:0px;
+    margin-top:-10px;
+`;
 
-const RecruitingChallenge = ({challenges}) => {
+const TestCategoryPage = () => {
     const navigate = useNavigate();
     const [recruit, setRecruit] = useState([]);
     const [total, setTotal] = useState("0");
+    const [title, setTitle] = useState("");
+    const state = useLocation();
     let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
     const handleImageClick = (e) => {
@@ -87,7 +103,7 @@ const RecruitingChallenge = ({challenges}) => {
     };
 
     const getRecruit = () => {
-        axios.get('/api/v1/challenge/recruiting',  {
+        axios.get(`/api/v1/main/category?category=자격증/시험`,  {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': ` Bearer ${ACCESS_TOKEN}`
@@ -106,7 +122,9 @@ const RecruitingChallenge = ({challenges}) => {
 
     return (
         <RecruitBox>
-            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
+            <Title>자격증/시험 챌린지</Title>
+            <SeparateLine/>
+            <h3 style={{marginBottom:'50px', float:'right', marginRight:'3vw'}}>총 {total}개의 챌린지</h3>
             <RecruitList>
             {recruit && recruit.map(challenge=>(
                 <div>
@@ -140,4 +158,4 @@ const RecruitingChallenge = ({challenges}) => {
     );
 };
 
-export default RecruitingChallenge;
+export default TestCategoryPage;
