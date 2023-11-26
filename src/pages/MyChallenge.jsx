@@ -8,6 +8,8 @@ import MyInfo from "./MyInfo";
 import profile from "../images/profile.png";
 import editprofile from "../images/editprofile.png";
 import axios from "axios";
+import ProgressBar from "../components/ProgressBar";
+import example from '../images/exampleimage.png';
 
 const Wrapper = styled.div`
   margin-left: 3vw;
@@ -102,15 +104,78 @@ const ChallengeBox = styled.div`
   display: flex;
 `;
 
+const ChDiv = styled.div`
+  border: 2px solid #ffd700;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 149px;
+  height: 173px;
+  margin-left: 30px;
+  margin-right: 80px;
+  margin-top:20px;
+`
+
+const ChallengeImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  font-family:'Pretendard';
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  margin-left: -50px;
+  margin-top: 20px;
+  white-space: nowrap;
+  color:black;
+`;
+
+const ChallengeInfo = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+`;
+
+const InfoItem = styled.div`
+  display: flex;
+//   justify-content: flex-start;
+  margin-bottom: 20px; /* 간격 조절 */
+`;
+
+const InfoLabel = styled.div`
+  margin-right: 30%;
+  white-space: nowrap;
+  // margin-right: auto; /* 라벨과 값 간 간격 조절 */
+`;
+
+const ShowMissionbtn = styled.button`
+  font-family: 'Pretendard';
+  border: 1px solid #000000;
+  background-color: white;
+  color: black;
+  margin-left: 0%;
+  font-weight: bold;
+  width: 280px;
+  height: 35px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
 const Num = styled.p`
   margin: 0px 30px 5px auto;
   color: black;
   font-weight: bolder;
+  font-family:'Pretendard';
 `;
 
 const MyChallenge = () => {
   const navigate = useNavigate();
   const [Recruit, setRecruit] = useState([]);
+  const [total, setTotal] = useState("0");
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   const getRecruit = () => {
@@ -193,8 +258,22 @@ const MyChallenge = () => {
                   </More>
                 </Type>
                 <ChallengeBox>
-                  <p>예정된 챌린지가 없습니다.</p>
-                  <Num>총 n개</Num>
+                  <ChDiv><ChallengeImg src={example} /></ChDiv>
+                  <TextWrapper>
+                    <h2 style={{fontSize:'20px', fontWeight: 'bold'}}>KBS 한국어능력시험</h2>
+                      <ChallengeInfo>
+                          <InfoItem>
+                            <InfoLabel>기간: 2023.10.30~2023.11.30</InfoLabel>
+                          </InfoItem>
+                          <InfoItem>
+                            <InfoLabel>진행률: </InfoLabel>
+                            <InfoLabel style={{marginLeft:'-35'}}><ProgressBar/></InfoLabel>
+                          </InfoItem>
+                          <ShowMissionbtn onClick={()=>navigate("/")}>챌린지 보러가기</ShowMissionbtn>
+                      </ChallengeInfo>
+                  </TextWrapper>
+                  {/* <p>예정된 챌린지가 없습니다.</p> */}
+                  <Num>총 {total}개</Num>
                 </ChallengeBox>
                 <Type>
                   <p>진행 중인 챌린지</p>
@@ -208,7 +287,7 @@ const MyChallenge = () => {
                 </Type>
                 <ChallengeBox>
                   <p>예정된 챌린지가 없습니다.</p>
-                  <Num>총 n개</Num>
+                  <Num>총 {total}개</Num>
                 </ChallengeBox>
                 <Type>
                   <p>종료된 챌린지</p>
@@ -222,7 +301,7 @@ const MyChallenge = () => {
                 </Type>
                 <ChallengeBox>
                   <p>예정된 챌린지가 없습니다.</p>
-                  <Num>총 n개</Num>
+                  <Num>총 {total}개</Num>
                 </ChallengeBox>
                 <Outlet />
               </>
