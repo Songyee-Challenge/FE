@@ -10,6 +10,9 @@ import editprofile from "../images/editprofile.png";
 import axios from "axios";
 import ProgressBar from "../components/ProgressBar";
 import example from "../images/exampleimage.png";
+import MyRecruit from "../pages/MyRecruit";
+import MyOngoing from "../pages/MyOngoing";
+import MyCompleted from "../pages/MyCompleted";
 
 const Wrapper = styled.div`
   margin-left: 3vw;
@@ -203,6 +206,9 @@ const MyChallenge = () => {
   const [Recruit, setRecruit] = useState([]);
   const [Inprocess, setInprocess] = useState([]);
   const [Finished, setFinished] = useState([]);
+  const [RecruitCount, setRecruitCount] = useState([]);
+  const [InprocessCount, setInprocessCount] = useState([]);
+  const [FinishedCount, setFinishedCount] = useState([]);
   const [total, setTotal] = useState("0");
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
@@ -222,7 +228,7 @@ const MyChallenge = () => {
 
   const getRecruit = () => {
     axios
-      .get("/api/v1/mypage/challenge/recruiting", {
+      .get("/api/v1/mypage/challenge/recruiting/top2", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -231,12 +237,14 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setRecruit(response.data);
+        setRecruitCount(response.data[0]);
+        console.log(RecruitCount);
       });
   };
 
   const getInprocess = () => {
     axios
-      .get("/api/v1/mypage/challenge/inprocess", {
+      .get("/api/v1/mypage/challenge/inprocess/top2", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -245,12 +253,13 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setInprocess(response.data);
+        setInprocessCount(response.data[0]);
       });
   };
 
   const getFinished = () => {
     axios
-      .get("/api/v1/mypage/challenge/finished", {
+      .get("/api/v1/mypage/challenge/finished/top2", {
         headers: {
           "Content-Type": "application/json",
           Authorization: ` Bearer ${ACCESS_TOKEN}`,
@@ -259,6 +268,7 @@ const MyChallenge = () => {
       .then((response) => {
         console.log(response);
         setFinished(response.data);
+        setFinishedCount(response.data[0]);
       });
   };
 
@@ -335,10 +345,10 @@ const MyChallenge = () => {
 
                 <Type>
                   <p>예정된 챌린지</p>
-                  <Num>총 {Recruit.length}개</Num>
+                  <Num>총 {RecruitCount.myChallengeCount}개</Num>
                   <More
                     onClick={() => {
-                      navigate("/songchallenge");
+                      navigate("/my/recruit");
                     }}
                   >
                     MORE &gt;
@@ -388,10 +398,10 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>진행 중인 챌린지</p>
-                  <Num>총 {Inprocess.length}개</Num>
+                  <Num>총 {InprocessCount.myChallengeCount}개</Num>
                   <More
                     onClick={() => {
-                      navigate("/songchallenge");
+                      navigate("/my/ongoing");
                     }}
                   >
                     MORE &gt;
@@ -441,10 +451,10 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>종료된 챌린지</p>
-                  <Num>총 {Finished.length}개</Num>
+                  <Num>총 {FinishedCount.myChallengeCount}개</Num>
                   <More
                     onClick={() => {
-                      navigate("/songchallenge");
+                      navigate("/my/completed");
                     }}
                   >
                     MORE &gt;
@@ -500,6 +510,9 @@ const MyChallenge = () => {
           <Route path="mission" element={<MyMission />} />
           <Route path="review" element={<MyReview />} />
           <Route path="info" element={<MyInfo />} />
+          <Route path="recruit" element={<MyRecruit />} />
+          <Route path="ongoing" element={<MyOngoing />} />
+          <Route path="completed" element={<MyCompleted />} />
         </Routes>
       </MyBox>
     </Wrapper>
