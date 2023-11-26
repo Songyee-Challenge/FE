@@ -106,11 +106,11 @@ const CheckDiv = styled.div`
 
 const Date = styled.p`
   white-space: nowrap;
-  margin-top: 22px;
+  margin-top: 11px;
   font-size: 1rem;
   font-weight: 500;
   display: inline-block;
-  width: 80px;
+  width: 100px;
 `;
 
 const CheckBox = styled.input`
@@ -222,6 +222,21 @@ const MyMission = () => {
     });
   };
 
+  const handleClickBtn = (e) => {
+    console.log(
+      e.target.parentElement.children[0].children[0].textContent.substring(4)
+    );
+    navigate(`/songchallenge/ongoingdetail`, {
+      state: {
+        state: e.target.id,
+        start:
+          e.target.parentElement.children[0].children[0].textContent.substring(
+            4
+          ),
+      },
+    });
+  };
+
   return (
     <Wrapper>
       <Mission>
@@ -252,11 +267,7 @@ const MyMission = () => {
                   </Number>
                   개
                 </MissionNum>
-                <Btn
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                >
+                <Btn onClick={handleClickBtn} id={missionList.challenge_id}>
                   참여한 챌린지 바로가기
                 </Btn>
               </HeadDiv>
@@ -270,7 +281,14 @@ const MyMission = () => {
                       postCheck(missionList.challenge_id, mission.mission_id)
                     }
                   />
-                  <Date>{mission.missionDate}</Date>
+                  <Date>
+                    {" "}
+                    <Date>
+                      {mission.missionDate.substring(0, 4)}.
+                      {mission.missionDate.substring(4, 6)}.
+                      {mission.missionDate.substring(6, 8)}
+                    </Date>
+                  </Date>
                   <Label htmlFor={`mycheck-${mission.mission_id}`}>
                     {" "}
                     {mission.mission}
