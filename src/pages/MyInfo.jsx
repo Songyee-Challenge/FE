@@ -80,9 +80,11 @@ const MyInfo = () => {
           <Container>
             <Txt>{infoData.name}</Txt>
           </Container>
-          <Txt>학번</Txt>
+          <Txt>학번(전공)</Txt>
           <Container>
-            <Txt>{infoData.student_id}</Txt>
+            <Txt>
+              {infoData.student_id} ({infoData.major})
+            </Txt>
           </Container>
           <Txt>현재 아이디(이메일)</Txt>
           <Container>

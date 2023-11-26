@@ -22,6 +22,10 @@ const ReviewBox = styled.div`
   margin-bottom: 30px;
 `;
 
+const Box = styled.div`
+  width: 65vw;
+`;
+
 const Container = styled.div`
   border-radius: 10px;
   box-shadow: 0cm 0.1cm 0.05cm 0.05cm #dddddd;
@@ -115,6 +119,7 @@ const MyReview = () => {
         })
         .then((response) => {
           console.log(response);
+          window.location.reload();
         })
         .catch((error) => {
           console.error("삭제 실패", error);
@@ -130,7 +135,7 @@ const MyReview = () => {
     <Wrapper>
       <Review>챌린지 소감</Review>
       <ReviewBox>
-        <div>
+        <Box>
           {reviews.map((review) => (
             <Container key={review.review_id}>
               <Date>{review.writtenDate}</Date>
@@ -143,7 +148,7 @@ const MyReview = () => {
               </TxtDiv>
             </Container>
           ))}
-        </div>
+        </Box>
         <Num>총 {reviews.length}개</Num>
       </ReviewBox>
     </Wrapper>
