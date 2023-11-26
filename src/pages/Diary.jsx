@@ -21,7 +21,7 @@ const Relay = styled.div`
 `;
 
 const RelayTxt = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: bolder;
 `;
 
