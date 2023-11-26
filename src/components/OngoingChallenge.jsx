@@ -61,7 +61,8 @@ const OngoingChallenge = () => {
 
     const handleImageClick = (e) => {
         console.log(e.target.id);
-        navigate(`/songchallenge/ongoingdetail`, { state: e.target.id });
+        navigate(`/songchallenge/ongoingdetail`, { state: {state: e.target.id, 
+            start: e.target.parentElement.parentElement.children[1].children[1].children[1].textContent}});
     };
 
     const getOngoing = () => {

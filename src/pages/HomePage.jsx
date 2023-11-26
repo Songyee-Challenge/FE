@@ -93,7 +93,6 @@ const HomePage = () => {
       .then((response) => {
         console.log("imminent", response);
         setImminent(response.data);
-        console.log(ACCESS_TOKEN);
       });
   };
   const getHot = () => {
@@ -115,6 +114,11 @@ const HomePage = () => {
     getHot();
   }, []);
 
+  const handleImageClick = (e) => {
+    console.log(e.target.parentElement.id);
+    navigate(`/songchallenge/recruitdetail`, { state: {state: e.target.parentElement.id}});
+};
+
   return (
     <Wrapper>
       <MenuBox />
@@ -133,7 +137,7 @@ const HomePage = () => {
         {Imminent &&
           Imminent.map((challenge) => (
             <div>
-              <ImgBox key={challenge.challenge_id}>
+              <ImgBox key={challenge.challenge_id} onClick={handleImageClick} id={challenge.challenge_id}>
                 <MissionImg
                   referrerPolicy="no-referrer"
                   src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}

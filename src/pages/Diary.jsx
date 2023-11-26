@@ -5,6 +5,7 @@ import profile from "../images/profile.png";
 import like_off from "../images/like_off.png";
 import like_on from "../images/like_on.png";
 import axios from "axios";
+import DiaryLike from "../components/DiaryLike";
 
 const Wrapper = styled.div`
   padding-top: 30px;
@@ -86,7 +87,14 @@ const Name = styled.p`
   font-size: 1rem;
   font-weight: bolder;
 `;
-
+const LikeBtn = styled.div`
+`;
+const LikeImg = styled.img`
+  width: 34px;
+  height: 32px;
+  margin-top: 15px;
+  cursor: pointer;
+`
 const Date = styled.p`
   margin-top: -10px;
   color: grey;
@@ -111,13 +119,6 @@ const LikeDiv = styled.div`
   gap: 15px;
 `;
 
-const LikeBtn = styled.img`
-  width: 34px;
-  height: 32px;
-  margin-top: 15px;
-  cursor: pointer;
-`;
-
 const Count = styled.p`
   font-size: 1.4rem;
   font-weight: bold;
@@ -132,8 +133,9 @@ const Contents = styled.p`
 
 const Diary = () => {
   const navigate = useNavigate();
-  const [isLiked, setIsLiked] = useState(false);
+  //const [isLiked, setisLiked] = useState(false);
   const [relayList, setRelayList] = useState([]);
+  const [isLike, setIsLike] = useState([]);
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   const getDiary = () => {
@@ -145,8 +147,8 @@ const Diary = () => {
         },
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.data.review_id);
+        console.log("data", response.data);
+        console.log(response.data.length);
         setRelayList(response.data);
       })
       .catch((error) => {
@@ -159,12 +161,10 @@ const Diary = () => {
   }, []);
 
   const handleLikeClick = (e) => {
-    console.log(e.target.id);
-    console.log(ACCESS_TOKEN);
-    window.location.reload();
+    console.log("target", e.target.parentElement.id);
     axios
       .post(
-        `/api/v1/review/${e.target.id}/like`,
+        `/api/v1/review/${e.target.parentElement.id}/like`,
         {},
         {
           headers: {
@@ -174,11 +174,12 @@ const Diary = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log("like",response);
         if (response.data === 1) {
-          isLiked = 1;
+          isLike[e.target.parentElement.id] = true;
+          console.log(isLike);
         } else {
-          isLiked = 0;
+          
         }
         window.location.reload();
       })
@@ -220,11 +221,10 @@ const Diary = () => {
               <SubTitle>{diaryEntry.myChallenge}</SubTitle>
             </Div>
             <LikeDiv>
-              <LikeBtn
-                id={diaryEntry.review_id}
-                src={isLiked ? like_on : like_off}
-                onClick={handleLikeClick}
-              />
+              <LikeBtn onClick={handleLikeClick} id={diaryEntry.review_id}>
+                {diaryEntry.like === true? <LikeImg src={like_on}/> :
+                <LikeImg src={like_off}/>}
+              </LikeBtn>
               <Count>{diaryEntry.likeCount}</Count>
             </LikeDiv>
           </FlexBox>
