@@ -174,6 +174,7 @@ const MyMission = () => {
   };
 
   const postCheck = (challengeId, missionId) => {
+    missionId = challengeId * 0 + missionId + 1;
     axios
       .post(
         `/api/v1/mypage/mission/${challengeId}/${missionId}`,
@@ -212,11 +213,6 @@ const MyMission = () => {
       },
     });
   };
-
-  useEffect(() => {
-    // 브라우저의 Local Storage에 isChecked 상태를 저장합니다.
-    localStorage.setItem("isChecked", JSON.stringify(isChecked));
-  }, [isChecked]);
 
   return (
     <Wrapper>
@@ -261,12 +257,8 @@ const MyMission = () => {
                 <CheckBox
                   type="checkbox"
                   id={`mycheck-${mission.mission_id}`}
-                  checked={
-                    isChecked[
-                      `${missionList.challenge_id}-${mission.mission_id}`
-                    ]
-                  }
-                  onChange={() =>
+                  checked={mission.complete}
+                  onClick={() =>
                     postCheck(missionList.challenge_id, mission.mission_id)
                   }
                 />
