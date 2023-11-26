@@ -208,11 +208,10 @@ const MyReview = () => {
         })
         .catch((error) => {
           console.error("삭제 실패", error);
+          console.log(id);
         });
     }
   };
-
-  const handleEdit = () => {};
 
   return (
     <Wrapper>
@@ -231,7 +230,10 @@ const MyReview = () => {
                 </Div>
                 <LikeDiv>
                   <Date>{review.createdDate}</Date>
-                  <LikeBtn src={remove}></LikeBtn>
+                  <LikeBtn
+                    src={remove}
+                    onClick={() => handleDelete(review.review_id)}
+                  ></LikeBtn>
 
                   <Count>{review.likeCount}</Count>
                 </LikeDiv>
