@@ -154,7 +154,7 @@ const InfoItem = styled.div`
 const InfoLabel = styled.div`
   margin-right: 30%;
   white-space: nowrap;
-  margin-right: -20px;
+  margin-right: 0px;
 `;
 
 const ShowMissionbtn = styled.button`
@@ -274,6 +274,12 @@ const MyChallenge = () => {
       reader.readAsDataURL(selectedImage);
     }
   };
+
+  const handleClickBtn = (e) => {
+    console.log(e.target.parentElement.children[0].children[0].textContent.substring(4));
+    navigate(`/songchallenge/ongoingdetail`, { state: {state: e.target.id, 
+      start:e.target.parentElement.children[0].children[0].textContent.substring(4)}});
+  };
   return (
     <Wrapper>
       <Mybar />
@@ -328,7 +334,7 @@ const MyChallenge = () => {
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {recruit.startDate}~{recruit.endDate}
+                              기간: {recruit.startDate.substring(0,4)}.{recruit.startDate.substring(4,6)}.{recruit.startDate.substring(6,8)} ~ {recruit.endDate.substring(0,4)}.{recruit.endDate.substring(4,6)}.{recruit.endDate.substring(6,8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -340,7 +346,7 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={() => navigate("/songchallenge")}
+                            onClick={handleClickBtn} id={recruit.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>
@@ -375,7 +381,7 @@ const MyChallenge = () => {
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {inprocess.startDate}~{inprocess.endDate}
+                              기간: {inprocess.startDate.substring(0,4)}.{inprocess.startDate.substring(4,6)}.{inprocess.startDate.substring(6,8)} ~ {inprocess.endDate.substring(0,4)}.{inprocess.endDate.substring(4,6)}.{inprocess.endDate.substring(6,8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -387,7 +393,7 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={() => navigate("/songchallenge")}
+                            onClick={handleClickBtn} id={inprocess.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>
@@ -422,7 +428,7 @@ const MyChallenge = () => {
                         <ChallengeInfo>
                           <InfoItem>
                             <InfoLabel>
-                              기간: {finished.startDate}~{finished.endDate}
+                              기간: {finished.startDate.substring(0,4)}.{finished.startDate.substring(4,6)}.{finished.startDate.substring(6,8)} ~ {finished.endDate.substring(0,4)}.{finished.endDate.substring(4,6)}.{finished.endDate.substring(6,8)}
                             </InfoLabel>
                           </InfoItem>
                           <InfoItem>
@@ -434,7 +440,7 @@ const MyChallenge = () => {
                             </InfoLabel>
                           </InfoItem>
                           <ShowMissionbtn
-                            onClick={() => navigate("/songchallenge")}
+                            onClick={handleClickBtn} id={finished.challenge_id}
                           >
                             챌린지 보러가기
                           </ShowMissionbtn>

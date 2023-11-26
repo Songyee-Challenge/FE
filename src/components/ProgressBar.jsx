@@ -14,7 +14,7 @@ const ProgressBarWrapper = styled.div`
   background-color: #ccc; /* 기본 회색 배경색 */
   position: relative;
   margin-right: 10px; /* 오른쪽 여백 */
-  margin-left:30px;
+  margin-left:12px;
 `;
 
 const ProgressBarFill = styled.div`
@@ -28,7 +28,7 @@ const ProgressBarFill = styled.div`
 const PercentageNumber = styled.span`
   color: #00A7FF; /* 하늘색으로 퍼센트 숫자의 색상 설정 */
   font-weight: bold;
-  margin-left: 5px;
+  margin-left: 3px;
 `;
 
 const ProgressBar = ({ percentage = 0 }) => {
