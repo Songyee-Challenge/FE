@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import like_off from "../images/like_off.png";
+import like_on from "../images/like_on.png";
+import remove from "../images/remove.png";
 import axios from "axios";
 
 const Wrapper = styled.div`
   padding-top: 37px;
   font-family: "Pretendard";
+`;
+
+const BigTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Review = styled.div`
@@ -15,79 +24,127 @@ const Review = styled.div`
   width: 160px;
 `;
 
-const ReviewBox = styled.div`
-  border-top: 1px solid black;
-  width: 75vw;
-  display: flex;
-  margin-bottom: 30px;
-`;
-
-const Box = styled.div`
-  width: 65vw;
-`;
-
-const Container = styled.div`
-  border-radius: 10px;
-  box-shadow: 0cm 0.1cm 0.05cm 0.05cm #dddddd;
-  width: 65vw;
-  margin-top: 60px;
-`;
-
-const Date = styled.p`
-  font-family: "Dongle-regular", sans-serif;
-  font-size: 2rem;
-  font-weight: 900;
-  margin-left: 30px;
-  margin-bottom: 5px;
-  padding-top: 20px;
-`;
-
-const TxtDiv = styled.div`
-  width: 100%;
-  border-top: 0.01cm solid #dddddd;
-  display: flex;
-`;
-
-const Txt = styled.textarea`
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 0px 30px;
-  resize: none;
-  width: 100%;
-  border-top: 0.01cm solid #dddddd;
-  border: none;
-  outline: none;
-  resize: none;
-  font-family: "Pretendard";
-  padding-top: 30px;
-`;
-
-const BtnBox = styled.div`
-  margin: 100px 50px 20px auto;
-  display: flex;
-  gap: 30px;
-`;
-
-const Btn = styled.button`
-  font-size: 1.1rem;
-  border: 2px solid black;
-  background-color: white;
-  width: 75px;
-  height: 45px;
-  font-weight: bolder;
-  cursor: pointer;
-`;
-
 const Num = styled.p`
   font-family: "Dongle-regular", sans-serif;
   font-size: 2rem;
   font-weight: 900;
-  margin: 20px 50px;
+  margin: 0px 50px;
   white-space: nowrap;
+`;
+
+const ReviewBox = styled.div`
+  border-top: 1px solid black;
+  width: 75vw;
+  display: flex;
+  margin-bottom: 50px;
+`;
+
+const Container = styled.div`
+  border-radius: 10px;
+  box-shadow: 0cm 0.5cm 0.5cm 0cm #dddddd;
+  width: 75vw;
+  height: 280px;
+  margin-top: 60px;
+  background-color: #f2f2f2;
+  padding-bottom: 15px;
+`;
+
+const FlexBox = styled.div`
+  display: flex;
+  width: 75vw;
+  height: 90px;
+  min-height: 90px;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-top: 0.01cm solid #dddddd;
+`;
+
+const Div = styled.div`
+  height: 60px;
+  margin: -20px 15px 0;
+`;
+
+const Title = styled.p`
+  font-size: 1.4rem;
+  font-weight: bolder;
+  margin-top: 17px;
+`;
+
+const SubTitle = styled.p`
+  font-size: 1rem;
+  font-weight: bolder;
+  margin-top: -15px;
+`;
+
+const Date = styled.p`
+  font-family: "Dongle-regular", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 10px;
+`;
+
+const LikeDiv = styled.div`
+  display: flex;
+  margin: auto 15px 0px auto;
+  gap: 15px;
+`;
+
+const LikeBtn = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-top: 13px;
+  cursor: pointer;
+`;
+
+const Count = styled.p`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #646464;
+  margin-top: 13px;
+  width: 30px;
+`;
+
+const Contents = styled.p`
+  padding-left: 30px;
+  font-size: 1.2rem;
+`;
+
+const TxtDiv = styled.div`
+  width: 68vw;
+  display: flex;
+  padding: 10px;
+  background-color: #f2f2f2;
+
+  @media (max-width: 750px) {
+    width: 30vw;
+  }
+`;
+
+const BtnBox = styled.div`
+  margin: 105px -50px 0px auto;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+  z-index: 8000;
+`;
+
+const Btn = styled.img`
+  font-size: 1.1rem;
+  font-weight: bolder;
+  border-radius: 3px;
+  width: 75px;
+  height: 50px;
+  cursor: pointer;
+  z-index: 8000;
 `;
 
 const MyReview = () => {
   const [reviews, setReviews] = useState([]);
+  const [isLiked, setIsLiked] = useState([]);
   let ACCESS_TOKEN = localStorage.getItem("accessToken");
 
   const getReview = () => {
@@ -108,6 +165,34 @@ const MyReview = () => {
     getReview();
   }, []);
 
+  const handleLikeClick = (e) => {
+    console.log(e.target.id);
+    console.log(ACCESS_TOKEN);
+    window.location.reload();
+    axios
+      .post(
+        `/api/v1/review/${e.target.id}/like`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ` Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        if (response.data === 1) {
+          setIsLiked(1);
+        } else {
+          setIsLiked(0);
+        }
+      })
+      .catch((error) => {
+        console.error("Error liking diary entry:", error);
+      });
+  };
+
   const handleDelete = (id) => {
     if (window.confirm("삭제하시겠습니까?")) {
       axios
@@ -118,8 +203,8 @@ const MyReview = () => {
           },
         })
         .then((response) => {
-          console.log(response);
           window.location.reload();
+          console.log(response);
         })
         .catch((error) => {
           console.error("삭제 실패", error);
@@ -127,29 +212,36 @@ const MyReview = () => {
     }
   };
 
-  const handleEdit = () => {
-    alert("변경사항이 저장되었습니다.");
-  };
+  const handleEdit = () => {};
 
   return (
     <Wrapper>
-      <Review>챌린지 소감</Review>
+      <BigTitle>
+        <Review>챌린지 소감</Review>
+        <Num>총 {reviews.length}개</Num>
+      </BigTitle>
       <ReviewBox>
-        <Box>
+        <div>
           {reviews.map((review) => (
             <Container key={review.review_id}>
-              <Date>{review.writtenDate}</Date>
-              <TxtDiv>
-                <Txt value={review.content}></Txt>
-                <BtnBox>
-                  <Btn onClick={handleEdit}>수정</Btn>
-                  <Btn onClick={() => handleDelete(review.review_id)}>삭제</Btn>
-                </BtnBox>
-              </TxtDiv>
+              <FlexBox>
+                <Div>
+                  <Title>{review.title}</Title>
+                  <SubTitle>{review.myChallenge}</SubTitle>
+                </Div>
+                <LikeDiv>
+                  <Date>{review.createdDate}</Date>
+                  <LikeBtn src={remove}></LikeBtn>
+
+                  <Count>{review.likeCount}</Count>
+                </LikeDiv>
+              </FlexBox>
+              <Contents>
+                <TxtDiv>{review.content};</TxtDiv>
+              </Contents>
             </Container>
           ))}
-        </Box>
-        <Num>총 {reviews.length}개</Num>
+        </div>
       </ReviewBox>
     </Wrapper>
   );
