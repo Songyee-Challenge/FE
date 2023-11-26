@@ -18,11 +18,16 @@ const Mission = styled.div`
   width: 160px;
 `;
 
-const MissionBox = styled.div`
+const Box = styled.div`
   border-top: 1px solid black;
+  width: 75vw;
+`;
+
+const MissionBox = styled.div`
   width: 75vw;
   display: flex;
   padding: 80px 30px;
+  border-bottom: 1px solid grey;
 `;
 
 const ImgBox = styled.div`
@@ -52,7 +57,11 @@ const HeadDiv = styled.div`
 
 const TitleBox = styled.div`
   cursor: pointer;
-  width: 250px;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
 `;
 
 const Sub = styled.p`
@@ -96,7 +105,6 @@ const CheckDiv = styled.div`
 `;
 
 const Date = styled.p`
-  color: grey;
   white-space: nowrap;
   margin-top: 22px;
   font-size: 1rem;
@@ -106,8 +114,8 @@ const Date = styled.p`
 `;
 
 const CheckBox = styled.input`
-  margin-left: 100px;
   margin-top: 20px;
+  margin-right: 10px;
   cursor: pointer;
   appearance: none;
   width: 1.5rem;
@@ -152,7 +160,6 @@ const MyMission = () => {
           ...missionList,
           missions: missionList.missions.map((mission, missionIndex) => ({
             ...mission,
-            mission_id: missionList.challenge_id * 0 + missionIndex + 1,
           })),
         }));
 
@@ -174,10 +181,9 @@ const MyMission = () => {
   };
 
   const postCheck = (challengeId, missionId) => {
-    missionId = challengeId * 0 + missionId + 1;
     axios
       .post(
-        `/api/v1/mypage/mission/${challengeId}/${missionId}`,
+        `/api/v1/mypage/mission/${missionId}/${challengeId}`,
         {},
         {
           headers: {
@@ -188,6 +194,9 @@ const MyMission = () => {
       )
       .then((response) => {
         console.log(response);
+        console.log(missionId);
+        console.log(challengeId);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error post checkbox data", error);
@@ -199,7 +208,6 @@ const MyMission = () => {
     if (storedIsChecked) {
       setIsChecked(storedIsChecked);
     }
-
     getMission();
   }, []);
 
@@ -219,57 +227,60 @@ const MyMission = () => {
       <Mission>
         <p>참여한 미션</p>
       </Mission>
-      {missionList.map((missionList) => (
-        <MissionBox key={missionList.challenge_id}>
-          <ImgBox onClick={handleImageClick}>
-            <MissionImg
-              src={`http://localhost:8080/api/v1/picture?pictureName=${missionList.picture}`}
-            ></MissionImg>
-          </ImgBox>
-          <ContentBox>
-            <HeadDiv>
-              <TitleBox
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                <Sub>{missionList.explain}</Sub>
-                <Title>{missionList.challenge_title}</Title>
-              </TitleBox>
-              <MissionNum>
-                내가 참여한 미션
-                <Number>
-                  {missionList.completedCount}/{missionList.missionCount}
-                </Number>
-                개
-              </MissionNum>
-              <Btn
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                참여한 챌린지 바로가기
-              </Btn>
-            </HeadDiv>
-            {missionList.missions.map((mission) => (
-              <CheckDiv key={mission.missionDate}>
-                <Date>{mission.missionDate}</Date>
-                <CheckBox
-                  type="checkbox"
-                  id={`mycheck-${mission.mission_id}`}
-                  checked={mission.complete}
-                  onClick={() =>
-                    postCheck(missionList.challenge_id, mission.mission_id)
-                  }
-                />
-                <Label htmlFor={`mycheck-${mission.mission_id}`}>
-                  미션 {mission.mission_id}. {mission.mission}
-                </Label>
-              </CheckDiv>
-            ))}
-          </ContentBox>
-        </MissionBox>
-      ))}
+      <Box>
+        {missionList.map((missionList) => (
+          <MissionBox key={missionList.challenge_id}>
+            <ImgBox onClick={handleImageClick}>
+              <MissionImg
+                src={`http://localhost:8080/api/v1/picture?pictureName=${missionList.picture}`}
+              ></MissionImg>
+            </ImgBox>
+            <ContentBox>
+              <HeadDiv>
+                <TitleBox
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  <Sub>{missionList.explain}</Sub>
+                  <Title>{missionList.challenge_title}</Title>
+                </TitleBox>
+                <MissionNum>
+                  내가 참여한 미션
+                  <Number>
+                    {missionList.completedCount}/{missionList.missionCount}
+                  </Number>
+                  개
+                </MissionNum>
+                <Btn
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  참여한 챌린지 바로가기
+                </Btn>
+              </HeadDiv>
+              {missionList.missions.map((mission) => (
+                <CheckDiv key={mission.missionDate}>
+                  <CheckBox
+                    type="checkbox"
+                    id={`mycheck-${mission.mission_id}`}
+                    checked={mission.complete}
+                    onClick={() =>
+                      postCheck(missionList.challenge_id, mission.mission_id)
+                    }
+                  />
+                  <Date>{mission.missionDate}</Date>
+                  <Label htmlFor={`mycheck-${mission.mission_id}`}>
+                    {" "}
+                    {mission.mission}
+                  </Label>
+                </CheckDiv>
+              ))}
+            </ContentBox>
+          </MissionBox>
+        ))}
+      </Box>
     </Wrapper>
   );
 };
