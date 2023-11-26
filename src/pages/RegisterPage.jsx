@@ -254,6 +254,8 @@ const RegisterPage = () => {
                     <SubTxt>비밀번호는 8-16자, 영문, 숫자, 특수문자를 포함해야 합니다.</SubTxt>
                 </FlexBox>
                 <RegInput
+                    inputwidth="100%"
+                    labelwidth="100%"
                     name="password1"
                     type="password"
                     placeholder='비밀번호를 입력해 주세요.'
@@ -264,6 +266,8 @@ const RegisterPage = () => {
                     <InputTxt>비밀번호 확인</InputTxt>
                 </FlexBox>
                 <RegInput
+                    inputwidth="100%"
+                    labelwidth="100%"
                     name="password2"
                     type="password"
                     placeholder='비밀번호를 입력해 주세요.'
@@ -274,6 +278,8 @@ const RegisterPage = () => {
                     <InputTxt>이름</InputTxt>
                 </FlexBox>
                 <RegInput
+                    inputwidth="100%"
+                    labelwidth="100%"
                     name="username"
                     type="text"
                     placeholder=''
@@ -285,7 +291,8 @@ const RegisterPage = () => {
                         <InputTxt>전공 입력</InputTxt>
                         </FlexBox>
                         <RegInput
-                            width="170px"
+                            inputwidth="160px"
+                            labelwidth="160px"
                             name="major"
                             type="text"
                             placeholder=''
@@ -297,9 +304,10 @@ const RegisterPage = () => {
                         <InputTxt>학번 입력</InputTxt>
                         </FlexBox>
                         <RegInput
-                            width="170px"
+                            inputwidth="160px"
+                            labelwidth="160px"
                             name="stdID"
-                            type="number"
+                            type="text"
                             placeholder=''
                             value={stdID}
                             onChange={onChangeStdID}/>
