@@ -6,11 +6,17 @@ import axios from "axios";
 import Button from "./Button";
 
 const RecruitBox = styled.div`
-  margin-left: 3vw;
-  margin-right: 3vw;
-  margin-top: 3vw;
-  font-family: "Pretendard";
-  margin-bottom: 200px;
+    margin-left:3vw;
+    margin-top:2vw;
+    font-family:'Pretendard';
+    display: flex;
+    flex-direction: column;
+`;
+
+const ChallengeCount = styled.div`
+    margin-left: auto;
+    margin-right: 4.4vw;
+    margin-bottom: 20px;
 `;
 
 const RecruitList = styled.div`
@@ -114,39 +120,28 @@ const RecruitingChallenge = ({ challenges }) => {
     getRecruit();
   }, []);
 
-  return (
-    <RecruitBox>
-      <h3 style={{ marginBottom: "50px" }}>총 {total}개의 챌린지</h3>
-      <RecruitList>
-        {recruit &&
-          recruit.map((challenge) => (
-            <div>
-              <RecruitImageContainer onClick={handleImageClick}>
-                <RecruitImage
-                  id={challenge.challenge_id}
-                  src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}
-                />
-              </RecruitImageContainer>
-              <RecruitInfo>
-                <RecruitTitle>{challenge.challenge_title}</RecruitTitle>
-                <RecruitDetails>
-                  <span>기간</span>
-                  <span style={{ fontWeight: "bold" }}>
-                    {challenge.startDate.substring(0, 4)}.
-                    {challenge.startDate.substring(4, 6)}.
-                    {challenge.startDate.substring(6, 8)}
-                    &nbsp;~&nbsp;
-                    {challenge.endDate.substring(0, 4)}.
-                    {challenge.endDate.substring(4, 6)}.
-                    {challenge.endDate.substring(6, 8)}
-                  </span>
-                </RecruitDetails>
-                <RecruitExplain>{challenge.explain}</RecruitExplain>
-              </RecruitInfo>
-            </div>
-          ))}
-      </RecruitList>
-      <BtnContainer>
+    return (
+        <RecruitBox>
+            <ChallengeCount>총 {total}개의 챌린지</ChallengeCount>
+            <RecruitList>
+            {recruit && recruit.map(challenge=>(
+                <div>
+                <RecruitImageContainer onClick={handleImageClick}>    
+                    <RecruitImage id={challenge.challenge_id} src={`http://localhost:8080/api/v1/picture?pictureName=${challenge.picture}`}/>
+                </RecruitImageContainer>
+                <RecruitInfo>
+                    <RecruitTitle>{challenge.challenge_title}</RecruitTitle>
+                    <RecruitDetails>
+                        <span>기간</span>
+                        <span style={{fontWeight:'bold'}}>{challenge.startDate.substring(0, 4)}.{challenge.startDate.substring(4, 6)}.{challenge.startDate.substring(6, 8)}
+                        &nbsp;~&nbsp;
+                        {challenge.endDate.substring(0, 4)}.{challenge.endDate.substring(4, 6)}.{challenge.endDate.substring(6, 8)}</span></RecruitDetails>
+                    <RecruitExplain>{challenge.explain}</RecruitExplain>
+                </RecruitInfo>
+                </div>
+        ))}
+        </RecruitList>
+        <BtnContainer>
         <Button
           fontSize="2.3rem"
           title={`챌린지 생성\n \u00A0바로가기`}

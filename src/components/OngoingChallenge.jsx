@@ -7,9 +7,17 @@ import axios from "axios";
 import Button from "./Button";
 
 const OngoingBox = styled.div`
-  margin-left: 3vw;
-  margin-top: 3vw;
-  font-family: "Pretendard";
+    margin-left:3vw;
+    margin-top:2vw;
+    font-family:'Pretendard';
+    display: flex;
+    flex-direction: column;
+`;
+
+const ChallengeCount = styled.div`
+    margin-left: auto;
+    margin-right: 4.4vw;
+    margin-bottom: 20px;
 `;
 
 const OngoingList = styled.div`
@@ -96,12 +104,11 @@ const OngoingChallenge = () => {
     getOngoing();
   }, []);
 
-  return (
-    <OngoingBox>
-      <h3 style={{ marginBottom: "50px" }}>총 {total}개의 챌린지</h3>
-      <OngoingList>
-        {ongoing &&
-          ongoing.map((challenge) => (
+    return (
+        <OngoingBox>
+            <ChallengeCount>총 {total}개의 챌린지</ChallengeCount>
+            <OngoingList>
+           {ongoing && ongoing.map(challenge => (
             <div>
               <OngoingImageContainer onClick={handleImageClick}>
                 <OngoingImage

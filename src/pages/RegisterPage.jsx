@@ -163,7 +163,11 @@ const RegisterPage = () => {
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
 
         if (!passwordRegex.test(currentPw)) {
-            setPw1Message("비밀번호는 8-16자, 영문, 숫자, 특수문자를 포함해야 합니다.");
+            setPw1Message(
+                <span style={{ color: 'red' }}>
+                비밀번호는 8-16자, 영문, 숫자, 특수문자(!@#$%^&*?_)를 포함해야 합니다.
+                </span>
+            );
         } else {
             setPw1Message("");
             setIspwform(true);
@@ -177,7 +181,11 @@ const RegisterPage = () => {
         setPw2(currentPw2);
 
         if (currentPw2 !== pw1) {
-            setPwMessage("비밀번호가 일치하지 않습니다.");
+            setPwMessage(
+                <span style={{ color: 'red' }}>
+                비밀번호가 일치하지 않습니다.
+                </span>
+            );
         } else {
             setPwMessage("");
             setpwcheck(true);
@@ -217,7 +225,8 @@ const RegisterPage = () => {
                 .catch(error => {
                     console.error('Error handle signup: ', error);
                     if (error.response.status === 500) {
-                        alert('이미 회원가입이 된 이메일입니다.');
+                        alert('이미 회원가입이 되어있습니다. 로그인 페이지로 이동합니다.');
+                        navigate('/login');
                     }
                 });
             } else {
@@ -263,7 +272,7 @@ const RegisterPage = () => {
                 <Emsg>{emailMessage}</Emsg>
                 <FlexBox>
                     <InputTxt>비밀번호</InputTxt>
-                    <SubTxt>비밀번호는 8-16자, 영문, 숫자, 특수문자를 포함해야 합니다.</SubTxt>
+                    {/* <SubTxt>비밀번호는 8-16자, 영문, 숫자, 특수문자를 포함해야 합니다.</SubTxt> */}
                 </FlexBox>
                 <RegInput
                     inputwidth="100%"
