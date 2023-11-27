@@ -8,8 +8,16 @@ import Button from './Button';
 
 const CompletedBox = styled.div`
     margin-left:3vw;
-    margin-top:5vw;
+    margin-top:2vw;
     font-family:'Pretendard';
+    display: flex;
+    flex-direction: column;
+`;
+
+const ChallengeCount = styled.div`
+    margin-left: auto;
+    margin-right: 4.4vw;
+    margin-bottom: 20px;
 `;
 
 const CompletedList = styled.div`
@@ -18,6 +26,7 @@ const CompletedList = styled.div`
     justify-content: space-between;
     width: 100%;
     margin-bottom: 50px;
+    color: #9E9E9E;
 `;
 
 const CompletedImageContainer = styled.div`
@@ -54,6 +63,7 @@ const CompletedDetails =styled.p`
     display: flex;
     justify-content: space-between;
 `;
+
 const BtnContainer = styled.div`
   position: fixed;
   top: 75%;
@@ -95,7 +105,7 @@ const CompletedChallenge = () => {
 
     return (
         <CompletedBox>
-            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
+            <ChallengeCount>총 {total}개의 챌린지</ChallengeCount>
             <CompletedList>
             {complete && complete.map(challenge=>( 
                 <div>
@@ -111,8 +121,8 @@ const CompletedChallenge = () => {
                     {challenge.endDate.substring(0, 4)}.{challenge.endDate.substring(4, 6)}.{challenge.endDate.substring(6, 8)}</span>
                 </CompletedDetails>
                 <CompletedDetails>
-                        <span>진행</span>
-                        <span><ProgressBar percentage={challenge.progressPercent}/></span>
+                    <span>진행</span>
+                    <span><ProgressBar percentage={challenge.progressPercent}/></span>
                 </CompletedDetails>
                 {/* 진행바 추가!! */}
                 <CompletedDetails>{challenge.explain}</CompletedDetails>

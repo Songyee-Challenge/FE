@@ -8,8 +8,16 @@ import Button from './Button';
 
 const OngoingBox = styled.div`
     margin-left:3vw;
-    margin-top:5vw;
+    margin-top:2vw;
     font-family:'Pretendard';
+    display: flex;
+    flex-direction: column;
+`;
+
+const ChallengeCount = styled.div`
+    margin-left: auto;
+    margin-right: 4.4vw;
+    margin-bottom: 20px;
 `;
 
 const OngoingList = styled.div`
@@ -91,7 +99,7 @@ const OngoingChallenge = () => {
 
     return (
         <OngoingBox>
-            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
+            <ChallengeCount>총 {total}개의 챌린지</ChallengeCount>
             <OngoingList>
            {ongoing && ongoing.map(challenge => (
             <div>

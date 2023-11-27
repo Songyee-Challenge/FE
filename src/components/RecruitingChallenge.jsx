@@ -7,10 +7,16 @@ import Button from './Button';
 
 const RecruitBox = styled.div`
     margin-left:3vw;
-    margin-right: 3vw;
-    margin-top:5vw;
+    margin-top:2vw;
     font-family:'Pretendard';
-    margin-bottom: 200px;
+    display: flex;
+    flex-direction: column;
+`;
+
+const ChallengeCount = styled.div`
+    margin-left: auto;
+    margin-right: 4.4vw;
+    margin-bottom: 20px;
 `;
 
 const RecruitList = styled.div`
@@ -106,7 +112,7 @@ const RecruitingChallenge = ({challenges}) => {
 
     return (
         <RecruitBox>
-            <h3 style={{marginBottom:'70px'}}>총 {total}개의 챌린지</h3>
+            <ChallengeCount>총 {total}개의 챌린지</ChallengeCount>
             <RecruitList>
             {recruit && recruit.map(challenge=>(
                 <div>
