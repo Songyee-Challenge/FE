@@ -234,12 +234,10 @@ const MyReview = () => {
                     src={remove}
                     onClick={() => handleDelete(review.review_id)}
                   ></LikeBtn>
-
-                  <Count>{review.likeCount}</Count>
                 </LikeDiv>
               </FlexBox>
               <Contents>
-                <TxtDiv>{review.content};</TxtDiv>
+                <TxtDiv>{review.content}</TxtDiv>
               </Contents>
             </Container>
           ))}
