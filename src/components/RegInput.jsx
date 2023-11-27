@@ -16,7 +16,7 @@ const Label = styled.div`
     height: 46px;
     cursor: pointer;
     border-radius: 2px;
-    border: 1.5px solid #D4D4D4;
+    border: 1.5px solid ${props => props.bordercolor};
     background: #FFF;
     font-family: 'Pretendard';
     display: flex;
@@ -25,13 +25,13 @@ const Label = styled.div`
 `
 
 const RegInput = (props) => {
-    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width, inputwidth, marginbottom } = props;
+    const { type, name, defaultValue, value, onChange, placeholder, pattern, btntitle, onBtnClick, width, inputwidth, marginbottom, bordercolor } = props;
     const [focus, setFocus] = useState(false);
     const handleFocus = () => {
         setFocus(!focus);
     }
     return (
-        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} labelwidth={width} marginbottom={marginbottom}>
+        <Label style={focus ? {border:"1.5px solid #42AF53"} : {}} labelwidth={width} marginbottom={marginbottom} bordercolor={bordercolor || '#D4D4D4'}>
         <StyledInput type={type} defaultValue={defaultValue} name={name} value={value} onChange={onChange} placeholder={placeholder} patter={pattern}
          onFocus={handleFocus} onBlur={handleFocus} inputwidth={inputwidth}/>
         </Label>

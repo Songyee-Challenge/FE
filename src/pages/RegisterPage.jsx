@@ -90,6 +90,9 @@ const RegisterPage = () => {
     const [major, setMajor] = useState("");
     const [stdID, setStdID] = useState("");
 
+    const [ispwform, setIspwform] = useState(false); // pwform이 맞는지
+    const [pwcheck, setpwcheck] = useState(false); // pw1 == pw2인지
+
 
     // 숙명 이메일 유효성 검사
     const onChangeEmail = (e) => {
@@ -163,6 +166,7 @@ const RegisterPage = () => {
             setPw1Message("비밀번호는 8-16자, 영문, 숫자, 특수문자를 포함해야 합니다.");
         } else {
             setPw1Message("");
+            setIspwform(true);
         }
 
     };
@@ -176,6 +180,7 @@ const RegisterPage = () => {
             setPwMessage("비밀번호가 일치하지 않습니다.");
         } else {
             setPwMessage("");
+            setpwcheck(true);
         }
     };
 
@@ -195,22 +200,29 @@ const RegisterPage = () => {
     }
 
     const handleSubmit = () => {
-        //if (codecheck) {
-            axios.post('/api/v1/user/signup', {
-                email: email,
-                password: pw1,
-                name: username,
-                major: major, 
-                student_id: stdID 
-            })
-            .then(response => {
-                alert("회원가입이 완료되었습니다.");
-                navigate('/login');
-                console.log(response);
-            })
-            .catch(error => {
-                console.error('Error handle signup: ', error);
-            });
+        // if (codecheck) {
+            if (isSMemail && ispwform && pwcheck) {
+                axios.post('/api/v1/user/signup', {
+                    email: email,
+                    password: pw1,
+                    name: username,
+                    major: major, 
+                    student_id: stdID 
+                })
+                .then(response => {
+                    alert("회원가입이 완료되었습니다.");
+                    navigate('/login');
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.error('Error handle signup: ', error);
+                    if (error.response.status === 500) {
+                        alert('이미 회원가입이 된 이메일입니다.');
+                    }
+                });
+            } else {
+                alert('회원가입 형식에 맞게 진행해주세요.');
+            }
         // } else {
         //     alert("코드 인증에 실패했습니다.");
         // }

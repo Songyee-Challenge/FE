@@ -5,9 +5,9 @@ import axios from 'axios';
 import Button from '../components/Button';
 
 const RecruitBox = styled.div`
-    margin-left:3vw;
+    margin-left:5vw;
     margin-right: 3vw;
-    margin-top:5vw;
+    padding-top: 2vw;
     font-family:'Pretendard';
     margin-bottom: 200px;
 `;
@@ -75,9 +75,8 @@ const BtnContainer = styled.div`
 const Title = styled.div`
     font-family: 'Pretendard';
     font-weight:bold;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     margin-right: 2vw;
-    margin-top:30px;
     margin-bottom: 30px;
 `
 const SeparateLine = styled.hr`
