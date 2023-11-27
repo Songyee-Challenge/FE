@@ -76,7 +76,6 @@ const Title = styled.div`
   -webkit-box-orient: vertical;
 `;
 const Date = styled.div`
-    margin-bottom: 60px;
     font-family: "Pretendard";
     font-weight: 600;
     font-size: 1rem;
@@ -84,9 +83,23 @@ const Date = styled.div`
     margin-top: 0.5rem;
     border-top: 1px solid #ccc;
     padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     display: flex;
     justify-content: space-between;
     width: 225px;
+`
+const Explain = styled.div`
+    margin-bottom: 60px;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
+    font-size: 1rem;   
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-word;
+    width: 17rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // 원하는 라인수
+    -webkit-box-orient: vertical;
 `
 
 const HomePage = () => {
@@ -160,7 +173,9 @@ const HomePage = () => {
                 />
               </ImgBox>
               <Title>{challenge.challenge_title}</Title>
-              <Date>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)}.{challenge.startDate.substring(6,8)} ~ {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</Date>
+              <Date><span style={{fontWeight:"500"}}>기간</span>
+              <span>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)}.{challenge.startDate.substring(6,8)} ~ {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</span></Date>
+              <Explain>{challenge.explain}</Explain>
             </div>
           ))}
       </CardContainer>
@@ -193,8 +208,9 @@ const HomePage = () => {
                 />
               </ImgBox>
               <Title>{challenge.challenge_title}</Title>
-              <Date>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)},{challenge.startDate.substring(6,8)} ~ 
-              {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</Date>
+              <Date><span style={{fontWeight:"500"}}>기간</span>
+              <span>{challenge.startDate.substring(0,4)}.{challenge.startDate.substring(4,6)}.{challenge.startDate.substring(6,8)} ~ {challenge.endDate.substring(0,4)}.{challenge.endDate.substring(4,6)}.{challenge.endDate.substring(6,8)}</span></Date>
+              <Explain>{challenge.explain}</Explain>
             </div>
           ))}
       </CardContainer>
