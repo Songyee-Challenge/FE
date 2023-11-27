@@ -345,7 +345,9 @@ const MyChallenge = () => {
 
                 <Type>
                   <p>예정된 챌린지</p>
-                  <Num>총 {RecruitCount.myChallengeCount}개</Num>
+                  <Num>
+                    총 {(RecruitCount && RecruitCount.myChallengeCount) || 0}개
+                  </Num>
                   <More
                     onClick={() => {
                       navigate("/my/recruit");
@@ -398,7 +400,10 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>진행 중인 챌린지</p>
-                  <Num>총 {InprocessCount.myChallengeCount}개</Num>
+                  <Num>
+                    총{" "}
+                    {(InprocessCount && InprocessCount.myChallengeCount) || 0}개
+                  </Num>
                   <More
                     onClick={() => {
                       navigate("/my/ongoing");
@@ -451,7 +456,10 @@ const MyChallenge = () => {
                 </Box>
                 <Type>
                   <p>종료된 챌린지</p>
-                  <Num>총 {FinishedCount.myChallengeCount}개</Num>
+                  <Num>
+                    총 {(FinishedCount && FinishedCount.myChallengeCount) || 0}
+                    개
+                  </Num>
                   <More
                     onClick={() => {
                       navigate("/my/completed");
