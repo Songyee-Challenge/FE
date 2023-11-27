@@ -75,7 +75,7 @@ const LoginPage = () => {
             console.log(response);
             localStorage.setItem("accessToken", response.data);
             //console.log('accessToken: ', localStorage.getItem("accessToken"));
-            alert('로그인 성공!');
+            //alert('로그인 성공!');
             navigate('/home');
         })
         .catch(error => {
