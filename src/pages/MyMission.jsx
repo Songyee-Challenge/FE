@@ -273,7 +273,7 @@ const MyMission = () => {
               <HeadDiv>
                 <TitleBox
                   onClick={handleClickBtn} id={missionList.challenge_id}>
-                  <Sub>{missionList.startDate} ~ {missionList.endDate}</Sub>
+                  <Sub>{missionList.period}</Sub>
                   <Title>{missionList.challenge_title}</Title>
                 </TitleBox>
                 <MissionNum>
