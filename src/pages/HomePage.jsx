@@ -156,7 +156,7 @@ const HomePage = () => {
         <Line />
         <MoreBtn
           onClick={() => {
-            navigate("/songchallenge");
+            navigate("/imminent");
           }}
         >
           MORE &nbsp;&nbsp;{">"}
@@ -198,7 +198,7 @@ const HomePage = () => {
         <Line style={{ width: "70vw" }} />
         <MoreBtn
           onClick={() => {
-            navigate("/songchallenge");
+            navigate("/hot");
           }}
         >
           MORE &nbsp;&nbsp;{">"}
